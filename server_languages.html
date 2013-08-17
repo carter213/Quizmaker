@@ -12,8 +12,8 @@
         else if (target == "perl") {
         	document.getElementById("form").action = "test.pl";
         }
-        else if (target == "third language") {
-        	document.getElementById("form").action = "thirdlanguage.lang";
+        else if (target == "python") {
+        	document.getElementById("form").action = "/cgi-bin/test.py";
         }
     }
   </script>
@@ -22,7 +22,7 @@
   <select id="select" onchange="changeLanguage()">
   	<option>php</option>
   	<option>perl</option>
-  	<option>third language</option>
+  	<option>python</option>
   </select>
   <form id="form" action="test.php">
   	Name: <input type="text" name="name" placeholder="Enter your name">
