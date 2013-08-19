@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Server-Side Languages</title>
+  <script type="text/javascript">
+    function changeLanguage() {
+    	var target = document.getElementById("select").value;
+    	if (target == "php") {
+    	    document.getElementById("form").action = "test.php";
+        }
+        else if (target == "perl") {
+        	document.getElementById("form").action = "test.pl";
+        }
+        else if (target == "python") {
+        	document.getElementById("form").action = "/cgi-bin/test.py";
+        }
+    }
+  </script>
+</head>
+<body>
+  <select id="select" onchange="changeLanguage()">
+  	<option>php</option>
+  	<option>perl</option>
+  	<option>python</option>
+  </select>
+  <form id="form" action="test.php" method="get">
+  	Name: <input type="text" name="name" placeholder="Enter your name">
+  	<input type="submit">
+  </form>
+  <script type="text/javascript">
+  changeLanguage();
+  </script>
+</body>
+</html>
