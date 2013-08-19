@@ -5932,7 +5932,11 @@ a.thumbnail:focus {
 }
 .thumbnail .caption {
   padding: 9px;
+<<<<<<< HEAD
+  color: #000000;
+=======
   color: #555555;
+>>>>>>> dfbcc2b9e026c2d93ba9f4a00ddc5938032641d1
 }
 .media,
 .media-body {

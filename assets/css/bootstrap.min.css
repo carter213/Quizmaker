@@ -1256,7 +1256,11 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini{*padding-top:1px;*padding-
 .thumbnail{display:block;padding:4px;line-height:20px;border:1px solid #ddd;-webkit-transition:all 0.2s ease-in-out;-moz-transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;transition:all 0.2s ease-in-out;}
 a.thumbnail:hover,a.thumbnail:focus{border-color:#0088cc;}
 .thumbnail>img{display:block;max-width:100%;margin-left:auto;margin-right:auto;}
+<<<<<<< HEAD
+.thumbnail .caption{padding:9px;color:#000000;}
+=======
 .thumbnail .caption{padding:9px;color:#555555;}
+>>>>>>> dfbcc2b9e026c2d93ba9f4a00ddc5938032641d1
 .media,.media-body{overflow:hidden;*overflow:visible;zoom:1;}
 .media,.media .media{margin-top:15px;}
 .media:first-child{margin-top:0;}
