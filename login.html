@@ -52,7 +52,7 @@
   <section id="user" class="tab-pane active">
     <div class="row-fluid">
       <div class="span5 offset1">
-        <form id="user_login_form" method ="post" action ="cgi-bin/login.php">
+        <form id="user_login_form" method ="post" action ="login.php">
         	<fieldset class="form-group">	
         	  <legend class="form-group"> Login</legend>
 	          <div class="form-group">
@@ -84,7 +84,7 @@
       </div>
       <div class="span4 offset1">
 
-        <form id="user_signup_form" method="post" action="cgi-bin/signup.php">
+        <form id="user_signup_form" method="post" action="signup.php">
         	<fieldset class="form-group">	
         	 <legend class="form-group"> Sign Up</legend>
 	         <div class="form-group">
@@ -171,7 +171,7 @@
     function changeLanguageLogin() {
     	var target = document.getElementById("select").value;
     	if (target == "php") {
-    	    document.getElementById("user_login_form").action = "/cgi-bin/login.php";
+    	    document.getElementById("user_login_form").action = "login.php";
         }
         else if (target == "perl") {
         	document.getElementById("user_login_form").action = "/cgi-bin/login.pl";
@@ -183,7 +183,7 @@
     	function changeLanguageSignup() {
     	var target = document.getElementById("select").value;
     	if (target == "php") {
-    	    document.getElementById("user_signup_form").action = "/cgi-bin/signup.php";
+    	    document.getElementById("user_signup_form").action = "signup.php";
         }
         else if (target == "perl") {
         	document.getElementById("user_signup_form").action = "/cgi-bin/signup.pl";
