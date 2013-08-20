@@ -52,7 +52,7 @@
   <section id="user" class="tab-pane active">
     <div class="row-fluid">
       <div class="span5 offset1">
-        <form id="user_login_form" method ="get" action ="cgi-bin/login.pl">
+        <form id="user_login_form" method ="post" action ="login.php">
         	<fieldset class="form-group">	
         	  <legend class="form-group"> Login</legend>
 	          <div class="form-group">
@@ -68,13 +68,23 @@
 
 	          <button type="submit" class="btn btn-primary">Login</button>
 	          <a href="./getpassword.html">Forget password?</a>
+	         
+	          <div class="form-group">
+	          	<br>
+	          	<label> Server language: </label> 
+	          	<select id="loginSelect" onchange="changeLanguageLogin()">
+		          	<option>php</option>
+		          	<option>perl</option>
+		          	<option>python</option>
+		        </select>
+	          </div>
 
         	</fieldset>
         </form>
       </div>
       <div class="span4 offset1">
-
-        <form id="user_signup_form" method="get" action="cgi-bin/signup.pl">
+-- sign 
+        <form id="user_signup_form" method="post" action="signup.php">
         	<fieldset class="form-group">	
         	 <legend class="form-group"> Sign Up</legend>
 	         <div class="form-group">
@@ -103,10 +113,21 @@
 	            <select class="form_control" id ="signup_role" name="signup_role">
 	            	 <option value="Student">Student</option>
 	            	 <option value="Instructor">Instructor</option>
-	            	 <option value="Teaching_assistant">Teaching Assistant</option>
+	            	 <option value="Teaching Assistant">Teaching Assistant</option>
 	            </select>
 	          </div>
+	          
 	          <button type="submit" class="btn btn-primary">Sign Up</button>
+	    
+	           <div class="form-group">
+	           	<br>
+	          	<label> Server language: </label> 
+	          	<select id="signupSelect" onchange="changeLanguageSignup()">
+		          	<option>php</option>
+		          	<option>perl</option>
+		          	<option>python</option>
+		        </select>
+	          </div>
         	</fieldset>
         	
         </form>
@@ -146,5 +167,31 @@
 <script src="assets/js/bootstrap-typeahead.js"></script> 
 <script src="assets/js/bootstrap-affix.js"></script> 
 <script src="assets/js/application.js"></script>
+<script type="text/javascript">
+    function changeLanguageLogin() {
+    	var target = document.getElementById("loginSelect").value;
+    	if (target == "php") {
+    	    document.getElementById("user_login_form").action = "login.php";
+        }
+        else if (target == "perl") {
+        	document.getElementById("user_login_form").action = "/cgi-bin/login.pl";
+        }
+        else if (target == "python") {
+        	document.getElementById("user_login_form").action = "/cgi-bin/login.py";
+        }
+    }
+    	function changeLanguageSignup() {
+    	var target = document.getElementById("signupSelect").value;
+    	if (target == "php") {
+    	    document.getElementById("user_signup_form").action = "signup.php";
+        }
+        else if (target == "perl") {
+        	document.getElementById("user_signup_form").action = "/cgi-bin/signup.pl";
+        }
+        else if (target == "python") {
+        	document.getElementById("user_signup_form").action = "/cgi-bin/signup.py";
+        }
+    }
+</script>
 </body>
 </html>
