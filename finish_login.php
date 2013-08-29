@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Check POST data all set
-if (!isset($_POST['login_account']) || !isset($_POST['login_password']) {
+if (!isset($_POST['login_account']) || !isset($_POST['login_password'])) {
 	header('Location: login');
     exit();
 }
