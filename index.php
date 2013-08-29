@@ -65,7 +65,7 @@ p {
     <div class="container">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       <a class="brand" href="./homepage">Super Cereal</a>
-      <?php if (isset($_SESSION['user_id'])) { ?>
+      <?php if (!isset($_SESSION['user_id'])) { ?>
       <a class="brand" href="./login">Log In</a>
       <?php } else { ?>
       <a class="brand" href="./logout">Log Out</a>
