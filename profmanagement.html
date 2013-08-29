@@ -86,9 +86,12 @@
         </form>
       </div>
       <div class="span4 offset1">
-        <form id="user_delete_form">
+        <form id="user_delete_form" action="delete_account" method="POST">
           <div class="form-group">
-            <button type="button" class="btn btn-default">Delete Account</button>
+            <button type="button" onclick="confirm_delete()" class="btn btn-default">
+              Delete Account</button>
+            <button style="visibility:hidden" id="delete_btn" type="submit" 
+             class="btn btn-default">Delete Account</button>
           </div>
         </form>
       </div>
@@ -178,6 +181,15 @@
 <!-- Le javascript
 ================================================== --> 
 <!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff --> 
+<script type="text/javascript">
+  function confirm_delete() {
+    var result = confirm("Are you sure you want to delete your account?");
+    if (result == true) {
+      document.getElementById("delete_btn").click();
+    }
+  }
+</script>
+
 <script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
 <script src="assets/js/jquery.js"></script> 
 <script src="assets/js/google-code-prettify/prettify.js"></script> 

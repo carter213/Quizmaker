@@ -43,6 +43,12 @@ if (!filter_var($signup_email, FILTER_VALIDATE_EMAIL) ||
     exit();
 }
 
+if (strlen($signup_account) > 40 || strlen($password) > 40 ||
+	strlen($email) > 40 ) {
+	header('Location: login');
+    exit();
+}
+
 // Check if info exists
 // CURRENTLY DOESN'T RETURN ERROR MESSAGE
 $exists = mysqli_query($con, "SELECT * FROM user WHERE account_name='${signup_account}'");

@@ -51,6 +51,12 @@ $confirm_password = mysqli_real_escape_string($con, $confirm_password);
 
 
 // Validate input
+if (strlen($username) > 40 || strlen($password) > 40 ||
+	strlen($email) > 40 ) {
+	header('Location: login');
+    exit();
+}
+
 if ($password !== $confirm_password) {
 	header("Location: ${prev_page}");
 	exit();
