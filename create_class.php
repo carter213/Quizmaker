@@ -3,6 +3,8 @@ session_start();
 
 // Check session
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Instructor') {
+	var_dump($_SESSION['role']);
+	exit();
 	header('Location: /');
 	exit();
 }
@@ -18,6 +20,8 @@ $user_id = $_SESSION['user_id'];
 require '../dbaccess/connect.php';
 
 if (mysqli_connect_errno($con)) {
+	echo "damn";
+	exit();
 	header('Location: /');
 	exit();
 }
