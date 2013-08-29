@@ -1,25 +1,28 @@
 <?php
-session_destroy();
-
 session_start();
+
+if (isset($_SESSION['user_id'])) {
+	unset($_SESSION['user_id']);
+}
 
 // Check POST data all set
 if (!isset($_POST['signup_account']) || !isset($_POST['signup_password']) ||
 	!isset($_POST['signup_confirm_password']) || !isset($_POST['signup_email']) ||
 	!isset($_POST['signup_role'])) {
 	header('Location: login');
+    exit();
 }
 
 $signup_account = filter_var($_POST['signup_account'], FILTER_SANITIZE_STRING);
-$signup_account = mysqli_real_escape_string($signup_account);
+$signup_account = mysqli_real_escape_string($con, $signup_account);
 $signup_password = filter_var($_POST['signup_password'], FILTER_SANITIZE_STRING);
-$signup_password = mysqli_real_escape_string($signup_password);
+$signup_password = mysqli_real_escape_string($con, $signup_password);
 $signup_confirm_password = filter_var($_POST['signup_confirm_password'], FILTER_SANITIZE_STRING);
-$signup_confirm_password = mysqli_real_escape_string($signup_confirm_password);
+$signup_confirm_password = mysqli_real_escape_string($con, $signup_confirm_password);
 $signup_email = filter_var($_POST['signup_email'], FILTER_SANITIZE_EMAIL);
-$signup_email = mysqli_real_escape_string($signup_email);
+$signup_email = mysqli_real_escape_string($con, $signup_email);
 $signup_role = filter_var($_POST['signup_role'], FILTER_SANITIZE_STRING);
-$signup_role = mysqli_real_escape_string($signup_role);
+$signup_role = mysqli_real_escape_string($con, $signup_role);
 
 // Validate input
 if (!filter_var($signup_email, FILTER_VALIDATE_EMAIL) ||
@@ -30,12 +33,14 @@ if (!filter_var($signup_email, FILTER_VALIDATE_EMAIL) ||
 	 $signup_role !== 'Teaching Assistant') ||
 	$signup_password !== $signup_confirm_password) {
 	header('Location: login');
+    exit();
 }
 
 require '../dbaccess/connect.php';
 
 if (mysqli_connect_errno($con)) {
 	header('Location: /');
+	exit();
 }
 
 // Check if info exists
@@ -44,6 +49,7 @@ $exists = mysqli_query($con, "SELECT * FROM user WHERE account_name='${signup_ac
 if (mysqli_num_rows($exists) > 0) {
 	mysqli_close($con);
 	header('Location: /');
+	exit();
 }
 
 // Encrypt password
@@ -69,5 +75,5 @@ if ($signup_role === 'Student') {
 	$next_page = 'tamanagement';
 }
 header("Location: ${next_page}");
-
+exit();
 ?>
