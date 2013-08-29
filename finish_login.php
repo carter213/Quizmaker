@@ -38,6 +38,7 @@ $account = mysqli_fetch_array($account);
 
 if (crypt($login_password, $account['password']) == $account['password']) {
 	$_SESSION['user_id'] = $account['user_id'];
+    $_SESSION['role'] = $account['role'];
 
     switch ($account['role']) {
     	case 'Student':
