@@ -27,6 +27,13 @@ $login_password = mysqli_real_escape_string($con, $login_password);
 
 // Attempt login
 $account = mysqli_query($con, "SELECT * FROM user WHERE account_name='${login_account}'");
+
+if (mysqli_num_rows($account) != 1) {
+	mysqli_close($con);
+	header('Location: login');
+	exit();
+}
+
 $account = mysqli_fetch_array($account);
 
 if (crypt($login_password, $account['password']) == $account['password']) {
@@ -46,6 +53,7 @@ if (crypt($login_password, $account['password']) == $account['password']) {
     		exit();
     		break;
     }
+
 } else {
 	header('Location: login');
 	exit();
