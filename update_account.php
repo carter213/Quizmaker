@@ -65,15 +65,15 @@ if ($username === '' && $email === '' &&
 	exit();	
 }
 
-if ($username === '') {
+if (strlen($username) == 0) {
 	$username = $account['account_name'];
 	var_dump($username);
 }
-if ($email === '') {
+if (strlen($email) == 0) {
 	$email = $account['email'];
 	var_dump($email);
 }
-if ($password === '') {
+if (strlen($password) == 0) {
 	$password = $account['password'];
 	var_dump($password);
 } else {
