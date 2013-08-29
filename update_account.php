@@ -24,7 +24,7 @@ if (mysqli_connect_errno($con)) {
 }
 
 // Get user role and management page
-$account = mysqli_query($con, "SELECT role FROM user WHERE user_id=${user_id}");
+$account = mysqli_query($con, "SELECT * FROM user WHERE user_id=${user_id}");
 $account = mysqli_fetch_array($account);
 
 switch ($account['role']) {
@@ -55,31 +55,24 @@ if ($password !== $confirm_password) {
 	header("Location: ${prev_page}");
 	exit();
 }
-var_dump($username);
-var_dump($email);
-var_dump($password);
-exit();
+
 if ($username === '' && $email === '' && 
     $password === '' && $confirm_password === '') {
 	header("Location: ${prev_page}");
 	exit();	
 }
 
-if (strlen($username) == 0) {
+if ($username === '') {
 	$username = $account['account_name'];
-	var_dump($username);
 }
-if (strlen($email) == 0) {
+if ($email === '') {
 	$email = $account['email'];
-	var_dump($email);
 }
-if (strlen($password) == 0) {
+if ($password === '') {
 	$password = $account['password'];
-	var_dump($password);
 } else {
 	$password = crypt($password);
 }
-exit();
 
 // Update user info
 mysqli_query($con, "UPDATE user SET account_name='${username}', 
