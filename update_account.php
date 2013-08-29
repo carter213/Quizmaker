@@ -67,15 +67,19 @@ if ($username === '' && $email === '' &&
 
 if ($username === '') {
 	$username = $account['account_name'];
+	var_dump($username);
 }
 if ($email === '') {
 	$email = $account['email'];
+	var_dump($email);
 }
 if ($password === '') {
 	$password = $account['password'];
+	var_dump($password);
 } else {
 	$password = crypt($password);
 }
+exit();
 
 // Update user info
 mysqli_query($con, "UPDATE user SET account_name='${username}', 
