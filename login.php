@@ -55,7 +55,7 @@ session_start();
   <section id="user" class="tab-pane active">
     <div class="row-fluid">
       <div class="span5 offset1">
-        <form id="user_login_form" method ="post" action ="finish_login.php">
+        <form id="user_login_form" method ="post" action ="finish_login">
         	<fieldset class="form-group">	
         	  <legend class="form-group"> Login</legend>
 	          <div class="form-group">
