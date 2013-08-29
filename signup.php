@@ -15,6 +15,11 @@ if (!isset($_POST['signup_account']) || !isset($_POST['signup_password']) ||
 
 require '../dbaccess/connect.php';
 
+if (mysqli_connect_errno($con)) {
+	header('Location: /');
+	exit();
+}
+
 $signup_account = filter_var($_POST['signup_account'], FILTER_SANITIZE_STRING);
 $signup_account = mysqli_real_escape_string($con, $signup_account);
 $signup_password = filter_var($_POST['signup_password'], FILTER_SANITIZE_STRING);
@@ -36,11 +41,6 @@ if (!filter_var($signup_email, FILTER_VALIDATE_EMAIL) ||
 	$signup_password !== $signup_confirm_password) {
 	header('Location: login');
     exit();
-}
-
-if (mysqli_connect_errno($con)) {
-	header('Location: /');
-	exit();
 }
 
 // Check if info exists
