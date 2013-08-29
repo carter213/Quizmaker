@@ -64,6 +64,15 @@ if ($username === '' && $email === '' &&
 
 if ($username === '') {
 	$username = $account['account_name'];
+} else {
+	// Check if username exists
+	$name_exists = mysqli_query($con, 
+		            	"SELECT * FROM user WHERE account_name='${username}'
+		            	 AND user_id!=${user_id}");
+	if (mysqli_num_rows($name_exists) != 0) {
+		header("Location: ${prev_page}");
+		exit();
+	}
 }
 if ($email === '') {
 	$email = $account['email'];
