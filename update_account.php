@@ -55,6 +55,10 @@ if ($password !== $confirm_password) {
 	header("Location: ${prev_page}");
 	exit();
 }
+var_dump($username);
+var_dump($email);
+var_dump($password);
+exit();
 if ($username === '' && $email === '' && 
     $password === '' && $confirm_password === '') {
 	header("Location: ${prev_page}");
