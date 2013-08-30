@@ -133,7 +133,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
           <button type="submit" class="btn btn-default">Create new class</button>
         </form>
         <br/>
-        <form id="class_select_form">
+        <form id="class_select_form" action="delete_class" method="post">
           <div class="form-group">
             <label for="classes_dropdown">Classes (changes TA and Quizzes)</label>
             <select id="classes_dropdown" class="form-control" name="class_select"
@@ -153,7 +153,10 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
             <span id="class_code"></span>
           </div>
           <br/>
-          <button type="button" class="btn btn-default">Delete class</button>
+          <button type="button" onclick="confirm_delete_class()" 
+                  class="btn btn-default">Delete class</button>
+          <button id="delete_class_btn" style="visibility:hidden" type="submit" 
+                  class="btn btn-default">Delete class</button>
         </form>
       </div>
       <div class="span3">
@@ -236,6 +239,13 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
 
   function change_class() {
     $("#class_code").html($("#classes_dropdown").val());
+  }
+
+  function confirm_delete_class() {
+    var result = confirm("Are you sure you want to delete this class?");
+    if (result == true) {
+      document.getElementById("delete_class_btn").click();
+    }
   }
 
   change_class();
