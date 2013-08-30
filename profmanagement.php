@@ -181,6 +181,7 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <div class="form-group">
             <label for="ta_dropdown">TAs</label>
             <select id="ta_dropdown" class="form-control" name="ta_select">
+              <option/>
               <?php
               while ($class_ta = mysqli_fetch_array($class_ta_arrays)) {
                 $class_code = $class_ta['class_code'];
