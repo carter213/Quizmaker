@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// Check session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Instructor') {
+  header('Location: /');
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+  header('Location: /');
+  exit();
+}
+
+// Retrieve classes
+$classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
@@ -114,15 +136,19 @@
         <form id="class_select_form">
           <div class="form-group">
             <label for="classes_dropdown">Classes (changes TA and Quizzes)</label>
-            <select id="classes_dropdown" class="form-control" name="class_select">
-              <option>Class 1</option>
-              <option>Class 2</option>
+            <select id="classes_dropdown" class="form-control" name="class_select"
+                    onchange="change_class()">
+              <?php
+              while ($class = mysqli_fetch_array($classes)) {
+                print "<option value='${class_code}'>${class_name}</option>";
+              }
+              ?>
             </select>
           </div>
           <div class="form-group">
             Class Code (provide to students for sign-up): 
             <br/>
-            <span id="class_code">123456789</span>
+            <span id="class_code"></span>
           </div>
           <br/>
           <button type="button" class="btn btn-default">Delete class</button>
@@ -188,6 +214,12 @@
       document.getElementById("delete_btn").click();
     }
   }
+
+  function change_class() {
+    $("#class_code").html($("#classes_dropdown").value);
+  }
+
+  change_class();
 </script>
 
 <script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
