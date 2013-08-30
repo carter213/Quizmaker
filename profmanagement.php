@@ -272,7 +272,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
     $("#class_code").html($("#classes_dropdown").val());
     $("#assign_ta_class").val($("#classes_dropdown").val());
     $("#class_ta").val($("#classes_dropdown").val());
-    $("#class_quiz").val($"#classes_dropdown").val());
+    $("#class_quiz").val($("#classes_dropdown").val());
 
     $("#ta_dropdown").val('');
     $("#quizzes_dropdown").val('');
