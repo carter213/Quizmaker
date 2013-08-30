@@ -24,6 +24,10 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   class_member NATURAL JOIN user WHERE prof_id=${user_id} AND 
   role='Teaching Assistant'");
 
+// Retrieve quizzes for each class
+$class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
+  quiz WHERE prof_id=${user_id}");
+
 ?>
 
 <!DOCTYPE html>
@@ -200,13 +204,21 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
         </form>
       </div>
       <div class="span3">
-        <form id="quiz_select_form" action="./grading">
+        <form id="quiz_select_form" action="./grading" method="post">
           <div class="form-group">
             <label for="quizzes_dropdown">Quizzes</label>
             <select id="quizzes_dropdown" class="form-control" name="quiz_select">
-              <option>Quiz 1</option>
-              <option>Quiz 2</option>
+              <option/>
+              <?php
+              while ($class_quiz = mysqli_fetch_array($class_quiz_arrays)) {
+                $class_code = $class_quiz['class_code'];
+                $quiz_name = $class_quiz['quiz_name'];
+                print "<option class='${class_code}'>${quiz_name}</option>";
+              }
+              ?>
             </select>
+            <input id="class_quiz" type="text" style="display:none" 
+                   name="class_quiz"/>
           </div>
           <button type="submit" class="btn btn-default">Grade quiz</button>
 
@@ -260,18 +272,25 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
     $("#class_code").html($("#classes_dropdown").val());
     $("#assign_ta_class").val($("#classes_dropdown").val());
     $("#class_ta").val($("#classes_dropdown").val());
+    $("#class_quiz").val($"#classes_dropdown").val());
 
     $("#ta_dropdown").val('');
+    $("#quizzes_dropdown").val('');
 
     var class_ta_options = $("#ta_dropdown").children();
     $.each(class_ta_options, function() {
       $(this).hide();
-    })
+    });
+
+    var class_quiz_options = $("#quizzes_dropdown").children();
+    $.each(class_quiz_options, function() {
+      $(this).hide();
+    });
 
     var shown_options = $("." + $("#classes_dropdown").val());
     $.each(shown_options, function() {
       $(this).show();
-    })
+    });
   }
 
   function confirm_delete_class() {
