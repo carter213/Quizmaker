@@ -112,7 +112,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
           <div class="form-group">
             <button type="button" onclick="confirm_delete()" class="btn btn-default">
               Delete Account</button>
-            <button style="visibility:hidden" id="delete_btn" type="submit" 
+            <button style="display:none" id="delete_btn" type="submit" 
              class="btn btn-default">Delete Account</button>
           </div>
         </form>
@@ -155,7 +155,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
           <br/>
           <button type="button" onclick="confirm_delete_class()" 
                   class="btn btn-default">Delete class</button>
-          <button id="delete_class_btn" style="visibility:hidden" type="submit" 
+          <button id="delete_class_btn" style="display:none" type="submit" 
                   class="btn btn-default">Delete class</button>
         </form>
       </div>
@@ -165,7 +165,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
             <label for="new_ta">New TA</label>
             <input type="text" class="form-control"
                    id="new_ta" name="new_ta" placeholder="New TA username">
-            <input id="assign_ta_class" type="text" style="visibility:hidden"
+            <input id="assign_ta_class" type="text" style="display:none"
                    name="class_code"> 
           </div>
           <button type="submit" class="btn btn-default">Assign new TA</button>
