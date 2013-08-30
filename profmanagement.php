@@ -152,6 +152,8 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               }
               ?>
             </select>
+            <input id="class_ta" type="text" style="display:none" 
+                   name="class_ta"/>
           </div>
           <div class="form-group">
             Class Code (provide to students for sign-up): 
@@ -177,7 +179,7 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <button type="submit" class="btn btn-default">Assign new TA</button>
         </form>
         <br/>
-        <form id="ta_select_form">
+        <form id="ta_select_form" action="remove_ta" method="post">
           <div class="form-group">
             <label for="ta_dropdown">TAs</label>
             <select id="ta_dropdown" class="form-control" name="ta_select">
@@ -192,7 +194,7 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
             </select>
           </div>
           <button type="button" class="btn btn-default" 
-                  onclick="">Remove TA</button>
+                  onclick="confirm_remove_ta()">Remove TA</button>
           <button id="remove_ta_btn" type="submit" style="display:none" 
                   class="btn btn-default">Remove TA</button>
         </form>
@@ -257,6 +259,7 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   function change_class() {
     $("#class_code").html($("#classes_dropdown").val());
     $("#assign_ta_class").val($("#classes_dropdown").val());
+    $("#class_ta").val($("#classes_dropdown").val());
 
     $("#ta_dropdown").val('');
 
