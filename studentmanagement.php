@@ -1,3 +1,37 @@
+<?php
+session_start();
+
+// Check session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
+  header('Location: /');
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+  header('Location: /');
+  exit();
+}
+
+// Retrieve classes
+$classes = mysqli_query($con, "SELECT * FROM class NATURAL JOIN class_member
+  WHERE user_id=${user_id}");
+  
+// Retrieve quizzes
+$date = date("Y-m-d H:i:s");
+$class_quiz_take_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
+  class_member NATURAL JOIN quiz WHERE user_id=${user_id} AND open_date<='${date}' 
+  AND deadline>='${date}'");
+  
+$class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
+  class_member NATURAL JOIN quiz NATURAL JOIN student_quiz WHERE user_id=${user_id} 
+  AND graded=1");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
