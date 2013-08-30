@@ -22,7 +22,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
 // Retrieve tas for each class
 $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN 
   class_member NATURAL JOIN user WHERE prof_id=${user_id} AND 
-  role='Teaching Assistant' GROUP BY class_code");
+  role='Teaching Assistant'");
 
 ?>
 
