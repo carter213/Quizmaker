@@ -208,22 +208,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
 
 <!-- Le javascript
 ================================================== --> 
-<!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff --> 
-<script type="text/javascript">
-  function confirm_delete() {
-    var result = confirm("Are you sure you want to delete your account?");
-    if (result == true) {
-      document.getElementById("delete_btn").click();
-    }
-  }
-
-  function change_class() {
-    $("#class_code").html($("#classes_dropdown").value);
-  }
-
-  change_class();
-</script>
-
+<!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff -->
 <script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
 <script src="assets/js/jquery.js"></script> 
 <script src="assets/js/google-code-prettify/prettify.js"></script> 
@@ -240,5 +225,20 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
 <script src="assets/js/bootstrap-typeahead.js"></script> 
 <script src="assets/js/bootstrap-affix.js"></script> 
 <script src="assets/js/application.js"></script>
+
+<script type="text/javascript">
+  function confirm_delete() {
+    var result = confirm("Are you sure you want to delete your account?");
+    if (result == true) {
+      document.getElementById("delete_btn").click();
+    }
+  }
+
+  function change_class() {
+    $("#class_code").html($("#classes_dropdown").value);
+  }
+
+  change_class();
+</script>
 </body>
 </html>
