@@ -23,7 +23,7 @@ if (mysqli_connect_errno($con)) {
 }
 
 $class_code = filter_var($_POST['class_select'], FILTER_SANITIZE_STRING);
-$class_code = mysqli_real_escape_string($con, $class);
+$class_code = mysqli_real_escape_string($con, $class_code);
 
 if (strlen($class_code) != 40) {
 	header('Location: profmanagement');
