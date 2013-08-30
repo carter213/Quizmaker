@@ -18,6 +18,12 @@ if (mysqli_connect_errno($con)) {
 
 // Retrieve classes
 $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
+
+// Retrieve tas for each class
+$class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN 
+  class_member NATURAL JOIN user WHERE prof_id=${user_id} AND 
+  role='Teaching Assistant' GROUP BY class_code");
+
 ?>
 
 <!DOCTYPE html>
@@ -175,11 +181,19 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
           <div class="form-group">
             <label for="ta_dropdown">TAs</label>
             <select id="ta_dropdown" class="form-control" name="ta_select">
-              <option>TA 1</option>
-              <option>TA 2</option>
+              <?php
+              while ($class_ta = mysqli_fetch_array($class_ta_arrays)) {
+                $class_code = $class_ta['class_code'];
+                $ta_name = $class_ta['account_name'];
+                print "<option class='${class_code}'>${ta_name}</option>";
+              }
+              ?>
             </select>
           </div>
-          <button type="button" class="btn btn-default">Remove TA</button>
+          <button type="button" class="btn btn-default" 
+                  onclick="">Remove TA</button>
+          <button id="remove_ta_btn" type="submit" style="display:none" 
+                  class="btn btn-default">Remove TA</button>
         </form>
       </div>
       <div class="span3">
@@ -242,12 +256,31 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
   function change_class() {
     $("#class_code").html($("#classes_dropdown").val());
     $("#assign_ta_class").val($("#classes_dropdown").val());
+
+    $("#ta_dropdown").val('');
+
+    var class_ta_options = $("#ta_dropdown").children();
+    $.each(class_ta_options, function() {
+      $(this).hide();
+    })
+
+    var shown_options = $("." + $("#classes_dropdown").val());
+    $.each(shown_options, function() {
+      $(this).show();
+    })
   }
 
   function confirm_delete_class() {
     var result = confirm("Are you sure you want to delete this class?");
     if (result == true) {
       document.getElementById("delete_class_btn").click();
+    }
+  }
+
+  function confirm_remove_ta() {
+    var result = confirm("Are you sure you want to remove this TA?");
+    if (result == true) {
+      document.getElementById("remove_ta_btn").click();
     }
   }
 
