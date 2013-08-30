@@ -235,7 +235,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
   }
 
   function change_class() {
-    $("#class_code").html($("#classes_dropdown").value);
+    $("#class_code").html($("#classes_dropdown").val());
   }
 
   change_class();
