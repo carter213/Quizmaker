@@ -140,6 +140,8 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
                     onchange="change_class()">
               <?php
               while ($class = mysqli_fetch_array($classes)) {
+                $class_code = $class['class_code'];
+                $class_name = $class['class_name'];
                 print "<option value='${class_code}'>${class_name}</option>";
               }
               ?>
