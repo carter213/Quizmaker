@@ -129,7 +129,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class_member NATURAL JOIN
   <section id="classes" class="tab-pane">
     <div class="row-fluid">
       <div class="span4 offset3">
-        <form id="class_select_form">
+        <form id="class_select_form" action="leave_class" method="post">
           <div class="form-group">
             <label for="classes_dropdown">Classes (changes Quizzes)</label>
             <select id="classes_dropdown" class="form-control" name="class_select">
@@ -142,7 +142,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class_member NATURAL JOIN
               ?>
             </select>
           </div>
-          <button type="button" class="btn btn-default">Leave class</button>
+          <button type="submit" class="btn btn-default">Leave class</button>
         </form>
       </div>
       <div class="span4">
