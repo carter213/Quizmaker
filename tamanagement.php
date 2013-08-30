@@ -1,3 +1,31 @@
+<?php
+session_start();
+
+// Check session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Teaching Assistant') {
+  header('Location: /');
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+  header('Location: /');
+  exit();
+}
+
+// Retrieve classes
+$classes = mysqli_query($con, "SELECT * FROM class NATURAL JOIN class_member
+  WHERE user_id=${user_id}");
+
+// Retrieve quizzes
+$class_quiz_arrays = mysqli_query($con, "SELECT * FROM class_member NATURAL JOIN
+  quiz WHERE user_id=${user_id}");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
@@ -43,7 +71,6 @@
           <li class="active">
             <a href="./tamanagement" class="nav_links">User Management</a>
           </li>
-          <li><a href="./quizmaker" class="nav_links">Quiz Maker</a></li>
         </ul>
       </div>
     </div>
@@ -106,8 +133,13 @@
           <div class="form-group">
             <label for="classes_dropdown">Classes (changes Quizzes)</label>
             <select id="classes_dropdown" class="form-control" name="class_select">
-              <option>Class 1</option>
-              <option>Class 2</option>
+              <?php
+              while ($class = mysqli_fetch_array($classes)) {
+                $class_code = $class['class_code'];
+                $class_name = $class['class_name'];
+                print "<option value='${class_code}'>${class_name}</option>";
+              }
+              ?>
             </select>
           </div>
           <button type="button" class="btn btn-default">Leave class</button>
@@ -143,15 +175,6 @@
 <!-- Le javascript
 ================================================== --> 
 <!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff -->
-<script type="text/javascript">
-  function confirm_delete() {
-    var result = confirm("Are you sure you want to delete your account?");
-    if (result == true) {
-      document.getElementById("delete_btn").click();
-    }
-  }
-</script>
-
 <script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
 <script src="assets/js/jquery.js"></script> 
 <script src="assets/js/google-code-prettify/prettify.js"></script> 
@@ -168,5 +191,14 @@
 <script src="assets/js/bootstrap-typeahead.js"></script> 
 <script src="assets/js/bootstrap-affix.js"></script> 
 <script src="assets/js/application.js"></script>
+
+<script type="text/javascript">
+  function confirm_delete() {
+    var result = confirm("Are you sure you want to delete your account?");
+    if (result == true) {
+      document.getElementById("delete_btn").click();
+    }
+  }
+</script>
 </body>
 </html>
