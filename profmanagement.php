@@ -160,13 +160,15 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
         </form>
       </div>
       <div class="span3">
-        <form id="new_ta_form">
+        <form id="new_ta_form" action="assign_ta" method="post">
           <div class="form-group">
             <label for="new_ta">New TA</label>
             <input type="text" class="form-control"
                    id="new_ta" name="new_ta" placeholder="New TA username">
+            <input id="assign_ta_class" type="text" style="visibility:hidden"
+                   name="class_code"> 
           </div>
-          <button type="button" class="btn btn-default">Assign new TA</button>
+          <button type="submit" class="btn btn-default">Assign new TA</button>
         </form>
         <br/>
         <form id="ta_select_form">
@@ -239,6 +241,7 @@ $classes = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}");
 
   function change_class() {
     $("#class_code").html($("#classes_dropdown").val());
+    $("#assign_ta_class").val($("#classes_dropdown").val());
   }
 
   function confirm_delete_class() {
