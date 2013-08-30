@@ -152,8 +152,6 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               }
               ?>
             </select>
-            <input id="class_ta" type="text" style="display:none" 
-                   name="class_ta"/>
           </div>
           <div class="form-group">
             Class Code (provide to students for sign-up): 
@@ -192,6 +190,8 @@ $class_ta_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               }
               ?>
             </select>
+            <input id="class_ta" type="text" style="display:none" 
+                   name="class_ta"/>
           </div>
           <button type="button" class="btn btn-default" 
                   onclick="confirm_remove_ta()">Remove TA</button>
