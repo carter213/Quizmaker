@@ -418,8 +418,8 @@ function buildMultipleChoiceQuestion(opts) {
        + '<span class="help-block"><small>Check correct answer(s)</small></span>'));
 
   $(opts.choices).each(function (i) {
-    elems.push($('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="' + i + '" name="' + opt.id + '_mc_checked[]" ' + ((opts.answer.indexOf(i) > -1) ? 'checked' : '') + '></span>'
-         + '<input type="text" value="' + this + '" name="' + opt.id + '_mc_ans[]"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
+    elems.push($('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="' + i + '" name="' + opts.id + '_mc_checked[]" ' + ((opts.answer.indexOf(i) > -1) ? 'checked' : '') + '></span>'
+         + '<input type="text" value="' + this + '" name="' + opts.id + '_mc_ans[]"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
   });
 
   elems.push($('<div class="input-append"><input type="number" value="1" name="addAnswers" class="input-mini" min="1">'
