@@ -521,7 +521,7 @@ function getQuestionName(name) {
 
 // Question text
 function getQuestionElements(text) {
-  return [$('<label>Question</label>'), $('<textarea name="questionBody[]" class="textarea input-xxlarge" contenteditable="">' + (text || '') + '</div>'), $('<span class="help-block">Type question in box above. Use underscores to indicate a "blank", if applicable.</span>')];
+  return [$('<label>Question</label>'), $('<textarea name="questionBody[]" class="textarea input-xxlarge" contenteditable="">' + (text || '') + '</textarea>'), $('<span class="help-block">Type question in box above. Use underscores to indicate a "blank", if applicable.</span>')];
 }
 
 // Image upload
