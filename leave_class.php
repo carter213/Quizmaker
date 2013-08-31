@@ -51,8 +51,8 @@ $exists = mysqli_fetch_array($exists);
 
 $class_id = $exists['class_id'];
 
-mysqli_query($con, "DELETE FROM class_member WHERE class_id='${class_id}' AND
-	                user_id='${user_id}'");
+mysqli_query($con, "DELETE FROM class_member WHERE class_id=${class_id} AND
+	                user_id=${user_id}");
 
 header("Location: ${prev_page}");
 exit();

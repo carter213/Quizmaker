@@ -136,7 +136,7 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   <section id="classes" class="tab-pane">
     <div class="row-fluid">
       <div class="span3 offset2">
-        <form id="join_class_form">
+        <form id="join_class_form" action="join_class" method="post">
           <div class="form-group">
             <label for="join_class">Join Class</label>
             <input type="text" class="form-control" 
@@ -144,19 +144,28 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
             <input type="text" class="form-control"
                     id="join_class_code" name="join_class_code" placeholder="Class code">
           </div>
-          <button type="button" class="btn btn-default">Join class</button>
+          <button type="submit" class="btn btn-default">Join class</button>
         </form>
       </div>
       <div class="span3">
-        <form id="class_select_form">
+        <form id="class_select_form" action="leave_class" method="post">
           <div class="form-group">
             <label for="classes_dropdown">Classes (changes Quizzes)</label>
-            <select id="classes_dropdown" class="form-control" name="class_select">
-              <option>Class 1</option>
-              <option>Class 2</option>
+            <select id="classes_dropdown" class="form-control" name="class_select"
+                    onchange="change_class()">
+              <?php
+              while ($class = mysqli_fetch_array($classes)) {
+                $class_code = $class['class_code'];
+                $class_name = $class['class_name'];
+                print "<option value='${class_code}'>${class_name}</option>";
+              }
+              ?>
             </select>
           </div>
-          <button type="button" class="btn btn-default">Leave class</button>
+          <button type="button" class="btn btn-default" 
+                  onclick="confirm_leave_class()">Leave class</button>
+          <button id="leave_class_btn" type="submit" style="display:none"
+                  class="btn btn-default">Leave class</button>
         </form>
       </div>
       <div class="span3">
@@ -167,6 +176,8 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               <option>Quiz 1</option>
               <option>Quiz 2</option>
             </select>
+            <input id="class_quiz" type="text" style="display:none" 
+                   name="class_quiz"/>
           </div>
           <button type="submit" class="btn btn-default">Take/Review Quiz</button>
         </form>
@@ -213,6 +224,28 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
       document.getElementById("delete_btn").click();
     }
   }
+
+  function change_class() {
+    $("#class_quiz").val($("#classes_dropdown").val());
+
+    $("#quizzes_dropdown").val('');
+
+    var class_quiz_options = $("#quizzes_dropdown").children();
+    $.each(class_quiz_options, function() {
+      $(this).hide();
+    });
+
+    var shown_options = $("." + $("#classes_dropdown").val());
+    $.each(shown_options, function() {
+      $(this).show();
+    });
+  }
+
+  function confirm_leave_class() {
+    var result = confirm("Are you sure you want to leave this class?");
+    if (result == true) {
+      document.getElementById("leave_class_btn").click();
+    }
 </script>
 </body>
 </html>
