@@ -342,16 +342,107 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  </div>\n";
                   print "  <label>Points</label>\n";
                   print "  <div name='PointBox'>\n";
-                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${option_val}'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${points}'>\n";
                   print "  </div>\n";
                   print "</div>\n";
 
                   break;
 
-                case 'True / False':
+                case 'True/False':
+                  $answer = $question['answer'];
+                  print "<div class='newQuestion' data-type='tf' data-sort='${question_num}' id='${question_num}' style='opacity: 100; display: block;>\n";
+                  print "  <span class='badge badge-info'>True/False</span>\n";
+                  print "  <span class='pull-right'>\n";
+                  print "    <div name='helptfButton'>\n";
+                  print "      <button class='btn btn-warning' title='True/False Help' onclick='tutorialtf()'>\n";
+                  print "        <i class='icon-question-sign'></i>\n True/False Help\n";
+                  print "      </button>\n";
+                  print "    </div>\n";
+                  print "  </span>\n";
+                  print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+                  print "  <label>Question</label>\n";
+                  print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
+                  print "  </span>\n";
+                  print "  <label>Answers</label>"\n;
+                  print "  <label class='radio inline'>\n";
+                  print "    <input type='radio' value='true' name='tf[]'/>True\n";
+                  print "  </label>\n";
+                  print "  <label class='radio inline'>\n";
+                  print "    <input type='radio' value='false' name='tf[]'/>False\n";
+                  print "  </label>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    <small>Select correct answer</small>\n";
+                  print "  </span>\n";
+                  print "  <label>Points</label>\n";
+                  print "  <div name='PointBox'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${points}'>\n";
+                  print "  </div>\n";
+                  print "</div>\n";
 
                   break;
 
+                case 'Matching':
+                  $options = mysqli_query($con, "SELECT * FROM matching WHERE 
+                    quiz_id=${load_quiz_id} AND question_num=${question_num} 
+                    ORDER BY option_num");
+
+                  print "<div class='newQuestion' data-type='m' data-sort='${question_num}' id='${question_num}' style='opacity: 100; display: block;>\n";
+                  print "  <span class='badge badge-info'>Matching</span>\n";
+                  print "  <span class='pull-right'>\n";
+                  print "    <div name='helpmButton'>\n";
+                  print "      <button class='btn btn-warning' title='Matching Help' onclick='tutorialm()'>\n";
+                  print "        <i class='icon-question-sign'></i>\n Matching Help\n";
+                  print "      </button>\n";
+                  print "    </div>\n";
+                  print "  </span>\n";
+                  print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+                  print "  <label>Word-Value Pairs</label>\n";
+
+                  if (mysqli_num_rows($options) > 0) {
+                    while ($option = mysqli_fetch_array($options)) {
+                      $option_num = $option['option_num'];
+                      $word = $option['word'];
+                      $value = $option['value'];
+
+                      print "  <div class='block'>\n";
+                      print "    <input type='text' name='${question_num}_m_word[]' value='${word}' placeholder='Word'/>\n";
+                      print "    <div class='input-append'>\n";
+                      print "      <input type='text' name='${question_num}_m_value[]' value='${value}' placeholder='Value'/>\n";
+                      print "      <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                      print "    </div>\n";
+                      print "  </div>\n";
+                    }
+                  } else {
+                    for ($x = 0; $x < 2; $x++) {
+                      print "  <div class='block'>\n";
+                      print "    <input type='text' name='${question_num}_m_word[]' placeholder='Word'/>\n";
+                      print "    <div class='input-append'>\n";
+                      print "      <input type='text' name='${question_num}_m_value[]' placeholder='Value'/>\n";
+                      print "      <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                      print "    </div>\n";
+                      print "  </div>\n";
+                    }
+                  }
+                  print "  <div class='input-append'>\n";
+                  print "    <input type='number' value='1' name='addAnswers' class='input-mini' min='1'>\n";
+                  print "    <input type='button' class='btn btn-info' value='Add Pair(s)' name='addAnswer' data-type='m'>\n";
+                  print "  </div>\n";
+                  print "  <label>Points</label>\n";
+                  print "  <div name='PointBox'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${points}'>\n";
+                  print "  </div>\n";
+                  print "</div>\n";
+
+                  break;
+
+                case 'Fill-in':
+                  break;
+
+                  
 
               }
             }
