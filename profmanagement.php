@@ -75,7 +75,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <li class="active">
             <a href="./profmanagement" class="nav_links">User Management</a>
           </li>
-          <li><a href="./quizmaker" class="nav_links">Quiz Maker</a></li>
+          <li><div onclick="quizmaker()" class="nav_links">Quiz Maker</div></li>
         </ul>
       </div>
     </div>
@@ -261,6 +261,17 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
 <script src="assets/js/application.js"></script>
 
 <script type="text/javascript">
+  function quizmaker() {
+    var code = $("#classes_dropdown").val();
+
+    if (code.length != 40) {
+      alert("Make a class first!");
+    }
+    else {
+      document.location.href = "quizmaker?class_code=" + code;
+    }
+  }
+
   function confirm_delete() {
     var result = confirm("Are you sure you want to delete your account?");
     if (result == true) {

@@ -1,3 +1,68 @@
+<?php
+session_start();
+
+// Check session
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Instructor') {
+  header('Location: /');
+  exit();
+}
+
+if (!isset($_GET['class_code'])) {
+  header('Location: /');
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+  header('Location: /');
+  exit();
+}
+
+$get_class = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
+$get_class = mysqli_real_escape_string($con, $get_class);
+
+// Check if class code is valid
+if (strlen($get_class) != 40) {
+  header('Location: profmanagement');
+  exit();
+}
+
+$valid_class = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}
+  AND class_code='${get_class}'");
+
+if (mysqli_num_rows($valid_class) != 1) {
+  header('Location: profmanagement');
+  exit();
+}
+
+// Check if specific quiz requested
+if (isset($_GET['quiz_name'])) {
+  $load_quiz_name = $_GET['quiz_name'];
+
+  $valid_quiz = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE 
+    prof_id=${user_id} AND class_code='${get_class}' AND 
+    quiz_name='${load_quiz_name}'");
+
+  if (mysqli_num_rows($valid_quiz) == 1) {
+    $valid_quiz = mysqli_fetch_array($valid_quiz);
+    $load_quiz = 1;
+    $load_quiz_id = $valid_quiz['quiz_id'];
+  } else {
+    $load_quiz = 0;
+  }
+} else {
+  $load_quiz = 0;
+}
+
+// Get quizzes
+$quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
+  prof_id=${user_id} AND class_code='${get_class}'");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
@@ -80,9 +145,22 @@
           <div class="input-append">
             <select name="loadQuizSelect" id="loadQuizSelect" class="span2">
               <option value="">--</option>
-              <option value="bedbd548-07f7-2077-9ddd-811961cf864b">Personal Quiz</option>
-              <option value="dc267fe9-de22-b52b-1ab3-6698d538fc62">Brain Teasers</option>
+              <?php
+              while ($quiz = mysqli_fetch_array($quizzes)) {
+                $code = $quiz['class_code'];
+                $name = $quiz['quiz_name'];
+                print "<option value='${code}' ";
+                if ($load_quiz == 1) {
+                  if ($name === $load_quiz_name) {
+                    print "selected";
+                  }
+                }
+                print ">${name}</option>";
+              }
+              ?>
             </select>
+            <input type="text" name="class_code" style="display:none" 
+                   value=<?php print "'${get_code}'" ?>/>
             <button class="btn btn-primary" id="loadQuiz" type="button">Load</button>
           </div>
         </div>
