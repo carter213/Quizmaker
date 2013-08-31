@@ -88,12 +88,12 @@ p {
         <ul class="nav">
           <li class="active"> 
 			<a href="./index">Home</a>
-			<?php
+		  </li>
+		  <?php
 			if (isset($_SESSION['role'])) {
-				print "<a href='${management}'>User Management</a>\n";
+				print "<li><a href='${management}'>User Management</a></li>\n";
 			}
 			?>
-		  </li>
         </ul>
       </div>
     </div>
