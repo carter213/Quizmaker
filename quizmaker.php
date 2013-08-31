@@ -21,17 +21,17 @@ if (mysqli_connect_errno($con)) {
   exit();
 }
 
-$get_class = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
-$get_class = mysqli_real_escape_string($con, $get_class);
+$get_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
+$get_code = mysqli_real_escape_string($con, $get_class);
 
 // Check if class code is valid
-if (strlen($get_class) != 40) {
+if (strlen($get_code) != 40) {
   header('Location: profmanagement');
   exit();
 }
 
 $valid_class = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}
-  AND class_code='${get_class}'");
+  AND class_code='${get_code}'");
 
 if (mysqli_num_rows($valid_class) != 1) {
   header('Location: profmanagement');
@@ -43,7 +43,7 @@ if (isset($_GET['quiz_name'])) {
   $load_quiz_name = $_GET['quiz_name'];
 
   $valid_quiz = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE 
-    prof_id=${user_id} AND class_code='${get_class}' AND 
+    prof_id=${user_id} AND class_code='${get_code}' AND 
     quiz_name='${load_quiz_name}'");
 
   if (mysqli_num_rows($valid_quiz) == 1) {
@@ -59,7 +59,7 @@ if (isset($_GET['quiz_name'])) {
 
 // Get quizzes
 $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
-  prof_id=${user_id} AND class_code='${get_class}'");
+  prof_id=${user_id} AND class_code='${get_code}'");
 
 ?>
 
