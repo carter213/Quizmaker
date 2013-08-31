@@ -226,6 +226,26 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         <li class="not-sortable">Points Allocated: <span id="totalPoints">0</span> / <span id="pointsPossible">1</span> </li>
         <li class="not-sortable" id="tourSortID"><a href="#" id="sorter"><i class="icon-random"></i> Reorder by Question Type</a></li>
         <li class="divider not-sortable" style="visibility:hidden"></li>
+        <?php
+        if ($load_quiz == 1) {
+          $questions = mysqli_query($con, "SELECT * FROM question WHERE 
+            quiz_id=${load_quiz_id} ORDER BY question_num");
+
+          $num = mysqli_num_rows($questions);
+
+          $i = 0;
+          while ($question = mysqli_fetch_array($questions)) {
+            $i++;
+            print "<li data-linked='${i}' data-reset='1'>\n";
+            print "  <span class='anchor'>\n";
+            print "    <span class='qNum' style='display: inline'>${i}</span>. Question\n";
+            print "    </span>";
+            print "  </span>\n";
+            print "</li>\n";
+          }
+        }
+
+        ?>
       </ol>
     </div>
     
@@ -492,9 +512,28 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   break;
 
                 case 'Short Answer':
+                  print "<div class='newQuestion' data-type='sa' data-sort='${question_num}' id='${question_num}' style='opacity: 100; display: block;>\n";
+                  print "  <span class='badge badge-info'>Short Answer</span>\n";
+                  print "  <span class='pull-right'>\n";
+                  print "    <div name='helpsaButton'>\n";
+                  print "      <button class='btn btn-warning' title='Short Answer Help' onclick='tutorialsa()'>\n";
+                  print "        <i class='icon-question-sign'></i>\n Short Answer Help\n";
+                  print "      </button>\n";
+                  print "    </div>\n";
+                  print "  </span>\n";
+                  print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+                  print "  <label>Question</label>\n";
+                  print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
+                  print "  </span>\n";
+                  print "  <label>Points</label>\n";
+                  print "  <div name='PointBox'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${points}'>\n";
+                  print "  </div>\n";
+                  print "</div>\n";
                   break;
-
-                  
 
               }
             }
