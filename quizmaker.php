@@ -366,7 +366,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         
         <!-- Save Preview Clear -->
         <div class="form-actions">
-          <input type="submit" name="save" value="Save Quiz" class="btn btn-success" id="save-bottom" onclick="$('#quizForm').submit();"/>
+          <input type="submit" name="save" value="Save Quiz" class="btn btn-success" id="save-bottom" onclick=""/>
           <input type="button" value="Preview Quiz" class="btn" id="preview-bottom" onclick="preview()"/>
           <input type="reset" value="Start Over" class="btn btn-danger" id="clearAll-bottom" onclick="clearPage();"/>
         </div>
