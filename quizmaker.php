@@ -22,7 +22,7 @@ if (mysqli_connect_errno($con)) {
 }
 
 $get_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
-$get_code = mysqli_real_escape_string($con, $get_class);
+$get_code = mysqli_real_escape_string($con, $get_code);
 
 // Check if class code is valid
 if (strlen($get_code) != 40) {
