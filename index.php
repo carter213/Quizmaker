@@ -1,5 +1,19 @@
 <?php
 session_start();
+
+if (isset($_SESSION['role'])) {
+	switch ($_SESSION['role']) {
+		case 'Student':
+			$management = 'studentmanagement';
+			break;
+		case 'Instructor':
+			$management = 'profmanagement';
+			break;
+		case 'Teaching Assistant':
+			$management = 'tamanagement';
+			break;
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +86,14 @@ p {
       <?php } ?>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li class="active"> <a href="./index">Home</a> </li>
+          <li class="active"> 
+			<a href="./index">Home</a>
+			<?php
+			if (isset($_SESSION['role'])) {
+				print "<a href='${management}'>User Management</a>\n";
+			}
+			?>
+		  </li>
         </ul>
       </div>
     </div>
