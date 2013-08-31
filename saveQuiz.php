@@ -15,8 +15,7 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor'){
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName[]'] || !isset($_POST['class_code'])))
-	) {
+	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName[]']) || !isset($_POST['class_code'])) {
 	header('Location: login');
     exit();
 }
