@@ -31,8 +31,6 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   class_member NATURAL JOIN quiz NATURAL JOIN student_quiz WHERE user_id=${user_id} 
   AND graded=1");
 
-var_dump($date);
-
 ?>
 
 <!DOCTYPE html>
@@ -176,8 +174,14 @@ var_dump($date);
           <div class="form-group">
             <label for="quizzes_dropdown">Quizzes</label>
             <select id="quizzes_dropdown" class="form-control" name="quiz_select">
-              <option>Quiz 1</option>
-              <option>Quiz 2</option>
+              <option/>
+              <?php
+              while ($class_quiz = mysqli_fetch_array($class_quiz_arrays)) {
+                $class_code = $class_quiz['class_code'];
+                $quiz_name = $class_quiz['quiz_name'];
+                print "<option class='${class_code}'>${quiz_name}</option>";
+              }
+              ?>
             </select>
             <input id="class_quiz" type="text" style="display:none" 
                    name="class_quiz"/>
