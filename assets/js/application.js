@@ -122,6 +122,7 @@
     // Binds click event to delete answers
     $('#questions').on("click", 'input[name="addAnswer"]', function (e) {
       var ans;
+      var id = $(this).parent().parent().attr('id');
       var n = $.trim($(this).siblings('input[type="number"]').val());
       var type = $(this).attr('data-type');
 
@@ -130,13 +131,13 @@
       }
 
       if (type == 'mc') {
-        ans = $('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="" name="correct"></span>'
+        ans = $('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="" name="' + id +'_mc_ans[]"></span>'
              + '<input type="text" value="" name="answer"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
       } else if (type == 'fi') {
-        ans = $('<div class="input-append block"><input type="text" value="" name="answer" class="input-block"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
+        ans = $('<div class="input-append block"><input type="text" value="" name="' + id + '_fi[]" class="input-block"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
       } else if (type == 'm') {
-        ans = $('<div class="block"><input type="text" name="word" placeholder="Word">'
-             + '<div class="input-append"><input type="text" name="def" placeholder="Value"><i class="icon-trash btn btn-danger" title="Remove"></i></div></div>');
+        ans = $('<div class="block"><input type="text" name="' + id + '_m_word[]" placeholder="Word">'
+             + '<div class="input-append"><input type="text" name="' + id + '_m_value[]" placeholder="Value"><i class="icon-trash btn btn-danger" title="Remove"></i></div></div>');
       } else {
         return false;
       }

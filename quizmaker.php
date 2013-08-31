@@ -295,7 +295,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
               print ">Randomized Order</option>";              
             } else { ?>
               <option value="Fixed Order" selected>Fixed Order</option>
-              <option value="Ranomized Order">Randomized Order</option>
+              <option value="Randomized Order">Randomized Order</option>
             <?php
             }
             ?>
