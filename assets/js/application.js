@@ -110,7 +110,7 @@
         $(this).slideUp('fast', function () {
           var parent = $(this).closest('div.newQuestion');
           $.when($(this).remove()).then(function () {
-            $(parent).find('input[name="correct"]').each(function (i) {
+            $(parent).find('input[type="checkbox"]').each(function (i) {
               $(this).val(i);
             });
           });
