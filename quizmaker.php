@@ -258,7 +258,106 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         </div>
         
         <!-- New question inserted here -->
-        <div id="questions"></div>
+        <div id="questions">
+          <?php
+          if ($load_quiz == 1) {
+            $questions = mysqli_query($con, "SELECT * FROM question WHERE 
+              quiz_id=${load_quiz_id} ORDER BY question_num");
+
+            while ($question = mysqli_fetch_array($questions)) {
+              $label = $question['label'];
+              $question_num = $question['question_num'];
+              $body = $question['body'];
+              $points = $question['points'];
+
+              switch ($question['type']) {
+                case 'Multiple Choice':
+                  $options = mysqli_query($con, "SELECT * FROM mc WHERE
+                    quiz_id=${load_quiz_id} AND question_num=${question_num}
+                    ORDER BY option_num");
+
+                  print "<div class='newQuestion' data-type='mc' data-sort='${question_num}' id='${question_num}' style='opacity: 100; display: block;>\n";
+                  print "  <span class='badge badge-info'>Multiple Choice</span>\n";
+                  print "  <span class='pull-right'>\n";
+                  print "    <div name='helpmcButton'>\n";
+                  print "      <button class='btn btn-warning' title='Multiple Choice Help' onclick='tutorialmc()'>\n";
+                  print "        <i class='icon-question-sign'></i>\n Multiple Choice Help\n";
+                  print "      </button>\n";
+                  print "    </div>\n";
+                  print "  </span>\n";
+                  print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+                  print "  <label>Question</label>\n";
+                  print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
+                  print "  </span>\n";
+                  print "  <label>Student chooses</label>\n";
+                  print "  <label class='radio inline'>\n";
+                  print "    <input type='radio' value='one' name='numToChoose1'/>\n";
+                  print "    One Answer\n";
+                  print "  </label>\n";
+                  print "  <label class='radio inline'>\n";
+                  print "    <input type='radio' value='multiple' name='numToChoose2'/>\n";
+                  print "    Multiple Answers\n";
+                  print "  </label>\n";
+                  print "  <label>Possible Answers</label>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    <small>Check correct answer(s)</small>\n";
+                  print "  </span>\n";
+                  if (mysqli_num_rows($options) > 0) {
+                    while ($option = mysqli_fetch_array($options)) {
+                      $option_num = $option['option_num'];
+                      $option_val = $option['option_val'];
+                      $is_correct = $option['is_correct'];
+
+                      print "  <div class='input-prepend input-append block'>\n";
+                      print "    <span class='add-on'>\n";
+                      print "      <input type='checkbox' value='${option_num}' name='${question_num}_mc_checked[]' ";
+                      if ($is_correct) {
+                        print "checked\>\n";
+                      } else { 
+                        print "\>\n";
+                      }
+                      print "    </span>\n";
+                      print "    <input type='text' name='${question_num}_mc_ans[]' value='${option_val}'/>\n";
+                      print "    <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                      print "  </div>\n";
+                    }
+                  } else {
+                    for ($x = 0; $x < 2; $x++) {
+                      $option_num = $x;
+                      print "  <div class='input-prepend input-append block'>\n";
+                      print "    <span class='add-on'>\n";
+                      print "      <input type='checkbox' value='${option_num}' name='${question_num}_mc_checked[]'/>\n";
+                      print "    </span>\n";
+                      print "    <input type='text' name='${question_num}_mc_ans[]'/>\n";
+                      print "    <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                      print "  </div>\n";
+                    }
+                  }
+                  print "  <div class='input-append'>\n";
+                  print "    <input type='number' value='1' name='addAnswers' class='input-mini' min='1'>\n";
+                  print "    <input type='button' class='btn btn-info' value='Add Answer(s)' name='addAnswer' data-type='mc'>\n";
+                  print "  </div>\n";
+                  print "  <label>Points</label>\n";
+                  print "  <div name='PointBox'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${option_val}'>\n";
+                  print "  </div>\n";
+                  print "</div>\n";
+
+                  break;
+
+                case 'True / False':
+
+                  break;
+
+
+              }
+            }
+          }
+          ?>
+        </div>
       </section>
     </div>
   </div>
