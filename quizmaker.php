@@ -407,11 +407,11 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  </span>\n";
                   print "  <label>Student chooses</label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='one' name='numToChoose1'/>\n";
+                  print "    <input type='radio' value='one' name='numToChoose[]'/>\n";
                   print "    One Answer\n";
                   print "  </label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='multiple' name='numToChoose2'/>\n";
+                  print "    <input type='radio' value='multiple' name='numToChoose[]'/>\n";
                   print "    Multiple Answers\n";
                   print "  </label>\n";
                   print "  <label>Possible Answers</label>\n";

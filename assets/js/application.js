@@ -412,14 +412,14 @@ function buildMultipleChoiceQuestion(opts) {
 
   elems.push($('<label>Student chooses</label>'));
 
-  elems.push($('<label class="radio inline"><input type="radio" value="one" name="numToChoose1" ' + ((opts.choose === 'multiple') ? '' : 'checked') + '>One Answer</label>'
-       + '<label class="radio inline"><input type="radio" value="multiple" name="numToChoose1" ' + ((opts.choose === 'multiple') ? 'checked' : '') + '>Multiple answers</label>'
+  elems.push($('<label class="radio inline"><input type="radio" value="one" name="numToChoose[]" ' + ((opts.choose === 'multiple') ? '' : 'checked') + '>One Answer</label>'
+       + '<label class="radio inline"><input type="radio" value="multiple" name="numToChoose[]" ' + ((opts.choose === 'multiple') ? 'checked' : '') + '>Multiple answers</label>'
        + '<label>Possible Answers</label>'
        + '<span class="help-block"><small>Check correct answer(s)</small></span>'));
 
   $(opts.choices).each(function (i) {
-    elems.push($('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="' + i + '" name="correct" ' + ((opts.answer.indexOf(i) > -1) ? 'checked' : '') + '></span>'
-         + '<input type="text" value="' + this + '" name="answer"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
+    elems.push($('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="' + i + '" name="' + opt.id + '_mc_checked[]" ' + ((opts.answer.indexOf(i) > -1) ? 'checked' : '') + '></span>'
+         + '<input type="text" value="' + this + '" name="' + opt.id + '_mc_ans[]"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
   });
 
   elems.push($('<div class="input-append"><input type="number" value="1" name="addAnswers" class="input-mini" min="1">'
