@@ -344,8 +344,8 @@ function addQuestion(type, opts) {
    * The following elements are used by all question types
    */
   var d = $('<div></div>').addClass('newQuestion').attr('data-type', type).attr('data-sort', sort).css('display', 'none').attr('id', '' + opts.id + '');
-  $(d).$(' <input id=" ' +  opts.id +'_' + type +'question" type="text" style="display:none"
-                   name="' +  opts.id +'_' + type +'question" > ');
+  $(d).append($(' <input id=" ' +  opts.id +'_' + type +'question" type="text" style="display:none"
+                   name="' +  opts.id +'_' + type +'question" > '));
   // Question label
   $(d).append(getBadge(type));
   // Tutorial button
