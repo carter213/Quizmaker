@@ -131,11 +131,13 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 
 <!-- Subhead
 ================================================== -->
+
+ <form id="quizForm" action="saveQuiz" method="post" enctype="multipart/form-data">
 <header class="jumbotron subhead" id="overview">
   <div class="container"> 
     
     <!-- Quiz Settings -->
-    <form id="quizForm" action="saveQuiz" method="post" enctype="multipart/form-data">
+   
       <fieldset id="quizSettings">
         <legend><i class="icon-wrench"></i> Quiz Settings <span class="pull-right">
         <button class="btn btn-warning" title="Settings Help" onclick="tutorialsettings(); return false;"><i class="icon-question-sign"></i> Quiz Settings Help</button>
@@ -302,7 +304,6 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
           </select>
           <span class="help-block">How to display questions to the students.</span> </div>
       </fieldset>
-    </form>
   </div>
 </header>
 
@@ -637,7 +638,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
     </div>
   </div>
 </div>
-
+</form>
 <!-- Footer
 ================================================== -->
 <footer class="footer">
