@@ -172,7 +172,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
       <div class="span3">
         <form id="quiz_take_select_form" action="./quiztaker">
           <div class="form-group">
-            <label for="quizzes_take_dropdown">Quizzes</label>
+            <label for="quizzes_take_dropdown">Open Quizzes</label>
             <select id="quizzes_take_dropdown" class="form-control" name="quiz_select">
               <option/>
               <?php
@@ -190,7 +190,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
         </form>
         <form id="quiz_review_select_form" action="./viewgrade">
           <div class="form-group">
-            <label for="quizzes_review_dropdown">Quizzes</label>
+            <label for="quizzes_review_dropdown">Graded Quizzes</label>
             <select id="quizzes_review_dropdown" class="form-control" name="quiz_select">
               <option/>
               <?php
@@ -204,7 +204,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
             <input id="class_review_quiz" type="text" style="display:none" 
                    name="class_quiz"/>
           </div>
-          <button type="submit" class="btn btn-default">Review Quiz</button>
+          <button type="submit" class="btn btn-default">Review</button>
         </form>
       </div>
     </div>
