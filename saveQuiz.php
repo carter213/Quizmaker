@@ -6,17 +6,16 @@ if (!isset($_SESSION['user_id'])) {
 	exit();
 
 }
-if(!(isset($_SESSION['role'] || $_SESSION['role'] === 'Instructor')){
+if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor'){
 	header('Location: /');
 	exit();
 }
 
-// Check POST data all set
+// Check POST data all set classcode
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName[]'] ))
-	) {
+	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName[]']) || !isset($_POST['class_code'])) {
 	header('Location: login');
     exit();
 }
@@ -48,7 +47,9 @@ $end_time = mysqli_real_escape_string($con, $end_time);
 $viewAnswers = filter_var($_POST['viewAnswers'], FILTER_SANITIZE_STRING);
 $viewAnswers = mysqli_real_escape_string($con, $viewAnswers); 
 $randomizeTaker = filter_var($_POST['randomizeTaker'], FILTER_SANITIZE_STRING);
-$randomizeTaker = mysqli_real_escape_string($con, $randomizeTaker); 
+$randomizeTaker = mysqli_real_escape_string($con, $randomizeTaker);
+$classcode = filter_var($_POST['class_code'], FILTER_SANITIZE_STRING);
+$classcode = mysqli_real_escape_string($con, $classcode);
 
 function IsDateAndTimeValid ($Idate , $Itime) {
 	$tmptime = is_object(DateTime::createFromFormat('h:i:s a', $Itime));
@@ -84,6 +85,14 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 }
 
 
+$questionNum;
+if(empty
+
+
+
+
+header("Location: quizmaker?class_code=${classcode}");
+exit();
 
 
 
