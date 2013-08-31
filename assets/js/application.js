@@ -150,7 +150,7 @@
       }
 
       if (type == 'mc') {
-        $(this).closest('div.newQuestion').find('input[name="correct"]').each(function (i) {
+        $(this).closest('div.newQuestion').find('input[type="checkbox"]').each(function (i) {
           $(this).val(i);
         });
       }
@@ -394,8 +394,8 @@ function buildTrueFalseQuestion(opts) {
   var opts = $.extend({}, defaults, opts);
 
   elems.push($('<label>Answers</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="true" name="answer' + numQuestions + '" ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="false" name="answer' + numQuestions + '" ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
+  elems.push($('<label class="radio inline"><input type="radio" value="true" name=tf[] ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
+  elems.push($('<label class="radio inline"><input type="radio" value="false" name="tf[] ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
        + '<span class="help-block"><small>Select correct answer</small></span>'));
 
   return elems;
