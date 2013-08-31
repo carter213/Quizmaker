@@ -166,46 +166,139 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         </div>
         <div class="inline-block well">
           <label for="quizName">Quiz Name</label>
-          <input type="text" name="quizName" id="quizName" placeholder="Quiz Name" class="span2">
+          <input type="text" name="quizName" id="quizName" placeholder="Quiz Name" class="span2"
+          <?php
+          if ($load_quiz == 1) {
+            $quiz_name = $valid_quiz['quiz_name'];
+            print "value='${quiz_name}'";
+          }
+          ?>
+          >
         </div>
         <div class="inline-block well">
           <label for="timeLimit">Time Limit</label>
           <div class="input-append">
-            <input name="timeLimit" class="input-small" id="timeLimit" type="number" min="1" step="1" placeholder="None">
+            <input name="timeLimit" class="input-small" id="timeLimit" type="number" min="1" step="1" placeholder="None"
+            <?php
+            if ($load_quiz == 1) {
+              $time_limit = $valid_quiz['time_limit'];
+              print "value='${time_limit}'";
+            }
+            ?>
+            >
             <span class="add-on">minutes</span> </div>
         </div>
         <div class="inline-block well">
           <label for="possiblePoints">Possible Points</label>
-          <input type="number" name="possiblePoints" class="input-small" min="1" id="possiblePoints" value="1">
+          <input type="number" name="possiblePoints" class="input-small" min="1" id="possiblePoints" 
+          <?php
+          if ($load_quiz == 1) {
+            $possible_points = $valid_quiz['possible_points'];
+            print "value='${possible_points}'";
+          } else {
+            print "value='1'";
+          }
+          ?>
+          >
         </div>
         <div class="inline-block well">
           <label for="viewAnswers">Reveal Answers</label>
           <select id="viewAnswers" name="viewAnswers" class="span2">
-            <option value="1" selected>Never</option>
-            <option value="2">After Deadline</option>
-            <option value="3">On Turn-in</option>
+            <?php
+            if ($load_quiz == 1) {
+              $reveal_answers = $valid_quiz['reveal_answers'];
+              print "<option value='Never' ";
+              if ($reveal_answers == 'Never') {
+                print "selected";
+              }
+              print ">Never</option>\n";
+
+              print "<option value='After Deadline' ";
+              if ($reveal_answers == 'After Deadline') {
+                print "selected";
+              }
+              print ">After Deadline</option>\n";
+
+              print "<option value='On Turn-in' ";
+              if ($reveal_answers == 'On Turn-in') {
+                print "selected";
+              }
+              print ">On Turn-in</option>\n";              
+            } else { ?>
+              <option value="Never" selected>Never</option>
+              <option value="After Deadline">After Deadline</option>
+              <option value="On Turn-in">On Turn-in</option>
+            <?php
+            }
+            ?>
           </select>
         </div>
         <br />
         <div class="inline-block well">
           <label for="startDate">Quiz Opens</label>
           <div class="input-append">
-            <input type="date" name="startDate" id="startDate" class="span2">
-            <input type="time" name="startTime" id="startTime" class="span2">
+            <input type="date" name="startDate" id="startDate" class="span2" 
+            <?php
+            if ($load_quiz == 1) {
+              $open_date = substr($valid_quiz['open_date'], 0, 10);
+              print "value='${open_date}'";
+            }
+            ?>
+            >
+            <input type="time" name="startTime" id="startTime" class="span2" 
+            <?php
+            if ($load_quiz == 1) {
+              $start_time = substr($valid_quiz['open_date'], 11, 8);
+              print "value='${start_time}'";
+            }
+            ?>
+            >
           </div>
           <span class="help-block"><small>The date & time the quiz opens to students</small></span> </div>
         <div class="inline-block well">
           <label for="endDate">Deadline</label>
           <div class="input-append">
-            <input type="date" name="endDate" id="endDate" class="span2">
-            <input type="time" name="endTime" id="endTime" class="span2">
+            <input type="date" name="endDate" id="endDate" class="span2" 
+            <?php
+            if ($load_quiz == 1) {
+              $close_date = substr($valid_quiz['deadline'], 0, 10);
+              print "value='${close_date}'";
+            }
+            ?>
+            >
+            <input type="time" name="endTime" id="endTime" class="span2" 
+            <?php
+            if ($load_quiz == 1) {
+              $close_time = substr($valid_quiz['deadline'], 11, 8);
+              print "value='${close_time}'";
+            }
+            ?>
+            >
           </div>
           <span class="help-block"><small>The date & time the quiz closes to students</small></span> </div>
         <div class="inline-block well">
           <label for="randomizeTaker">Display Questions in</label>
           <select id="randomizeTaker" name="randomizeTaker" class="span2">
-            <option value="1" selected>Fixed Order</option>
-            <option value="2">Randomized Order</option>
+            <?php
+            if ($load_quiz == 1) {
+              $order = $valid_quiz['display_order'];
+              print "<option value='Fixed Order' ";
+              if ($order == 'Fixed Order') {
+                print "selected";
+              }
+              print ">Fixed Order</option>";
+
+              print "<option value='Randomized Order' ";
+              if ($order == 'Randomized Order') {
+                print "selected";
+              }
+              print ">Randomized Order</option>";              
+            } else { ?>
+              <option value="Fixed Order" selected>Fixed Order</option>
+              <option value="Ranomized Order">Randomized Order</option>
+            <?php
+            }
+            ?>
           </select>
           <span class="help-block">How to display questions to the students.</span> </div>
       </fieldset>
