@@ -811,9 +811,8 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 <script src="assets/js/date.format.js"></script> 
 <script type="text/javascript">
 document.getElementById('startDate').value = (new Date()).format("yyyy-mm-dd");
-document.getElementById('startTime').value = (new Date()).format("hh:MM:ss");
 document.getElementById('endDate').value = (new Date()).format("yyyy-mm-dd");
-document.getElementById('endTime').value = (new Date()).format("hh:MM:ss");
+
 
 function load_quiz() {
 	var class_code = <?php print "'${get_code}'" ?>;
