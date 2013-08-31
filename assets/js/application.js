@@ -345,8 +345,8 @@ function addQuestion(type, opts) {
    */
   var d = $('<div></div>').addClass('newQuestion').attr('data-type', type).attr('data-sort', sort).css('display', 'none').attr('id', '' + opts.id + '');
   var l = $('<input id="' +  opts.id +'_' + type + '_' + 'question" type="text" style="display:none" name="' +  opts.id +'_' + type + '_' + 'question" > ');
-  alert(l);
-             
+  //alert(l);
+   $(d).append(l);        
   
   // Question label
   $(d).append(getBadge(type));
