@@ -163,7 +163,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
             </select>
             <input type="text" name="class_code" style="display:none" 
                    value=<?php print "'${get_code}'" ?>/>
-            <button class="btn btn-primary" id="loadQuiz" type="button">Load</button>
+            <button class="btn btn-primary" id="loadQuiz" type="button" onclick="load_quiz()">Load</button>
           </div>
         </div>
         <div class="inline-block well">
@@ -814,6 +814,13 @@ document.getElementById('startDate').value = (new Date()).format("yyyy-mm-dd");
 document.getElementById('startTime').value = (new Date()).format("hh:MM:ss");
 document.getElementById('endDate').value = (new Date()).format("yyyy-mm-dd");
 document.getElementById('endTime').value = (new Date()).format("hh:MM:ss");
+
+function load_quiz() {
+	var class_code = <?php print "'${get_code}'" ?>;
+	var quiz_name = document.getElementById("loadQuizSelect").value;
+	
+	window.location.href("quizmaker?class_code=" + class_code + "&quiz_name=" + quiz_name);
+}
 </script>
 </body>
 </html>
