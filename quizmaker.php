@@ -819,7 +819,7 @@ function load_quiz() {
 	var class_code = <?php print "'${get_code}'" ?>;
 	var quiz_name = document.getElementById("loadQuizSelect").value;
 	
-	window.location.href("quizmaker?class_code=" + class_code + "&quiz_name=" + quiz_name);
+	window.location.href = "quizmaker?class_code=" + class_code + "&quiz_name=" + quiz_name;
 }
 </script>
 </body>
