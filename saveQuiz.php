@@ -86,7 +86,6 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 
 
 $questionNum;
-if(empty
 
 
 
