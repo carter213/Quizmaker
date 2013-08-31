@@ -247,7 +247,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
             }
             ?>
             >
-            <input type="time" name="startTime" id="startTime" class="span2" 
+            <input type="text" name="startTime" id="startTime" class="span2"   placeholder="HH:MM:SS 24 hours"
             <?php
             if ($load_quiz == 1) {
               $start_time = substr($valid_quiz['open_date'], 11, 8);
@@ -268,7 +268,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
             }
             ?>
             >
-            <input type="time" name="endTime" id="endTime" class="span2" 
+            <input type="text" name="endTime" id="endTime" class="span2"  placeholder="HH:MM:SS 24 hours"
             <?php
             if ($load_quiz == 1) {
               $close_time = substr($valid_quiz['deadline'], 11, 8);
