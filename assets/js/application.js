@@ -131,8 +131,8 @@
       }
 
       if (type == 'mc') {
-        ans = $('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="" name="' + id +'_mc_ans[]"></span>'
-             + '<input type="text" value="" name="answer"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
+        ans = $('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="" name="' + id +'_mc_checked[]"></span>'
+             + '<input type="text" value="" name="' + id + '_mc_ans[]"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
       } else if (type == 'fi') {
         ans = $('<div class="input-append block"><input type="text" value="" name="' + id + '_fi[]" class="input-block"><i class="icon-trash btn btn-danger" title="Remove"></i></div>');
       } else if (type == 'm') {
