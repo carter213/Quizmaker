@@ -31,6 +31,8 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   class_member NATURAL JOIN quiz NATURAL JOIN student_quiz WHERE user_id=${user_id} 
   AND graded=1");
 
+var_dump($date);
+
 ?>
 
 <!DOCTYPE html>
@@ -247,6 +249,7 @@ $class_quiz_grade_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
     if (result == true) {
       document.getElementById("leave_class_btn").click();
     }
+  }
 </script>
 </body>
 </html>
