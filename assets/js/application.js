@@ -446,8 +446,8 @@ function buildMatchingQuestion(opts) {
   elems.push($('<label>Word-Value Pairs </label>'));
 
   $(opts.answer).each(function (i, o) {
-    elems.push($('<div class="block"><input type="text" name="word" value="' + o.word + '" placeholder="Word">'
-         + '<div class="input-append"><input type="text" value="' + o.def + '" name="def" placeholder="Value"><i class="icon-trash btn btn-danger" title="Remove"></i></div></div>'));
+    elems.push($('<div class="block"><input type="text" name="' + opts.id + '_m_word[]" value="' + o.word + '" placeholder="Word">'
+         + '<div class="input-append"><input type="text" value="' + o.def + '" name="' + opts.id + '_m_value[]" placeholder="Value"><i class="icon-trash btn btn-danger" title="Remove"></i></div></div>'));
   });
 
   elems.push($('<div class="input-append"><input type="number" value="1" name="addAnswers" class="input-mini" min="1"><input type="button" class="btn btn-info" value="Add Pair(s)" name="addAnswer" data-type="m"></div>'));
@@ -466,7 +466,7 @@ function buildFillInQuestion(opts) {
   elems.push($('<label>Acceptable Answers</label>'));
 
   $(opts.answer).each(function (i) {
-    elems.push($('<div class="input-append block"><input type="text" value="' + this + '" name="answer" class="input-block"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
+    elems.push($('<div class="input-append block"><input type="text" value="' + this + '" name="' + opts.id + '_fi[]" class="input-block"><i class="icon-trash btn btn-danger" title="Remove"></i></div>'));
   });
   elems.push($('<div class="input-append"><input type="number" value="1" name="addAnswers" class="input-mini" min="1">'
        + '<input type="button" class="btn btn-info" value="Add Answer(s)" name="addAnswer" data-type="fi"></div>'));
@@ -516,12 +516,12 @@ function getDeleteButton() {
 
 // Question Name
 function getQuestionName(name) {
-  return $('<input type="text" name="questionName" value="' + (name || '') + '" placeholder="Question Label">');
+  return $('<input type="text" name="questionName[]" value="' + (name || '') + '" placeholder="Question Label">');
 }
 
 // Question text
 function getQuestionElements(text) {
-  return [$('<label>Question</label>'), $('<div class="textarea input-xxlarge" contenteditable="">' + (text || '') + '</div>'), $('<span class="help-block">Type question in box above. Use underscores to indicate a "blank", if applicable.</span>')];
+  return [$('<label>Question</label>'), $('<textarea name="questionBody[]" class="textarea input-xxlarge" contenteditable="">' + (text || '') + '</div>'), $('<span class="help-block">Type question in box above. Use underscores to indicate a "blank", if applicable.</span>')];
 }
 
 // Image upload
@@ -563,7 +563,7 @@ function getHelpButton(type) {
  * Point tracking functionality
  */
 function getPointBox(points) {
-  return $('<label>Points</label><div name="PointBox"><input type="number" name="points" min="0" class="input-mini pointsBox" value="' + (points || '1') + '"></div>');
+  return $('<label>Points</label><div name="PointBox"><input type="number" name="points[]" min="0" class="input-mini pointsBox" value="' + (points || '1') + '"></div>');
 }
 
 var curPoint = 0;
