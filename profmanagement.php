@@ -75,7 +75,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <li class="active">
             <a href="./profmanagement" class="nav_links">User Management</a>
           </li>
-          <li><a onclick="quizmaker()" class="nav_links">Quiz Maker</a></li>
+          <li><a href=".quizmaker" onclick="quizmaker()" class="nav_links">Quiz Maker</a></li>
         </ul>
       </div>
     </div>
