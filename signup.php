@@ -6,6 +6,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Check POST data all set
+// need to check $_POST[
 if (!isset($_POST['signup_account']) || !isset($_POST['signup_password']) ||
 	!isset($_POST['signup_confirm_password']) || !isset($_POST['signup_email']) ||
 	!isset($_POST['signup_role'])) {

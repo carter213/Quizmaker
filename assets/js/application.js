@@ -203,6 +203,7 @@
         loadQuiz($('#loadQuizSelect').val());
     })
 
+/*
     $('#quizForm').submit(function (e) {
       e.preventDefault();
       if (saveQuiz()) {
@@ -222,7 +223,7 @@
       }
       return false;
     });
-
+*/
     $('#amigoSidebar').on('click', 'li:not(.not-sortable)', function () {
       var aTag = $('#' + $(this).closest('li').attr('data-linked'));
       $('html,body').animate({
