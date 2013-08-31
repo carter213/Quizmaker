@@ -440,6 +440,58 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   break;
 
                 case 'Fill-in':
+                  $options = mysqli_query($con, "SELECT * FROM fill_in WHERE 
+                    quiz_id=${load_quiz_id} AND question_num=${question_num} 
+                    ORDER BY option_num");
+
+                  print "<div class='newQuestion' data-type='fi' data-sort='${question_num}' id='${question_num}' style='opacity: 100; display: block;>\n";
+                  print "  <span class='badge badge-info'>Fill-in</span>\n";
+                  print "  <span class='pull-right'>\n";
+                  print "    <div name='helpfiButton'>\n";
+                  print "      <button class='btn btn-warning' title='Fill-in Help' onclick='tutorialfi()'>\n";
+                  print "        <i class='icon-question-sign'></i>\n Fill-in Help\n";
+                  print "      </button>\n";
+                  print "    </div>\n";
+                  print "  </span>\n";
+                  print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+                  print "  <label>Question</label>\n";
+                  print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
+                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
+                  print "  </span>\n";
+                  print "  <label>Acceptable Answers</label>\n";
+
+                  if (mysqli_num_rows($options) > 0) {
+                    while ($option = mysqli_fetch_array($options)) {
+                      $option_num = $option['option_num'];
+                      $answer = $option['answer'];
+
+                      print "  <div class='input-append block'>\n";
+                      print "    <input type='text' value='${answer}' name='${question_num}_fi[]' class='input-block'/>\n";
+                      print "    <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                      print "  </div>\n";
+                    }
+                  } else {
+                    print "  <div class='input-append block'>\n";
+                    print "    <input type='text' name='${question_num}_fi[]' class='input-block'/>\n";
+                    print "    <i class='icon-trash btn btn-danger' title='Remove'></i>\n";
+                    print "  </div>\n";
+                  }
+
+                  print "  <div class='input-append'>\n";
+                  print "    <input type='number' value='1' name='addAnswers' class='input-mini' min='1'>\n";
+                  print "    <input type='button' class='btn btn-info' value='Add Answer(s)' name='addAnswer' data-type='fi'>\n";
+                  print "  </div>\n";
+                  print "  <label>Points</label>\n";
+                  print "  <div name='PointBox'>\n";
+                  print "    <input type='number' name='points[]' min='0' class='input-mini pointsBox' value='${points}'>\n";
+                  print "  </div>\n";
+                  print "</div>\n";
+
+                  break;
+
+                case 'Short Answer':
                   break;
 
                   
