@@ -90,7 +90,7 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 if( !is_int($timeLimit) ||  !is_int($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
 	  || strlen($quizname) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizname)   ){
-	header('Location: Login');
+	header('Location: /');
 	exit();
 }
 
@@ -106,7 +106,7 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
    !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
    count($_POST['questionType']) !== count($_POST['questionName']) ||
    count($_POST['questionType']) !== count($_POST['questionBody'])){
-	header('Location: /');
+	header('Location: Login');
 	exit();
 }
 $question_name = $_POST['questionName']; 
