@@ -346,6 +346,7 @@ function addQuestion(type, opts) {
    */
   var d = $('<div></div>').addClass('newQuestion').attr('data-type', type).attr('data-sort', sort).css('display', 'none').attr('id', '' + opts.id + '');
   var l = $('<input type="text" style="display:none" name="' + 'questionType[]" value ="' + type + '" > ');
+  var k = $('<input type="text" style="display:none" name="' + 'questionID[]" value ="' + opts.id + '" > ');
   //alert(l);
      
   
@@ -353,12 +354,14 @@ function addQuestion(type, opts) {
   $(d).append(getBadge(type));
   
   
-  $(d).append(l);     
+  $(d).append(l);  
+  $(d).append(k);  
   // Tutorial button
   $(d).append(getHelpButton(type));
   // Delete button
   $(d).append(getDeleteButton());
   // Question Name
+
   $(d).append(getQuestionName(opts.questionName));
 
   // The question text itself (not for matching)

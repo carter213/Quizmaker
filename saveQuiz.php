@@ -141,29 +141,28 @@ $question_name_arr = $_POST['questionName'];
 $question_type_arr = $_POST['questionType'];
 $question_body_arr = $_POST['questionBody'];
 $question_point_arr = $_POST['points'];
+$question_id_arr = $_POST['questionID'];
 
 $question_name_num = count($question_name_arr);
 
 
 //question start at 1
 //array start at 0
-
-
-for($array_num = 0; $array_num < $question_name_num; $array_num++){
-
-	$count_question_num = $array_num + 1 ;
-
-	if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
+if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
   	   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
   	   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
        !is_array($_POST['points']) || empty($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionName']) ||
    		count($_POST['questionType']) !== count($_POST['questionBody']) ||
-   		count($_POST['questionType']) !== count($_POST['points']) ){
+   		count($_POST['questionType']) !== count($_POST['points']) ||
+   		count($_POST['questionType']) !== count($_POST['questionID']) ){
 		
 		header('Location: /');
 		exit();
 	}
+
+for($array_num = 0; $array_num < $question_name_num; $array_num++){
+	
 	$getQustionName = $question_name_arr[$array_num];
 	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
 	$getQustionName = mysqli_real_escape_string($con, $getQustionName);
@@ -176,6 +175,9 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = $question_point_arr[$array_num];
 	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
+	$count_question_num = $question_id_arr[$array_num];
+	$count_question_num = filter_var($count_question_num, FILTER_SANITIZE_NUMBER_INT);
+	$count_question_num = mysqli_real_escape_string($con, $count_question_num);
 
 
 	if(!ctype_digit($getQuestionPoint)){
@@ -225,26 +227,27 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 
 
 
 			break;
 
 		case "tf":
-				var_dump(strval($count_question_num) . '_tf');
+				//var_dump(strval($count_question_num) . '_tf');
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
+				//var_dump($radio_value_arr);
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
 				}
-				$tmpNum = count($radio_value_arr);
-				while( $tmpNum > 0){
-					var_dump("tf value '${tmpNum}'" . $radio_value_arr[tmpNum]);
-					$tmpNum--;
-				}
+			
 				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
-				var_dump($getTFAnswer);
+				//var_dump($getTFAnswer);
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
@@ -284,22 +287,31 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	
 			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
-			$getAnsValue;
+			var_dump($ans_value_arr);
 			if(!is_array($ans_value_arr)){
 				//should fail
 			}elseif(empty($ans_value_arr)){
 
 			}else{
 				$count_answer = count($ans_value_arr);
+				var_dump($count_answer);
 				for($x = 0; $x < $count_answer ; $x++){
 					$getAnsValue = filter_var($ans_value_arr[$count_answer], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
-
+					var_dump($getAnsValue);
+					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}'
+	                )");
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
 				}
 			}
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
+
 			break;
 		case "sa":
 			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
@@ -320,7 +332,6 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	
 }
-
 exit();
 //class code & quiz_name unquie
 
