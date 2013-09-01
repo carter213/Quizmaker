@@ -222,18 +222,24 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			}else{ */
 
 				//$count_check = count($checked_value_arr);
-				var_dump($checked_value_arr); 
+
 	
 
 				$count_answer = count($ans_value_arr);
 					
 				for($x = 0; $x < $count_answer ; $x++){
 					
+					$checkPos = $x +1;
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
-					var_dump($getCheckedValue); exit();
-					$getCheckedValue = ctype_digit($getCheckedValue);
+					if(array_search($checkPos,$ans_value_arr ))
+					{
+						$getCheckedValue = 1;
+					}else{
+						$getCheckedValue = 0;
+					}
+					
 
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
