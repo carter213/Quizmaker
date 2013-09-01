@@ -55,11 +55,11 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 
 
 //check questionName is array or not and their number should be equal
-if(!is_array($_POST['questionName']) || empty($_POST['questionName') ||
-   !is_array($_POST['questionType']) || empty($_POST['questionType') ||
-   !is_array($_POST['questionBody']) || empty($_POST['questionBody') ||
+if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
+   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
+   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
    count($_POST['questionType']) !== count($_POST['questionName']) ||
-   count($_POST['questionType']) !== count($_POST['questionBody'])  ){
+   count($_POST['questionType']) !== count($_POST['questionBody'])){
 	header('Location: /');
 	exit();
 }
