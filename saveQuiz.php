@@ -110,7 +110,7 @@ $question_name_num = count($question_name);
 //question start at 1
 $count_question_num = 1;
 //array start at 0
-$array_num = 0
+$array_num = 0;
 
 while($questionNum > 0){
 	$getQustionName = $question_name[$array_num];
@@ -145,7 +145,7 @@ while($questionNum > 0){
 
 			}else{
 				$count_answer = count($getAnsValue);
-				
+
 			}
 
 
