@@ -223,7 +223,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 				//$count_check = count($checked_value_arr);
 
-	
+				var_dump($ans_value_arr);
 
 				$count_answer = count($ans_value_arr);
 					
@@ -239,16 +239,19 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}else{
 						$getCheckedValue = 0;
 					}
-					
+
+					var_dump(array_search($checkPos,$ans_value_arr ));
+					var_dump($getCheckedValue);
 
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
+					/*
 					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}',' ${getCheckedValue}'
-	                )");
+	                )");*/
 				}
 
-			
+			 exit();
 
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 
