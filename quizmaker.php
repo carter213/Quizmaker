@@ -150,7 +150,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
               <?php
               while ($quiz = mysqli_fetch_array($quizzes)) {
                 $name = $quiz['quiz_name'];
-                print "<option value='${quiz_name}' ";
+                print "<option value='${name}' ";
                 if ($load_quiz == 1) {
                   if ($name === $load_quiz_name) {
                     print "selected";
