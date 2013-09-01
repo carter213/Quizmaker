@@ -170,28 +170,28 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
         </form>
       </div>
       <div class="span3">
-        <form id="quiz_take_select_form" action="./quiztaker">
+        <form id="quiz_take_select_form" action="./quiztaker" method="get">
           <div class="form-group">
             <label for="quizzes_take_dropdown">Open Quizzes</label>
-            <select id="quizzes_take_dropdown" class="form-control" name="quiz_select">
+            <select id="quizzes_take_dropdown" class="form-control" name="quiz_name">
               <option/>
               <?php
               while ($class_quiz = mysqli_fetch_array($class_quiz_take_arrays)) {
                 $class_code = $class_quiz['class_code'];
                 $quiz_name = $class_quiz['quiz_name'];
-                print "<option class='${class_code}'>${quiz_name}</option>";
+                print "<option class='${class_code}' value="${quiz_name}">${quiz_name}</option>";
               }
               ?>
             </select>
             <input id="class_take_quiz" type="text" style="display:none" 
-                   name="class_quiz"/>
+                   name="class_code"/>
           </div>
           <button type="submit" class="btn btn-default">Take</button>
         </form>
-        <form id="quiz_review_select_form" action="./viewgrade">
+        <form id="quiz_review_select_form" action="./review" method="get">
           <div class="form-group">
             <label for="quizzes_review_dropdown">Graded Quizzes</label>
-            <select id="quizzes_review_dropdown" class="form-control" name="quiz_select">
+            <select id="quizzes_review_dropdown" class="form-control" name="quiz_name">
               <option/>
               <?php
               while ($class_quiz = mysqli_fetch_array($class_quiz_review_arrays)) {
@@ -202,7 +202,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               ?>
             </select>
             <input id="class_review_quiz" type="text" style="display:none" 
-                   name="class_quiz"/>
+                   name="class_code"/>
           </div>
           <button type="submit" class="btn btn-default">Review</button>
         </form>
@@ -252,7 +252,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
 
   function change_class() {
     $("#class_take_quiz").val($("#classes_dropdown").val());
-    $("#class_grade_quiz").val($("#classes_dropdown").val());
+    $("#class_review_quiz").val($("#classes_dropdown").val());
 
     $("#quizzes_take_dropdown").val('');
     $("#quizzes_review_dropdown").val('');
@@ -279,6 +279,8 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
       document.getElementById("leave_class_btn").click();
     }
   }
+  
+  change_class();
 </script>
 </body>
 </html>
