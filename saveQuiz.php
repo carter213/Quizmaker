@@ -270,9 +270,11 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 }
 
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
+$classid = mysqli_fetch_array($classid);
 //class code & quiz_name unquie
 $existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
+	$existQuiz = mysqli_fetch_array($existQuiz);
 	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 }
 
