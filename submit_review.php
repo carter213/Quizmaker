@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
 }
 
 if (!isset($_POST['class_code']) || !isset($_POST['quiz_name']) ||
-    !isset($_POST['student_response[]'])) {
+    !isset($_POST['student_response'])) {
   header('Location: /');
   exit();
 }
@@ -53,7 +53,7 @@ if (mysqli_num_rows($valid_quiz) == 1) {
 $questions = mysqli_query($con, "SELECT * FROM question WHERE quiz_id=${quiz_id}
 	ORDER BY question_num");
 
-$student_response = $_POST['student_response[]'];
+$student_response = $_POST['student_response'];
 
 if (mysqli_num_rows($questions) != count($student_response)) {
   header("Location: review?class_code=${class_code}&quiz_name=${quiz_name}");

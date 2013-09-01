@@ -10,8 +10,8 @@ if (!isset($_SESSION['user_id']) ||
 }
 
 if (!isset($_POST['class_code']) || !isset($_POST['quiz_name']) ||
-	!isset($_POST['loadStudentQuiz']) || !isset($_POST['points[]']) ||
-	!isset($_POST['ta_comment[]']) || !isset($_POST['submit'])) {
+	!isset($_POST['loadStudentQuiz']) || !isset($_POST['points']) ||
+	!isset($_POST['ta_comment']) || !isset($_POST['submit'])) {
   header('Location: /');
   exit();
 }
@@ -83,8 +83,8 @@ if (mysqli_num_rows($valid_quiz) == 1) {
 $questions = mysqli_query($con, "SELECT * FROM question WHERE quiz_id=${quiz_id}
 	ORDER BY question_num");
 
-$ta_comment = $_POST['ta_comment[]'];
-$points = $_POST['points[]'];
+$ta_comment = $_POST['ta_comment'];
+$points = $_POST['points'];
 
 if (mysqli_num_rows($questions) != count($ta_comment) ||
 	mysqli_num_rows($questions) != count($points)) {
