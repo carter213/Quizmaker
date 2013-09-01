@@ -276,6 +276,62 @@ legend + .qtitle:nth-of-type(1) {
                 break;
 
               case 'True / False':
+                print "<div class='qtitle'>Question ${question_num}</div>\n";
+                print "<span class='help-block'>${label}</span>\n";
+                print "<div class='well well-small'>${body}\n";
+                print "  <label class='radio'>\n";
+                print "    <input type='radio' ";
+                if ($answer == 'True') {
+                  print "checked ";
+                }
+                print "disabled>True</label>\n";
+                print "  <label class='radio'>\n";
+                print "    <input type='radio' ";
+                if ($answer == 'False') {
+                  print "checked ";
+                }
+                print "disabled>False</label>\n";
+                print "</div>\n";
+                print "<section class='form-horizontal'>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} Grade: </label>\n";
+                print "  </div>\n";
+                print "  <div class='input-append'>\n";
+                print "    <select class='span10' name='points[]'>\n";
+
+                for ($x = 0; $x < $points; $x++) {
+                  print "      <option value='${x}' ";
+                  if ($student_points == $x) {
+                    print "selected";
+                  }
+                  ">${x}</option>\n";
+                }
+
+                print "    </select>\n";
+                print "    <span class='add-on'>/${points}</span>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} comment:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' name='ta_comment[]'>\n";
+                print "      ${ta_comment}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Student response:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' disabled>\n";
+                print "      ${student_response}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "</section>\n";
+
+                break;
+
+              case 'Matching':
+                
                 
             }
 
