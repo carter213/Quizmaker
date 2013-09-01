@@ -61,10 +61,15 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 
 
 function IsDateAndTimeValid ($Idate , $Itime) {
-	$tmptime = is_object(DateTime::createFromFormat('h:i:s ', $Itime));
+	//$pattern1 = '/^(0?\d|1\d|2[0-3]):[0-5]\d:[0-5]\d$/';
+    //$pattern2 = '/^(0?\d|1[0-2]):[0-5]\d\s(am|pm)$/i';
+    //$timevaild = preg_match($p1, $Itime) || preg_match($p2, $Itime);
+    //$timevaild = date('H:i:s', strtotime($timevaild));
+    date_default_timezone_set('America/Los_Angeles');
+    $tmpTime = is_object(DateTime::createFromFormat('H:i:s' , $Itime))
 	$tmpdate = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
 	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
-	if($tmptime && $tmpdate && $tmpdate2 ){
+	if($timevaild && $tmpdate && $tmpdate2 ){
 		return true;
 	}else{
 		return false;
