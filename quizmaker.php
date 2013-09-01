@@ -393,6 +393,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='badge badge-info'>Multiple Choice</span>\n";
 				  print "    <input type='text' style='display:none' name='questionNum[]' value='${question_num}'>\n";
 				  print "    <input type='text' style='display:none' name='questionType[]' value='mc'>\n";
+				  print "    <input type='text' style='display:none' name='questionID[]' value='${question_num}'>\n";
                   print "  <span class='pull-right'>\n";
                   print "    <div name='helpmcButton'>\n";
                   print "      <button class='btn btn-warning' title='Multiple Choice Help' onclick='tutorialmc()'>\n";
@@ -469,6 +470,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='badge badge-info'>True/False</span>\n";
 				  print "    <input type='text' style='display:none' name='questionNum[]' value='${question_num}'>\n";
 				  print "    <input type='text' style='display:none' name='questionType[]' value='tf'>\n";
+				  print "    <input type='text' style='display:none' name='questionID[]' value='${question_num}'>\n";
                   print "  <span class='pull-right'>\n";
                   print "    <div name='helptfButton'>\n";
                   print "      <button class='btn btn-warning' title='True/False Help' onclick='tutorialtf()'>\n";
@@ -510,6 +512,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='badge badge-info'>Matching</span>\n";
 				  print "    <input type='text' style='display:none' name='questionNum[]' value='${question_num}'>\n";
 				  print "    <input type='text' style='display:none' name='questionType[]' value='m'>\n";
+				  print "    <input type='text' style='display:none' name='questionID[]' value='${question_num}'>\n";
                   print "  <span class='pull-right'>\n";
                   print "    <div name='helpmButton'>\n";
                   print "      <button class='btn btn-warning' title='Matching Help' onclick='tutorialm()'>\n";
@@ -567,6 +570,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='badge badge-info'>Fill-in</span>\n";
 				  print "    <input type='text' style='display:none' name='questionNum[]' value='${question_num}'>\n";
 				  print "    <input type='text' style='display:none' name='questionType[]' value='fi'>\n";
+				  print "    <input type='text' style='display:none' name='questionID[]' value='${question_num}'>\n";
                   print "  <span class='pull-right'>\n";
                   print "    <div name='helpfiButton'>\n";
                   print "      <button class='btn btn-warning' title='Fill-in Help' onclick='tutorialfi()'>\n";
@@ -617,6 +621,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='badge badge-info'>Short Answer</span>\n";
 				  print "    <input type='text' style='display:none' name='questionNum[]' value='${question_num}'>\n";
 				  print "    <input type='text' style='display:none' name='questionType[]' value='sa'>\n";
+				  print "    <input type='text' style='display:none' name='questionID[]' value='${question_num}'>\n";
                   print "  <span class='pull-right'>\n";
                   print "    <div name='helpsaButton'>\n";
                   print "      <button class='btn btn-warning' title='Short Answer Help' onclick='tutorialsa()'>\n";
