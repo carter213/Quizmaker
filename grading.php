@@ -30,7 +30,7 @@ $quiz_name = filter_var($_GET['quiz_name'], FILTER_SANITIZE_STRING);
 $quiz_name = mysqli_real_escape_string($con, $quiz_name);
 
 // Check if class and quiz are valid
-if (strlen($get_code) != 40 || strlen($quiz_name) == 0 || strlen($quiz_name) > 40) {
+if (strlen($class_code) != 40 || strlen($quiz_name) == 0 || strlen($quiz_name) > 40) {
   if ($role == 'Instructor') {
     header('Location: profmanagement');
     exit();
@@ -65,8 +65,8 @@ if (isset($_GET['student_name'])) {
 
   $valid_quiz = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class 
     NATURAL JOIN student_quiz NATURAL JOIN user WHERE 
-    prof_id=${user_id} AND class_code='${get_code}' AND 
-    quiz_name='${quiz_name}' AND account_name='${load_student_name}'");
+    class_code='${class_code}' AND quiz_name='${quiz_name}' 
+    AND account_name='${load_student_name}'");
 
   if (mysqli_num_rows($valid_quiz) == 1) {
     $valid_quiz = mysqli_fetch_array($valid_quiz);
@@ -179,6 +179,8 @@ legend + .qtitle:nth-of-type(1) {
             }
             ?>
           </select>
+          <input type="text" style="display:none" name="quiz_name"
+                 value=<?php print "'${quiz_name}'" ?>/>
           <input type="text" style="display:none" name="class_code" 
                  value=<?php print "'${class_code}'" ?>/>
         </section>
