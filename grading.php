@@ -165,7 +165,7 @@ legend + .qtitle:nth-of-type(1) {
     <div class="span8">
       <form>
         <section>
-          <select name="loadStudentQuiz" id="loadStudentQuiz" class="span2">
+          <select onchange="load_student_quiz()" name="loadStudentQuiz" id="loadStudentQuiz" class="span2">
             <?php
             while ($student = mysqli_fetch_array($students)) {
               $student_name = $student['account_name'];
@@ -179,9 +179,9 @@ legend + .qtitle:nth-of-type(1) {
             }
             ?>
           </select>
-          <input type="text" style="display:none" name="quiz_name"
+          <input id="quiz_name" type="text" style="display:none" name="quiz_name"
                  value=<?php print "'${quiz_name}'" ?>/>
-          <input type="text" style="display:none" name="class_code" 
+          <input id="class_code" type="text" style="display:none" name="class_code" 
                  value=<?php print "'${class_code}'" ?>/>
         </section>
         <?php
@@ -511,6 +511,14 @@ legend + .qtitle:nth-of-type(1) {
   </div>
 </footer>
 <script type="text/javascript">
+  function load_student_quiz() {
+    var class_code = document.getElementById("class_code").value;
+    var quiz_name = document.getElementById("quiz_name").value;
+    var student_name = document.getElementById("loadStudentQuiz").value;
+
+    window.location.href = "grading?class_code=" + class_code + "&quiz_name=" + quiz_name + "&student_name=" + student_name; 
+  }
+
   function save_grading() {
     document.getElementById('save_submit').value = 0;
     document.getElementById('submit_btn').click();
