@@ -70,7 +70,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 	$tmpdate1 = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
 	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
 	$tmpdate = tmpdate1 || tmpdate2;
-	var_dump($tmpdate) ; var_dump($tmpTime) ; exit();
+	
 	if($tmpTime &&  $tmpdate ){
 		return true;
 	}else{
@@ -82,7 +82,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date,$end_time ) || 
 	empty($end_date) || empty($end_time) || empty($start_date) || empty($start_time)
  ){
-	header('Location: login');
+	header('Location: /');
     exit();
 }
 
@@ -90,7 +90,7 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 if( !is_int($timeLimit) ||  !is_int($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
 	  || strlen($quizname) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizname)   ){
-	header('Location: /');
+	header('Location: Login');
 	exit();
 }
 
