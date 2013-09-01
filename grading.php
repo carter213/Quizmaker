@@ -4,12 +4,12 @@ session_start();
 // Check session
 if (!isset($_SESSION['user_id']) || 
     ($_SESSION['role'] !== 'Instructor' && 
-	 $_SESSION['role'] !== 'Teaching Assistant')) {
+	   $_SESSION['role'] !== 'Teaching Assistant')) {
   header('Location: /');
   exit();
 }
 
-if (!isset($_GET['class_code']) || !isset($_GET['quiz_name']) {
+if (!isset($_GET['class_code']) || !isset($_GET['quiz_name'])) {
   header('Location: /');
   exit();
 }
