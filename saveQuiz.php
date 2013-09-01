@@ -220,11 +220,15 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
 			}else{ */
+
+				//$count_check = count($checked_value_arr);
+				var_dump($checked_value_arr); 
+	
+
 				$count_answer = count($ans_value_arr);
-				var_dump($count_answer); 
+					
 				for($x = 0; $x < $count_answer ; $x++){
-					$getCheckedValue = filter_var($checked_value_arr[$x], FILTER_SANITIZE_STRING);
-					$getCheckedValue = mysqli_real_escape_string($con, $getCheckedValue);
+					
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
