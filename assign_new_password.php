@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($_POST['username']) || !isset($_POST['email']) {
+if (!isset($_POST['username']) || !isset($_POST['email'])) {
 	header('Location: /');
 	exit();
 }
