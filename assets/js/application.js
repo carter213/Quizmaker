@@ -373,7 +373,7 @@ function addQuestion(type, opts) {
   $(d).appendEach(q);
 
   // Points box
-  $(d).append(getPointBox(opts.points));
+  $(d).append(getPointBox(opts));
 
   var qName = opts.questionName === '' ? 'Question' : opts.questionName;
 
@@ -571,8 +571,8 @@ function getHelpButton(type) {
 /**
  * Point tracking functionality
  */
-function getPointBox(points) {
-  return $('<label>Points</label><div name="PointBox"><input type="number" name="' + opts.id + '_'+ 'points[]" min="0" class="input-mini pointsBox" value="' + (points || '1') + '"></div>');
+function getPointBox(opts) {
+  return $('<label>Points</label><div name="PointBox"><input type="number" name="' + opts.id + '_'+ 'points[]" min="0" class="input-mini pointsBox" value="' + (opts.points || '1') + '"></div>');
 }
 
 var curPoint = 0;
