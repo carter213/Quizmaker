@@ -227,7 +227,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
-					var_dump($getCheckedValue); exit();
+					var_dump($getCheckedValue); 
 					$getCheckedValue = ctype_digit($getCheckedValue);
 
 					//store to the mysql
@@ -238,7 +238,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				}
 
 			}
-
+			exit();
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 
 			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
