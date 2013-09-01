@@ -249,7 +249,7 @@ legend + .qtitle:nth-of-type(1) {
                   if ($student_points == $x) {
                     print "selected";
                   }
-                  ">${x}</option>\n";
+                  print ">${x}</option>\n";
                 }
 
                 print "    </select>\n";
@@ -304,7 +304,7 @@ legend + .qtitle:nth-of-type(1) {
                   if ($student_points == $x) {
                     print "selected";
                   }
-                  ">${x}</option>\n";
+                  print ">${x}</option>\n";
                 }
 
                 print "    </select>\n";
@@ -331,409 +331,168 @@ legend + .qtitle:nth-of-type(1) {
                 break;
 
               case 'Matching':
-                
-                
-            }
+                print "<div class='qtitle'>Question ${question_num}</div>\n";
+                print "<span class='help-block'>${label}</span>\n";
+                print "<div class='well well-small'>${body}\n";
 
+                $options = mysqli_query($con, "SELECT * FROM student_matching 
+                  NATURAL JOIN matching WHERE quiz_id=${load_quiz_id} AND 
+                  user_id=${student_id} AND question_num=${question_num} 
+                  ORDER BY option_num");
+
+                while ($option = mysqli_fetch_array($options)) {
+                  $word = $option['word'];
+                  $value = $option['value'];
+                  $answer = $option['answer'];
+
+                  print "  <div class='row-fluid'>\n";
+                  print "    <div class='span4'>${word}</div>\n";
+                  print "    <div class='span6 offset2'>${value}</div>\n";
+                  print "    <input type='text' class='span6' value='${answer}' disabled/>\n";
+                  print "  </div>\n";
+                }
+
+                print "</div>\n";
+                print "<section class='form-horizontal'>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} Grade: </label>\n";
+                print "  </div>\n";
+                print "  <div class='input-append'>\n";
+                print "    <select class='span10' name='points[]'>\n";
+
+                for ($x = 0; $x < $points; $x++) {
+                  print "      <option value='${x}' ";
+                  if ($student_points == $x) {
+                    print "selected";
+                  }
+                  print ">${x}</option>\n";
+                }
+
+                print "    </select>\n";
+                print "    <span class='add-on'>/${points}</span>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} comment:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' name='ta_comment[]'>\n";
+                print "      ${ta_comment}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Student response:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' disabled>\n";
+                print "      ${student_response}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "</section>\n";
+
+                break;
+
+              case 'Fill-in':
+                print "<div class='qtitle'>Question ${question_num}</div>\n";
+                print "<span class='help-block'>${label}</span>\n";
+                print "<div class='well well-small'>${body}\n";
+                print "  <input type='text' value='${answer}' disabled>\n";
+                print "</div>\n";
+                print "<section class='form-horizontal'>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} Grade: </label>\n";
+                print "  </div>\n";
+                print "  <div class='input-append'>\n";
+                print "    <select class='span10' name='points[]'>\n";
+
+                for ($x = 0; $x < $points; $x++) {
+                  print "      <option value='${x}' ";
+                  if ($student_points == $x) {
+                    print "selected";
+                  }
+                  print ">${x}</option>\n";
+                }
+
+                print "    </select>\n";
+                print "    <span class='add-on'>/${points}</span>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} comment:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' name='ta_comment[]'>\n";
+                print "      ${ta_comment}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Student response:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' disabled>\n";
+                print "      ${student_response}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "</section>\n";
+
+                break;
+                
+              case 'Short Answer':
+                print "<div class='qtitle'>Question ${question_num}</div>\n";
+                print "<span class='help-block'>${label}</span>\n";
+                print "<div class='well well-small'>${body}\n";
+                print "  <br/>\n";
+                print "  <textarea rows='5' cols='100' class='span6' readonly>${answer}</textarea>\n";
+                print "</div>\n";
+                print "<section class='form-horizontal'>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} Grade: </label>\n";
+                print "  </div>\n";
+                print "  <div class='input-append'>\n";
+                print "    <select class='span10' name='points[]'>\n";
+
+                for ($x = 0; $x < $points; $x++) {
+                  print "      <option value='${x}' ";
+                  if ($student_points == $x) {
+                    print "selected";
+                  }
+                  print ">${x}</option>\n";
+                }
+
+                print "    </select>\n";
+                print "    <span class='add-on'>/${points}</span>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} comment:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' name='ta_comment[]'>\n";
+                print "      ${ta_comment}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Student response:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' disabled>\n";
+                print "      ${student_response}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "</section>\n";
+
+                break;
+
+            }
           }
 
           print "</section>";
+          print "<div class='form-actions'>\n";
+          print "  <span class='pull-right'>\n";
+          print "    <button class='btn'>Save</button>\n";
+          print "    <button class='btn btn-success'>Submit</button>\n";
+          print "    <button id='submit_btn' type='submit' style='display: none'></button>\n";
+          print "  </span>\n";
+          print "</div>\n";
         }
         ?>
-        <!--
-        <fieldset>
-          <legend>True / False</legend>
-          <div class="qtitle">Question 1</div>
-          <div class="well well-small">A browser is the same as a search engine.
-            <label class="radio">
-              <input type="radio" name="optionsRadios1" id="optionsRadiosQ1T" value="option1" checked>
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios1" id="optionsRadiosQ1F" value="option2" disabled>
-              False</label>
-          </div>
-           <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q1 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q1 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>          <div class="qtitle">Question 2</div>
-          <div class="well well-small">The median is the value that occurs most often in a sample of data.
-            <label class="radio">
-              <input type="radio" name="optionsRadios2" id="optionsRadiosQ2T" value="1" disabled>
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios2" id="optionsRadiosQ2F" value="0" checked>
-              False</label>
-          </div>
-           <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q2 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q2 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-          
-          <div class="qtitle">Question 3</div>
-          <div class="well well-small">If two nonempty sets are independent, they can not be disjoint.
-            <label class="radio">
-              <input type="radio" name="optionsRadios3" id="optionsRadiosQ3T" value="1" checked>
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios3" id="optionsRadiosQ3F" value="0" disabled>
-              False</label>
-          </div>
-           <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q3 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q3 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-        </fieldset>
-        <fieldset>
-          <legend>Multiple Choice</legend>
-          <div class="qtitle">Question 4</div>
-          <span class="help-block">Select only one option</span>
-          <div class="well well-small">What causes night and day?
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4A" value="A" disabled>
-              A. The earth spins on its axis.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4B" value="B" checked>
-              B. The earth moves around the sun.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4C" value="C" disabled>
-              C. Clouds block out the sun's light.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4D" value="D" disabled>
-              D. The earth moves into and out of the sun's shadow.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4E" value="E" disabled>
-              E. The sun goes around the earth.</label>
-          </div>
-           <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q4 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q4 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-          <div class="qtitle">Question 5</div>
-          <span class="help-block">Check all that apply</span>
-          <div class="well wells-small">Which colors do you like?
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5A" disabled>
-              A. Red</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5B" disabled checked>
-              B. Blue</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5C" disabled>
-              C. Green</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5D" disabled>
-              D. Yellow</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5E" disabled>
-              E. Purple</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5F" disabled>
-              F. All of the Above</label>
-          </div>
-        </fieldset>
-        <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q5 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q5 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-        <fieldset>
-          <legend>Matching</legend>
-          <div class="qtitle">Question 6</div>
-          <span class="help-block">Fill in blanks with corresponding letters</span>
-          <div class="well well-small"> Match each quotation with the appropriate play
-            <div class="row-fluid">
-              <div class="span4">1. ____ The Tempest</div>
-              <div class="span6 offset2">A. Small to greater matters must give way.</div>
-              <input type="text" class="span1" value="D" disabled>
-            </div>
-            <div class="row-fluid">
-              <div class="span4">2. ____ King John</div>
-              <div class="span6 offset2">B. For I am nothing, if not critical</div>
-              <input type="text" class="span1" value="B" disabled>
-            </div>
-            <div class="row-fluid">
-              <div class="span4">3. ____ Othello</div>
-              <div class="span6 offset2">C. I would fain die a dry death.</div>
-              <input type="text" class="span1" value="C" disabled>
-            </div>
-            <div class="row-fluid">
-              <div class="span4">4. ____ Anthony and Cleopatra</div>
-              <div class="span6 offset2">D. Sweet, sweet, sweet poison for the age's tooth.</div>
-              <input type="text" class="span1" value="A" disabled>
-            </div>
-          </div>
-        </fieldset>
-        
-         <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q6 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q6 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-        
-        
-        
-        
-        
-        <fieldset>
-          <legend>Fill-in</legend>
-          <div class="qtitle">Question 7</div>
-          <div class="well well-small"> Lorem ipsum dolor sit amet, ____________________ adipiscing elit. <br>
-            <input type="text" value="NO idea" disabled>
-          </div>
-          <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q7 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q7 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-          
-          
-          
-          <div class="qtitle">Question 8</div>
-          <div class="well well-small"> My favorite class is ____________________ . <br>
-            <input type="text" value="CSE135" disabled>
-          </div>
-          <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q8 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q8 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-          <div class="qtitle">Question 9</div>
-          <div class="well well-small">20 + 3( __ - 1) = 32
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9A" value="A" disabled>
-              A. 8</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9B" value="B" checked>
-              B. 5</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9C" value="C" disabled>
-              C. 10</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9D" value="D" disabled>
-              D. 7</label>
-          </div>
-        </fieldset>
-        <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q9 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q9 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-        <fieldset>
-          <legend>Short Answer</legend>
-          <div class="qtitle">Question 10</div>
-          <div class="well well-small">Why should we learn HTML5? <br>
-            <textarea rows="5" cols="100" class="span6" readonly>I don't know</textarea>
-          </div>
-        </fieldset>
-        <form class="form-horizontal">
-	      	<div class="control-group" >
-	        	<label>Q10 Grade: </label>
-	      	</div>
-	      	<div class="control-group" >
-	          		<div class="input-append">
-			          	<select class="span10" >
-			          		<option>1 </option>
-			          		<option>2 </option>
-			          		<option>3 </option>
-			          		<option>4 </option>
-			          		<option>5 </option>
-			          	</select>
-			          	<span class="add-on">/5</span>          	
-		          	</div>
-	          	</div>
-	      	
-	       <div class="control-group" >
-	       		<label>Q10 comment:</label>
-	       </div>
-	       <div class="control-group">
-		       		 <textarea rows="3"></textarea>
-	       	</div>
-          </form>
-        
-        
-          <div class="form-actions">
-            <span class="pull-right">
-              <button class="btn">Save</button>
-              <button class="btn btn-success">Submit</button>
-            </span>
-          </div>
-        </section> -->
-
       </form>
     </div>
   </div>
