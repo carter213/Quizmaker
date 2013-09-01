@@ -70,6 +70,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 	$tmpdate1 = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
 	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
 	$tmpdate = tmpdate1 || tmpdate2;
+	var_dump($tmpdate) . var_dump($tmpTime) ; exit();
 	if($tmpTime &&  $tmpdate ){
 		return true;
 	}else{
