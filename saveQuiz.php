@@ -91,9 +91,6 @@ if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) ||
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
 	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizName)   ){
 
-	var_dump(!ctype_digit($timeLimit));var_dump(!ctype_digit($possiblePoints));var_dump(strlen($possiblePoints) > 5);
-	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizName) > 40);var_dump(empty($timeLimit));
-	var_dump(empty($possiblePoints));var_dump(empty($quizName)); exit();
 	header('Location: /');
 	exit();
 }
@@ -101,7 +98,7 @@ if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) ||
 //check the valid reavel name & viewAnswer
 if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers !== "On Turn-in" 
 	 || $randomizeTaker !== "Fixed Order" || $randomizeTaker !== "Randomized Order" ){
-	header('Location: /');
+	header('Location: Login');
 	exit();
 }
 
