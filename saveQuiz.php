@@ -114,10 +114,13 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
 $classid = mysqli_fetch_array($classid)[0];
 
-$existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+$existQuiz = mysqli_query($con, "SELECT quiz_id,quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
-	$existQuiz = mysqli_fetch_array($existQuiz)[0];
-	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+	$existQuiz = mysqli_fetch_array($existQuiz);
+	$oldQuizId = $existQuiz[0];
+	$oldQuizName = $exitQuiz[1];
+	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
+	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'  ")
 }
 
 
@@ -181,7 +184,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	}
 	$getQuestionPoint = ctype_digit($getQuestionPoint);
 
-	$getTFAnswer ;
+
 
 	switch($getQuestionType){
 
@@ -233,6 +236,8 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					//skip ?
 				}
 
+				var_dump("tf here");
+				var_dump($count_question_num);
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
 
