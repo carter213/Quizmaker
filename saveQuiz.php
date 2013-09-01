@@ -297,6 +297,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	                ('${getQuizId}', '${getQuestionType}', '${questionName}',  ${count_question_num}',
 	                ${getQuestionBody}',${getTFAnswer}',${getQuestionPoint}',
 	                )");
+	var_dump('ture'); exit();
 	
 }
 
