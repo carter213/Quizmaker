@@ -154,7 +154,7 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
        !is_array($_POST['points']) || empty($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionName']) ||
    		count($_POST['questionType']) !== count($_POST['questionBody']) ||
-   		count($_POST['questionType']) !== count($_POST['points'])
+   		count($_POST['questionType']) !== count($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionID']) ){
 		
 		header('Location: /');
