@@ -174,7 +174,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
 
-
+	var_dump($getQustionName); exit();
 	if(!ctype_digit($getQuestionPoint)){
 		header('Location: /');
 		exit();
