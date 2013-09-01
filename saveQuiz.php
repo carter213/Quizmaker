@@ -243,11 +243,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
 				}
-				$tmpNum = count($radio_value_arr);
-				while( $tmpNum > 0){
-					var_dump("tf value '${tmpNum}'" . $radio_value_arr[$tmpNum]);
-					$tmpNum--;
-				}
+			
 				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
