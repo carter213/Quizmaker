@@ -148,6 +148,7 @@ legend + .qtitle:nth-of-type(1) {
             } else {
               print '<a href="./tamanagement" class=nav_links">User Management</a>';
             }
+            ?>
           </li>
         </ul>
       </div>
