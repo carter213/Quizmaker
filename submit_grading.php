@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id']) ||
 
 if (!isset($_POST['class_code']) || !isset($_POST['quiz_name']) ||
 	!isset($_POST['loadStudentQuiz']) || !isset($_POST['points[]']) ||
-	!isset($_POST['ta_comment[]'])) {
+	!isset($_POST['ta_comment[]']) || !isset($_POST['submit'])) {
   header('Location: /');
   exit();
 }
@@ -125,8 +125,13 @@ for ($x = 0; $x < count($ta_comment); $x++) {
     $final_points += $pt;
 }
 
-mysqli_query($con, "UPDATE student_quiz SET points=${final_points}, graded=1 WHERE 
-	user_id=${student_id} AND quiz_id=${quiz_id}");
+if ($_POST['submit'] == 1) {
+  mysqli_query($con, "UPDATE student_quiz SET points=${final_points}, graded=1 WHERE 
+   user_id=${student_id} AND quiz_id=${quiz_id}");
+} else {
+  mysqli_query($con, "UPDATE student_quiz SET points=${final_points} WHERE 
+   user_id=${student_id} AND quiz_id=${quiz_id}");
+}
 
 header("Location: grading?class_code=${class_code}&quiz_name=${quiz_name}");
 exit();

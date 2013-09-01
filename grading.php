@@ -488,8 +488,9 @@ legend + .qtitle:nth-of-type(1) {
           print "</section>";
           print "<div class='form-actions'>\n";
           print "  <span class='pull-right'>\n";
-          print "    <button class='btn'>Save</button>\n";
-          print "    <button class='btn btn-success'>Submit</button>\n";
+          print "    <input id='save_submit' name='submit' type='number' value='0' style='display:none'>\n"
+          print "    <button onclick='save_grading()' class='btn'>Save</button>\n";
+          print "    <button onclick='submit_grading()' class='btn btn-success'>Submit</button>\n";
           print "    <button id='submit_btn' type='submit' style='display: none'></button>\n";
           print "  </span>\n";
           print "</div>\n";
@@ -509,5 +510,16 @@ legend + .qtitle:nth-of-type(1) {
     <p class="pull-right"><a href="#">Back to top</a></p>
   </div>
 </footer>
+<script type="text/javascript">
+  function save_grading() {
+    document.getElementById('save_submit').value = 0;
+    document.getElementById('submit_btn').click();
+  }
+
+  function submit_grading() {
+    document.getElementById('save_submit').value = 1;
+    document.getElementById('submit_btn').click();
+  }
+</script>
 </body>
 </html>
