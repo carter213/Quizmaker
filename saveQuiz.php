@@ -80,7 +80,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 if(!(IsDateAndTimeValid($start_date,$start_time) || IsDateAndTimeValid($end_date,$end_time )) || 
 	empty($end_date) || empty($end_time) || empty($start_date) || empty($start_time)
  ){
-	header('Location: login');
+	header('Location: /');
     exit();
 }
 
