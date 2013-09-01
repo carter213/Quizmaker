@@ -50,6 +50,13 @@ $randomizeTaker = filter_var($_POST['randomizeTaker'], FILTER_SANITIZE_STRING);
 $randomizeTaker = mysqli_real_escape_string($con, $randomizeTaker);
 $classcode = filter_var($_POST['class_code'], FILTER_SANITIZE_STRING);
 $classcode = mysqli_real_escape_string($con, $classcode);
+$questionName;
+
+
+//check it is array or not
+	if(!is_array($_POST['questionName[]']))
+	
+ =  filter_var($_POST['questionName[]'], FILTER_SANITIZE_STRING);
 
 function IsDateAndTimeValid ($Idate , $Itime) {
 	$tmptime = is_object(DateTime::createFromFormat('h:i:s a', $Itime));
@@ -86,8 +93,7 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 
 
 $questionNum;
-
-
+if(empty())
 
 
 header("Location: quizmaker?class_code=${classcode}");
