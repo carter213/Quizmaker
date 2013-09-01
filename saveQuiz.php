@@ -287,16 +287,18 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	
 			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
-		
+			var_dump($ans_value_arr);
 			if(!is_array($ans_value_arr)){
 				//should fail
 			}elseif(empty($ans_value_arr)){
 
 			}else{
 				$count_answer = count($ans_value_arr);
+				var_dump($count_answer);
 				for($x = 0; $x < $count_answer ; $x++){
 					$getAnsValue = filter_var($ans_value_arr[$count_answer], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
+					var_dump($getAnsValue);
 					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}'
 	                )");
@@ -330,7 +332,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	
 }
-
+exit();
 //class code & quiz_name unquie
 
 
