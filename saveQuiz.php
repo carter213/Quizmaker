@@ -184,7 +184,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	}
 	$getQuestionPoint = ctype_digit($getQuestionPoint);
 
-	var_dump($getQuestionType);
+
 
 
 	switch($getQuestionType){
@@ -238,9 +238,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				}
 
 				
-				var_dump($count_question_num);
+				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
+				var_dump($getTFAnswer);
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
