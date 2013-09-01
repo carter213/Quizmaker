@@ -67,9 +67,10 @@ function IsDateAndTimeValid ($Idate , $Itime) {
     //$timevaild = date('H:i:s', strtotime($timevaild));
     date_default_timezone_set('America/Los_Angeles');
     $tmpTime = is_object(DateTime::createFromFormat('H:i:s' , $Itime));
-	$tmpdate = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
+	$tmpdate1 = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
 	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
-	if($tmpTime && $tmpdate && $tmpdate2 ){
+	$tmpdate = tmpdate1 || tmpdate2;
+	if($tmpTime &&  $tmpdate ){
 		return true;
 	}else{
 		return false;
@@ -144,7 +145,8 @@ while($questionNum > 0){
 
 			$radioValue = filter_var($getRadioValue[0], FILTER_SANITIZE_STRING);
 			$radioValue = mysqli_real_escape_string($con, $radioValue);
-			
+			$checkValue;
+			$ansValue;
 			if(count($getCheckedValue) !== count($getAnsValue) || !is_array($getCheckedValue) ||
 				!is_array($getAnsValue)){
 				//should fail
@@ -152,6 +154,14 @@ while($questionNum > 0){
 
 			}else{
 				$count_answer = count($getAnsValue);
+				for($x = 0; $x < $count_answer : $x++){
+					$checkValue = filter_var($getCheckedValue[$count_answer], FILTER_SANITIZE_STRING);
+					$checkValue = mysqli_real_escape_string($con, $checkValue);
+					$ansValue = filter_var($getAnsValue[$count_answer], FILTER_SANITIZE_STRING);
+					$ansValue = mysqli_real_escape_string($con, $checkValue);
+
+					//store to the mysql
+				}
 
 			}
 
