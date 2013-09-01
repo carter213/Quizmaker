@@ -69,7 +69,7 @@ mysqli_query($con, "INSERT INTO user (email, account_name, password, role) VALUE
 
 // Set user_id as session id
 $account = mysqli_query($con, "SELECT * FROM user WHERE account_name='${signup_account}'");
-$account = mysqli_fetch_array($user_id);
+$account = mysqli_fetch_array($account);
 
 $_SESSION['user_id'] = $account['user_id'];
 $_SESSION['role'] = $account['role'];
