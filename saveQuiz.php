@@ -174,7 +174,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
 
-	var_dump($getQustionName); exit();
+
 	if(!ctype_digit($getQuestionPoint)){
 		header('Location: /');
 		exit();
@@ -294,7 +294,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	}
 	mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${questionName}',  '${count_question_num}',
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
 	                )");
 
