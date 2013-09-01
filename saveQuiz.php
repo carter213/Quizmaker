@@ -120,7 +120,7 @@ if(mysqli_num_rows($existQuiz)){
 	$oldQuizId = $existQuiz[0];
 	$oldQuizName = $exitQuiz[1];
 	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
-	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'  ")
+	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'");
 }
 
 
