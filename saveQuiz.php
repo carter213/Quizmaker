@@ -89,7 +89,7 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 //check the valid points ,quizName and  time limit
 if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
-	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($)   ){
+	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizName)   ){
 
 	var_dump(!ctype_digit($timeLimit));var_dump(!ctype_digit($possiblePoints));var_dump(strlen($possiblePoints) > 5);
 	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizName) > 40);var_dump(empty($timeLimit));
