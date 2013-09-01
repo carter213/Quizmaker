@@ -1,3 +1,67 @@
+<?
+session_start();
+
+// Check session
+if (!isset($_SESSION['user_id']) || 
+    ($_SESSION['role'] !== 'Instructor' && 
+	 $_SESSION['role'] !== 'Teaching Assistant')) {
+  header('Location: /');
+  exit();
+}
+
+if (!isset($_GET['class_code']) || !isset($_GET['quiz_name']) {
+  header('Location: /');
+  exit();
+}
+
+$user_id = $_SESSION['user_id'];
+$role = $_SESSION['role'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+  header('Location: /');
+  exit();
+}
+
+$class_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
+$class_code = mysqli_real_escape_string($con, $class_code);
+$quiz_name = filter_var($_GET['quiz_name'], FILTER_SANITIZE_STRING);
+$quiz_name = mysqli_real_escape_string($con, $quiz_name);
+
+// Check if class and quiz are valid
+if (strlen($get_code) != 40 || strlen($quiz_name) == 0 || strlen($quiz_name) > 40) {
+  if ($role == 'Instructor') {
+    header('Location: profmanagement');
+    exit();
+  } else {
+    header('Location: tamanagement');
+	exit();
+  }
+}
+
+if ($role == 'Instructor') {
+  $valid_class = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}
+    AND class_code='${class_code}'");
+
+  if (mysqli_num_rows($valid_class) != 1) {
+    header('Location: profmanagement');
+    exit();
+  }
+} else {
+  $valid_class = mysqli_query($con, "SELECT * FROM class_member NATURAL JOIN
+    class WHERE user_id=${user_id} AND class_code='${class_code}'");
+	
+  if (mysqli_num_rows($valid_class) != 1) {
+    header('Location: tamanagement');
+    exit();
+  }
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
