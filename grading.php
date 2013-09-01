@@ -163,7 +163,7 @@ legend + .qtitle:nth-of-type(1) {
   <div class="row-fluid">
     <div class="span2"> </div>
     <div class="span8">
-      <form>
+      <form action="submit_grading" method="post">
         <section>
           <select onchange="load_student_quiz()" name="loadStudentQuiz" id="loadStudentQuiz" class="span2">
             <?php
