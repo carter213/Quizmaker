@@ -66,10 +66,10 @@ function IsDateAndTimeValid ($Idate , $Itime) {
     //$timevaild = preg_match($p1, $Itime) || preg_match($p2, $Itime);
     //$timevaild = date('H:i:s', strtotime($timevaild));
     date_default_timezone_set('America/Los_Angeles');
-    $tmpTime = is_object(DateTime::createFromFormat('H:i:s' , $Itime))
+    $tmpTime = is_object(DateTime::createFromFormat('H:i:s' , $Itime));
 	$tmpdate = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
 	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
-	if($timevaild && $tmpdate && $tmpdate2 ){
+	if($tmpTime && $tmpdate && $tmpdate2 ){
 		return true;
 	}else{
 		return false;
