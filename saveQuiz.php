@@ -15,8 +15,8 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor'){
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName']) || !isset($_POST['class_code']) 
-	|| !isset($_POST['questionType']) || !isset($_POST['questionBody']) ) {
+	!isset($_POST['randomizeTaker']) || !isset($_POST['class_code']) 
+	 ) {
 	header('Location: login');
     exit();
 }
@@ -55,14 +55,7 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 
 
 //check questionName is array or not and their number should be equal
-if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
-   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
-   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
-   count($_POST['questionType']) !== count($_POST['questionName']) ||
-   count($_POST['questionType']) !== count($_POST['questionBody'])){
-	header('Location: /');
-	exit();
-}
+
 
 $question_name = $_POST['questionName']; 
 $question_type = $_POST['questionType'];
@@ -103,6 +96,14 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 	exit();
 }
 
+if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
+   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
+   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
+   count($_POST['questionType']) !== count($_POST['questionName']) ||
+   count($_POST['questionType']) !== count($_POST['questionBody'])){
+	header('Location: /');
+	exit();
+}
 
 $question_name_num = count($question_name);
 
