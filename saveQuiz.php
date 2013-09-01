@@ -57,7 +57,7 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 //check questionName is array or not and their number should be equal
 
 
-
+$getUserId = $_SESSION['user_id'];
 
 
 function IsDateAndTimeValid ($Idate , $Itime) {
@@ -86,6 +86,9 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
     exit();
 }
 
+$getStartDateAndTime = $start_date . ' ' . $start_time;
+$getEndDateAndTime = $end_date . ' ' . $end_time;
+
 //check the valid points ,quizName and  time limit
 if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
@@ -99,7 +102,7 @@ if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) ||
 	exit();
 }
 
-//check the valid reavel name & viewAnswer
+//check the valid reavel name & viewAnswers
 $flagviewAnswers = !($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers !== "On Turn-in");
 $flagrandomizeTaker = !($randomizeTaker !== "Fixed Order" || $randomizeTaker !== "Randomized Order" );
 if($flagviewAnswers || $flagrandomizeTaker  ){
@@ -266,8 +269,21 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	
 }
 
-//need to check the $i should be equal the the questionNUm
+//class code & quiz_name unquie
+$existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classcode}' AND quiz_name = '${quizName}' ");
+if(mysqli_num_rows($existQuiz)){
+	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classcode}' AND quiz_name = '${quizName}' ");
+}
 
+
+
+
+
+//need to check the $i should be equal the the questionNUm
+mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class_id, time_limit,reveal_answers,
+					 open_date,deadline, display_order ) VALUES 
+	                ('${getUserId}', '${quizName}', '${possiblePoints}',  '${classcode}','${timeLimit}', 
+	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
 
 header("Location: quizmaker?class_code=${classcode}");
 exit();
