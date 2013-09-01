@@ -233,14 +233,14 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
-					if(array_search($checkPos,$ans_value_arr ))
+					if(array_search($checkPos,$checked_value_arr ))
 					{
 						$getCheckedValue = 1;
 					}else{
 						$getCheckedValue = 0;
 					}
 
-					var_dump(array_search($checkPos,$ans_value_arr ));
+					var_dump(array_search($checkPos,$checked_value_arr ));
 					var_dump($getCheckedValue);
 
 					//store to the mysql
