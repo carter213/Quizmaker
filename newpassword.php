@@ -43,7 +43,7 @@
           <img class="errImg" src="/image/TP-error.png" alt="Error"/>
         </section>
         <section class="errMsg">
-          <h1>&nbsp;&nbsp;New password assigned</h1>
+          <h3>&nbsp;&nbsp;New password assigned</h3>
           <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check your email for the new password.</h4>
         </section>
         <h1>&nbsp;</h1>
