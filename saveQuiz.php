@@ -336,7 +336,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 //class code & quiz_name unquie
 
 
-header("Location: quizmaker?class_code=${classcode}&quiz_name=${quizName}");
+header("Location: quizmaker?class_code=${classcode}");
 exit();
 
 
