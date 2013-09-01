@@ -151,21 +151,21 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
         </form>
       </div>
       <div class="span4">
-        <form id="quiz_select_form" action= "./grading" method='post'>
+        <form id="quiz_select_form" action= "./grading" method='get'>
           <div class="form-group">
             <label for="quizzes_dropdown">Quizzes</label>
-            <select id="quizzes_dropdown" class="form-control" name="quiz_select">
+            <select id="quizzes_dropdown" class="form-control" name="quiz_name">
               <option/>
               <?php
               while ($class_quiz = mysqli_fetch_array($class_quiz_arrays)) {
                 $class_code = $class_quiz['class_code'];
                 $quiz_name = $class_quiz['quiz_name'];
-                print "<option class='${class_code}'>${quiz_name}</option>";
+                print "<option class='${class_code}' value='${quiz_name}'>${quiz_name}</option>";
               }
               ?>
             </select>
             <input id="class_quiz" type="text" style="display:none" 
-                   name="class_quiz"/>
+                   name="class_code"/>
           </div>
           <button type="submit" class="btn btn-default">Grade quiz</button>
         </form>
@@ -235,6 +235,8 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
       document.getElementById("leave_class_btn").click();
     }
   }
+  
+  change_class();
 </script>
 </body>
 </html>
