@@ -223,7 +223,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 				//$count_check = count($checked_value_arr);
 
-				var_dump($ans_value_arr);
+				var_dump($checked_value_arr);
 
 				$count_answer = count($ans_value_arr);
 					
