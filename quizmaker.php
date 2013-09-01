@@ -832,7 +832,7 @@ function load_quiz() {
 
 <?php
 if ($load_quiz == 1) {
-	print "numQuestions = ${num};"
+	print "numQuestions = ${num};\n";
 }
 ?>
 </script>
