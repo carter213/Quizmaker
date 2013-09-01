@@ -126,7 +126,7 @@ while($questionNum > 0){
 
 			break;
 
-		case "tf"
+		case "tf":
 
 			break;
 
