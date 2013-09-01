@@ -131,7 +131,7 @@ while($questionNum > 0){
 			$getAnsValue = $_POST[strval($count_question_num) . '_mc_ans'];
 			//check vaild radio input
 			
-			if(!is_array($getRadioValue]) || empty($getRadioValue)){
+			if(!is_array($getRadioValue) || empty($getRadioValue)){
 				//skip ?
 			}
 
