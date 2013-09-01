@@ -227,6 +227,9 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
+					var_dump($getCheckedValue); exit();
+					$getCheckedValue = ctype_digit($getCheckedValue);
+
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
 					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
