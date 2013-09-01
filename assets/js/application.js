@@ -572,7 +572,7 @@ function getHelpButton(type) {
  * Point tracking functionality
  */
 function getPointBox(points) {
-  return $('<label>Points</label><div name="PointBox"><input type="number" name="points[]" min="0" class="input-mini pointsBox" value="' + (points || '1') + '"></div>');
+  return $('<label>Points</label><div name="PointBox"><input type="number" name="' + opts.id + '_'+ 'points[]" min="0" class="input-mini pointsBox" value="' + (points || '1') + '"></div>');
 }
 
 var curPoint = 0;

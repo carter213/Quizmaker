@@ -123,6 +123,17 @@ while($questionNum > 0){
 	switch($getQuestionType){
 
 		case "mc":
+			$getRadioValue = $_POST[strval($i) . '_numToChoose'];
+			$getCheckedValue = $_POST[strval($i) . '_mc_checked[]'];
+			$getAnsValue = $_POST[strval($i) . '_mc_ans[]'];
+			
+			//check vaild radio input
+			if(!is_array($getRadioValue]) || $getRadioValue !== "one" || $getRadioValue !== "multiple"
+				|| !is_array($getCheckedValue) || !is_array($getAnsValue) ){
+				//skip ?
+			}
+
+
 
 			break;
 
