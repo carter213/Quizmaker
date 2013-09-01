@@ -31,8 +31,8 @@ if (mysqli_connect_errno($con)) {
 
 
 
-$quizname = filter_var($_POST['quizName'], FILTER_SANITIZE_STRING);
-$quizname = mysqli_real_escape_string($con, $quizname);
+$quizName = filter_var($_POST['quizName'], FILTER_SANITIZE_STRING);
+$quizName = mysqli_real_escape_string($con, $quizName);
 $timeLimit = filter_var($_POST['timeLimit'], FILTER_SANITIZE_NUMBER_INT);
 $timeLimit = mysqli_real_escape_string($con, $timeLimit);
 $possiblePoints = filter_var($_POST['possiblePoints'], FILTER_SANITIZE_NUMBER_INT);
@@ -86,13 +86,13 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
     exit();
 }
 
-//check the valid points ,quizname and  time limit
+//check the valid points ,quizName and  time limit
 if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
-	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizName)   ){
+	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($)   ){
 
 	var_dump(!ctype_digit($timeLimit));var_dump(!ctype_digit($possiblePoints));var_dump(strlen($possiblePoints) > 5);
-	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizname) > 40);var_dump(empty($timeLimit));
+	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizName) > 40);var_dump(empty($timeLimit));
 	var_dump(empty($possiblePoints));var_dump(empty($quizName)); exit();
 	header('Location: /');
 	exit();
