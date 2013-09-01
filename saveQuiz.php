@@ -114,10 +114,13 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
 $classid = mysqli_fetch_array($classid)[0];
 
-$existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+$existQuiz = mysqli_query($con, "SELECT quiz_id,quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
-	$existQuiz = mysqli_fetch_array($existQuiz)[0];
-	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+	$existQuiz = mysqli_fetch_array($existQuiz);
+	$oldQuizId = $existQuiz[0];
+	$oldQuizName = $exitQuiz[1];
+	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
+	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'");
 }
 
 
@@ -174,8 +177,6 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
 
-	var_dump(!ctype_digit($getQuestionPoint)); 
-	var_dump($getQuestionPoint) ; exit();
 
 	if(!ctype_digit($getQuestionPoint)){
 		header('Location: /');
@@ -183,7 +184,8 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	}
 	$getQuestionPoint = ctype_digit($getQuestionPoint);
 
-	$getTFAnswer = null;
+
+
 
 	switch($getQuestionType){
 
@@ -229,15 +231,21 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			break;
 
 		case "tf":
-
+				var_dump("tf here");
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
 				}
 
+				
+				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
-
+				var_dump($getTFAnswer);
+				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
+	                )");
 				//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 			break;
 
@@ -290,19 +298,27 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			}
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 			break;
+		case "sa":
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 
+			break;
 		//don't know just skip this question or drop all the thing
 		default:
 
 	}
-	mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${questionName}',  ${count_question_num}',
-	                ${getQuestionBody}',${getTFAnswer}',${getQuestionPoint}',
-	                )");
+
+
+	
+
+
+
 	
 }
 
-
+exit();
 //class code & quiz_name unquie
 
 
