@@ -148,7 +148,7 @@ $question_name_num = count($question_name_arr);
 
 for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
-	$count_question_num = $array_num++ ;
+	$count_question_num = $array_num + 1 ;
 
 	if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
   	   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
@@ -175,7 +175,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
 
 	var_dump(!ctype_digit($getQuestionPoint)); 
-	echo $getQuestionPoint; exit();
+	var_dump($getQuestionPoint) ; exit();
 
 	if(!ctype_digit($getQuestionPoint)){
 		header('Location: /');
