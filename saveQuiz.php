@@ -184,6 +184,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	}
 	$getQuestionPoint = ctype_digit($getQuestionPoint);
 
+	var_dump($getQuestionType);
 
 
 	switch($getQuestionType){
@@ -230,13 +231,13 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			break;
 
 		case "tf":
-
+				var_dump("tf here");
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
 				}
 
-				var_dump("tf here");
+				
 				var_dump($count_question_num);
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
