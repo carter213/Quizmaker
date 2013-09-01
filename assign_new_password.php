@@ -27,7 +27,7 @@ $email = mysqli_real_escape_string($con, $email);
 $exists = mysqli_query($con, "SELECT * FROM user WHERE account_name='${username}' 
 	AND email='${email}'");
 	
-if (mysqli_num_rows($exists != 1)) {
+if (mysqli_num_rows($exists) != 1) {
   header('Location: /');
   exit();
 }
