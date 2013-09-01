@@ -90,6 +90,9 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 if( !is_int($timeLimit) ||  !is_int($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
 	  || strlen($quizname) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizname)   ){
+	var_dump(!is_int($timeLimit));var_dump(!is_int($possiblePoints));var_dump(strlen($possiblePoints) > 5);
+	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizname) > 40);var_dump(!empty($timeLimit));
+	var_dump(empty($possiblePoints));var_dump(empty($quizname)); exit();
 	header('Location: /');
 	exit();
 }
