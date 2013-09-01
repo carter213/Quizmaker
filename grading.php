@@ -205,7 +205,7 @@ legend + .qtitle:nth-of-type(1) {
             $student_response = $question['student_response'];
 
             switch ($question['type']) {
-              case 'Multiple Choice':
+              case 'mc':
                 print "<div class='qtitle'>Question ${question_num}</div>\n";
                 print "<span class='help-block'>${label}</span>\n";
                 print "<div class='well well-small'>${body}\n";
@@ -277,7 +277,7 @@ legend + .qtitle:nth-of-type(1) {
 
                 break;
 
-              case 'True / False':
+              case 'tf':
                 print "<div class='qtitle'>Question ${question_num}</div>\n";
                 print "<span class='help-block'>${label}</span>\n";
                 print "<div class='well well-small'>${body}\n";
@@ -332,7 +332,7 @@ legend + .qtitle:nth-of-type(1) {
 
                 break;
 
-              case 'Matching':
+              case 'm':
                 print "<div class='qtitle'>Question ${question_num}</div>\n";
                 print "<span class='help-block'>${label}</span>\n";
                 print "<div class='well well-small'>${body}\n";
@@ -393,7 +393,7 @@ legend + .qtitle:nth-of-type(1) {
 
                 break;
 
-              case 'Fill-in':
+              case 'fi':
                 print "<div class='qtitle'>Question ${question_num}</div>\n";
                 print "<span class='help-block'>${label}</span>\n";
                 print "<div class='well well-small'>${body}\n";
@@ -437,7 +437,7 @@ legend + .qtitle:nth-of-type(1) {
 
                 break;
                 
-              case 'Short Answer':
+              case 'sa':
                 print "<div class='qtitle'>Question ${question_num}</div>\n";
                 print "<span class='help-block'>${label}</span>\n";
                 print "<div class='well well-small'>${body}\n";
