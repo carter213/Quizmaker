@@ -15,7 +15,7 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor'){
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName[]']) || !isset($_POST['class_code'])) {
+	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName']) || !isset($_POST['class_code'])) {
 	header('Location: login');
     exit();
 }
@@ -50,18 +50,25 @@ $randomizeTaker = filter_var($_POST['randomizeTaker'], FILTER_SANITIZE_STRING);
 $randomizeTaker = mysqli_real_escape_string($con, $randomizeTaker);
 $classcode = filter_var($_POST['class_code'], FILTER_SANITIZE_STRING);
 $classcode = mysqli_real_escape_string($con, $classcode);
-$questionName;
 
 
-//check it is array or not
-	if(!is_array($_POST['questionName[]']))
+
+//check questionName is array or not
+if(!is_array($_POST['questionName']) || empty($_POST['questionName')){
+	header('Location: /');
+	exit();
+}
+
+$questionName = $_POST['questionName']; 
+
 	
- =  filter_var($_POST['questionName[]'], FILTER_SANITIZE_STRING);
+
 
 function IsDateAndTimeValid ($Idate , $Itime) {
-	$tmptime = is_object(DateTime::createFromFormat('h:i:s a', $Itime));
+	$tmptime = is_object(DateTime::createFromFormat('h:i:s ', $Itime));
 	$tmpdate = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
-	if($tmptime && $tmpdate ){
+	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
+	if($tmptime && $tmpdate && $tmpdate2 ){
 		return true;
 	}else{
 		return false;
@@ -92,8 +99,19 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 }
 
 
-$questionNum;
-if(empty())
+$questionNum = count($questionName);
+$i = 0;
+while($questionNum > 0){
+	$tmpQustionName = $questionName[i];
+	$tmpQustionName = filter_var($tmpQustionName, FILTER_SANITIZE_STRING);
+	$tmpQustionName = mysqli_real_escape_string($con, $tmpQustionName);
+
+	
+	
+	
+	
+}
+
 
 
 header("Location: quizmaker?class_code=${classcode}");
