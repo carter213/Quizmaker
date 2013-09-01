@@ -83,7 +83,7 @@ if (isset($_GET['student_name'])) {
 // Get students
 $students = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class 
   NATURAL JOIN class_member NATURAL JOIN student_quiz NATURAL JOIN user WHERE
-  class_code='${class_code}' AND quiz_name='${quiz_name}'");
+  class_code='${class_code}' AND quiz_name='${quiz_name}' AND finished=1");
 
 ?>
 
