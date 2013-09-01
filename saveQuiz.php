@@ -107,31 +107,47 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 $question_name_num = count($question_name);
 
 
+//question start at 1
+$count_question_num = 1;
+//array start at 0
+$array_num = 0
 
-$i = 0;
 while($questionNum > 0){
-	$getQustionName = $question_name[i];
+	$getQustionName = $question_name[$array_num];
 	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
 	$getQustionName = mysqli_real_escape_string($con, $getQustionName);
-	$getQuestionType = $question_type[i];
+	$getQuestionType = $question_type[$array_num];
 	$getQuestionType = filter_var($getQuestionType, FILTER_SANITIZE_STRING);
 	$getQuestionType = mysqli_real_escape_string($con, $getQuestionType);
-	$getQuestionBody = $question_body[i];
+	$getQuestionBody = $question_body[$array_num];
 	$getQuestionBody = filter_var($getQuestionBody, FILTER_SANITIZE_STRING);
 	$getQuestionBody = mysqli_real_escape_string($con, $getQuestionBody);
 
 	switch($getQuestionType){
 
 		case "mc":
-			$getRadioValue = $_POST[strval($i) . '_numToChoose'];
-			$getCheckedValue = $_POST[strval($i) . '_mc_checked[]'];
-			$getAnsValue = $_POST[strval($i) . '_mc_ans[]'];
-			
+			$getRadioValue = $_POST[strval($count_question_num) . '_numToChoose'];
+			$getCheckedValue = $_POST[strval($count_question_num) . '_mc_checked'];
+			$getAnsValue = $_POST[strval($count_question_num) . '_mc_ans'];
 			//check vaild radio input
-			if(!is_array($getRadioValue]) || $getRadioValue !== "one" || $getRadioValue !== "multiple"
-				|| !is_array($getCheckedValue) || !is_array($getAnsValue) ){
+			
+			if(!is_array($getRadioValue]) || empty($getRadioValue)){
 				//skip ?
 			}
+
+			$radioValue = filter_var($getRadioValue[0], FILTER_SANITIZE_STRING);
+			$radioValue = mysqli_real_escape_string($con, $radioValue);
+			
+			if(count($getCheckedValue) !== count($getAnsValue) || !is_array($getCheckedValue) ||
+				!is_array($getAnsValue)){
+				//should fail
+			}elseif( empty($getCheckedValue) || empty($getAnsValue)){
+
+			}else{
+				$count_answer = count($getAnsValue);
+				
+			}
+
 
 
 
