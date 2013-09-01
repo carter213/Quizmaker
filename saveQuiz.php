@@ -157,7 +157,15 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
    		count($_POST['questionType']) !== count($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionID']) ){
 		
-		header('Location: /');
+		var_dump(!is_array($_POST['questionName'])); 	var_dump(empty($_POST['questionName'])); 
+		var_dump(!is_array($_POST['questionType'])); 	var_dump(empty($_POST['questionType'])); 
+		var_dump(!is_array($_POST['questionBody'])); 	var_dump(empty($_POST['questionBody'])); 
+		var_dump(count($_POST['questionType']) !== count($_POST['questionName'])); 
+		var_dump(count($_POST['questionType']) !== count($_POST['questionBody'])); 
+		var_dump(count($_POST['questionType']) !== count($_POST['points'])); 
+		var_dump(count($_POST['questionType']) !== count($_POST['questionID'])); exit();
+
+		header('Location: login');
 		exit();
 	}
 
