@@ -130,7 +130,7 @@ mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class
 	                ('${getUserId}', '${quizName}', '${possiblePoints}',  '${classid}','${timeLimit}', 
 	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
 
-$getQuizId = mysqli_query($con, "SELECT quiz_id FROM quiz WHERE WHERE class_id='${classid}' AND quiz_name = '${quizName}'");
+$getQuizId = mysqli_query($con, "SELECT quiz_id FROM quiz  WHERE class_id='${classid}' AND quiz_name = '${quizName}'");
 $getQuizId = mysqli_fetch_array($getQuizId)[0];
 
 
