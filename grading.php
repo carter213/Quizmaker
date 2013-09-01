@@ -66,12 +66,13 @@ if (isset($_GET['student_name'])) {
   $valid_quiz = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class 
     NATURAL JOIN student_quiz NATURAL JOIN user WHERE 
     prof_id=${user_id} AND class_code='${get_code}' AND 
-    quiz_name='${quiz_name}' AND user_name='${load_student_name}'");
+    quiz_name='${quiz_name}' AND account_name='${load_student_name}'");
 
   if (mysqli_num_rows($valid_quiz) == 1) {
     $valid_quiz = mysqli_fetch_array($valid_quiz);
     $load_quiz = 1;
     $load_quiz_id = $valid_quiz['quiz_id'];
+    $student_id = $valid_quiz['user_id'];
   } else {
     $load_quiz = 0;
   }
@@ -162,7 +163,128 @@ legend + .qtitle:nth-of-type(1) {
   <div class="row-fluid">
     <div class="span2"> </div>
     <div class="span8">
-      <section>
+      <form>
+        <section>
+          <select name="loadStudentQuiz" id="loadStudentQuiz" class="span2">
+            <?php
+            while ($student = mysqli_fetch_array($students)) {
+              $student_name = $student['account_name'];
+              print "<option value='${student_name}' ";
+              if ($load_quiz == 1) {
+                if ($student_name === $load_student_name) {
+                  print "selected";
+                }
+              }
+              print ">${student_name}</option>";
+            }
+            ?>
+          </select>
+          <input type="text" style="display:none" name="class_code" 
+                 value=<?php print "'${class_code}'" ?>/>
+        </section>
+        <?php
+        // Get questions
+        if ($load_quiz == 1) {
+          print "<section>";
+
+          $questions = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN question
+            NATURAL JOIN student_quiz NATURAL JOIN student_question 
+            NATURAL JOIN user WHERE account_name='${load_student_name}' AND
+            quiz_id=${load_quiz_id} ORDER BY question_num");
+
+          while ($question = mysqli_fetch_array($questions)) {
+            $label = $question['label'];
+            $question_num = $question['question_num'];
+            $body = $question['body'];
+            $points = $question['points'];
+            $student_points = $question['student_points'];
+            $answer = $question['answer'];
+            $ta_comment = $question['ta_comment'];
+            $student_response = $question['student_response'];
+
+            switch ($question['type']) {
+              case 'Multiple Choice':
+                print "<div class='qtitle'>Question ${question_num}</div>\n";
+                print "<span class='help-block'>${label}</span>\n";
+                print "<div class='well well-small'>${body}\n";
+
+                $options = mysqli_query($con, "SELECT * FROM mc
+                  WHERE quiz_id='${load_quiz_id}' AND question_num='${question_num}' 
+                  ORDER BY option_num");
+
+                while ($option = mysqli_fetch_array($options)) {
+                  $option_val = $option['option_val'];
+                  $option_num = $option['option_num'];
+
+                  $student_response = mysqli_query($con, "SELECT * FROM student_mc 
+                    WHERE user_id=${student_id} AND quiz_id=${load_quiz_id} AND 
+                    question_num=${question_num} AND option_num=${option_num}");
+
+                  if (mysqli_num_rows($student_response) > 0) {
+                    $checked = 1;
+                  } else {
+                    $checked = 0;
+                  }
+
+                  print "  <label class='radio'>\n";
+                  print "    <input type='radio' ";
+                  if ($checked == 1) {
+                    print "checked ";
+                  }
+                  print "disabled>\n";
+                  print "    ${option_val}\n";
+                  print "  </label>\n";
+                }
+
+                print "</div>\n";
+                print "<section class='form-horizontal'>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} Grade: </label>\n";
+                print "  </div>\n";
+                print "  <div class='input-append'>\n";
+                print "    <select class='span10' name='points[]'>\n";
+
+                for ($x = 0; $x < $points; $x++) {
+                  print "      <option value='${x}' ";
+                  if ($student_points == $x) {
+                    print "selected";
+                  }
+                  ">${x}</option>\n";
+                }
+
+                print "    </select>\n";
+                print "    <span class='add-on'>/${points}</span>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Q${question_num} comment:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' name='ta_comment[]'>\n";
+                print "      ${ta_comment}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <label>Student response:</label>\n";
+                print "  </div>\n";
+                print "  <div class='control-group'>\n";
+                print "    <textarea rows='3' disabled>\n";
+                print "      ${student_response}\n";
+                print "    </textarea>\n";
+                print "  </div>\n";
+                print "</section>\n";
+
+                break;
+
+              case 'True / False':
+                
+            }
+
+          }
+
+          print "</section>";
+        }
+        ?>
+        <!--
         <fieldset>
           <legend>True / False</legend>
           <div class="qtitle">Question 1</div>
@@ -548,11 +670,15 @@ legend + .qtitle:nth-of-type(1) {
           </form>
         
         
-        <div class="form-actions"><span class="pull-right">
-          <button class="btn">Save</button>
-          <button class="btn btn-success">Submit</button>
-          </span></div>
-      </section>
+          <div class="form-actions">
+            <span class="pull-right">
+              <button class="btn">Save</button>
+              <button class="btn btn-success">Submit</button>
+            </span>
+          </div>
+        </section> -->
+
+      </form>
     </div>
   </div>
 </div>
