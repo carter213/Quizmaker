@@ -157,7 +157,7 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
    		count($_POST['questionType']) !== count($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionID']) ){
 		
-		header('Location: /');
+		header('Location: login');
 		exit();
 	}
 
