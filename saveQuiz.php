@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 	exit();
 
 }
-if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor' || !isset($_POST['class_code']){
+if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor' || !isset($_POST['class_code']) ){
 	header('Location: /');
 	exit();
 }
@@ -15,7 +15,7 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor' || !isset($_
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) ) 
+	!isset($_POST['randomizeTaker'])) 
 	 ) {
 	header('Location: login');
     exit();
