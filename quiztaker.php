@@ -1,10 +1,95 @@
+<?php
+session_start();
+
+// Check user_id
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
+    header('Location: /');
+    exit();
+}
+
+//get class_code and quiz_name
+if (!isset($_GET['class_code']) || !isset($_GET['quiz_name'])) {
+    header('Location: /');
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+require '../dbaccess/connect.php';
+
+if (mysqli_connect_errno($con)) {
+    header('Location: /');
+    exit();
+}
+
+date_default_timezone_set('UTC');
+
+$class_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
+$class_code = mysqli_real_escape_string($con, $class_code);
+$quiz_name = filter_var($_GET['quiz_name'], FILTER_SANITIZE_STRING);
+$quiz_name = mysqli_real_escape_string($con, $quiz_name);
+
+//check if class_code is valid
+if (strlen($class_code) != 40) {
+    header('Location: studentmanagement');
+    exit();
+}
+
+//check if quiz is valid
+$class_id=mysql_query($con, "SELECT class_id FROM class WHERE class_code == '${class_code}';");
+$quiz_found=mysql_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name == '${quiz_name}' AND class_id == '${class_id}';");
+
+if (mysqli_num_rows($quiz_found) == 1) {
+    $quiz_id = mysqli_fetch_array($quiz_found);
+} else {
+   header('Location: studentmanagement');
+   exit();
+}
+
+//check if the student is in class
+$bool = False;
+$members=mysql_query($con, "SELECT user_id FROM class_member WHERE class_id == '${class_id}';");
+while($member=mysql_fetch_array($members)) {
+    if($user_id == $member['user_id']) {
+        $bool = True;
+        break;
+    }
+}
+
+//check if finished
+$finished=mysql_query($con, "SELECT finished FROM student_quiz WHERE user_id=='${user_id}' AND quiz_id=='${quiz_id}';");
+if ($finished) {
+    header('Location: studentmanagement');
+    exit();
+}
+
+//check if time is valid 
+//and for time limitation record current time
+$date = date('m/d/Y H:i:s a', time());
+$open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id=='${quiz_id}';");
+$deadline=mysql_query($con, "SELECT deadline FROM quiz WHERE quiz_id=='${quiz_id}';"); 
+if ($bool == False || $date < $open_date || $date > $deadline) {
+    header('Location: studentmanagement');
+    exit();
+}
+
+//TODO: use time limitation
+$time_limit=mysql_query($con, "SELECT time_limit FROM quiz WHERE quiz_id=='${quiz_id}';");
+// Add $time_limit (total time) to start time. And store into session variable.
+//if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
+
+//TODO: save before?????
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Header
 ================================================== -->
 <head>
 <meta charset="utf-8">
-<link href="http://ucsd-cse-134.github.io/group18/Homework2/img/team_page/favicon.ico" rel="shortcut icon" />
+<link href="./favicon.ico" rel="shortcut icon" />
 <title>Quiz Taker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -20,7 +105,6 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="assets/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
@@ -31,10 +115,10 @@
 <!-- Local Styles -->
 <style type="text/css">
 .qtitle {
-	font-weight: bold;
+    font-weight: bold;
 }
 legend + .qtitle:nth-of-type(1) {
-	padding-top: 15px;
+    padding-top: 15px;
 }
 </style>
 </head>
@@ -67,145 +151,109 @@ legend + .qtitle:nth-of-type(1) {
   <div class="row-fluid">
     <div class="span2"> </div>
     <div class="span8">
-      <form>
-        <fieldset>
-          <legend>True / False</legend>
-          <div class="qtitle">Question 1</div>
-          <div class="well well-small">A browser is the same as a search engine.
-            <label class="radio">
-              <input type="radio" name="optionsRadios1" id="optionsRadiosQ1T" value="option1">
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios1" id="optionsRadiosQ1F" value="option2">
-              False</label>
-          </div>
-          <div class="qtitle">Question 2</div>
-          <div class="well well-small">The median is the value that occurs most often in a sample of data.
-            <label class="radio">
-              <input type="radio" name="optionsRadios2" id="optionsRadiosQ2T" value="1">
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios2" id="optionsRadiosQ2F" value="0">
-              False</label>
-          </div>
-          <div class="qtitle">Question 3</div>
-          <div class="well well-small">If two nonempty sets are independent, they can not be disjoint.
-            <label class="radio">
-              <input type="radio" name="optionsRadios3" id="optionsRadiosQ3T" value="1">
-              True</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios3" id="optionsRadiosQ3F" value="0">
-              False</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Multiple Choice</legend>
-          <div class="qtitle">Question 4</div>
-          <span class="help-block">Select only one option</span>
-          <div class="well well-small">What causes night and day?
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4A" value="A">
-              A. The earth spins on its axis.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4B" value="B">
-              B. The earth moves around the sun.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4C" value="C">
-              C. Clouds block out the sun's light.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4D" value="D">
-              D. The earth moves into and out of the sun's shadow.</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios4" id="optionsRadiosQ4E" value="E">
-              E. The sun goes around the earth.</label>
-          </div>
-          <div class="qtitle">Question 5</div>
-          <span class="help-block">Check all that apply</span>
-          <div class="well wells-small">Which colors do you like?
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5A">
-              A. Red</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5B">
-              B. Blue</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5C">
-              C. Green</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5D">
-              D. Yellow</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5E">
-              E. Purple</label>
-            <label>
-              <input type ="checkbox" name="Q5" id="Q5F">
-              F. All of the Above</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Matching</legend>
-          <div class="qtitle">Question 6</div>
-          <span class="help-block">Fill in blanks with corresponding letters</span>
-          <div class="well well-small"> Match each quotation with the appropriate play
-            <div class="row-fluid">
-              <div class="span4">1. ____ The Tempest</div>
-              <div class="span6 offset2">A. Small to greater matters must give way.</div>
-              <input type="text" class="span1">
-            </div>
-            <div class="row-fluid">
-              <div class="span4">2. ____ King John</div>
-              <div class="span6 offset2">B. For I am nothing, if not critical</div>
-              <input type="text" class="span1">
-            </div>
-            <div class="row-fluid">
-              <div class="span4">3. ____ Othello</div>
-              <div class="span6 offset2">C. I would fain die a dry death.</div>
-              <input type="text" class="span1">
-            </div>
-            <div class="row-fluid">
-              <div class="span4">4. ____ Anthony and Cleopatra</div>
-              <div class="span6 offset2">D. Sweet, sweet, sweet poison for the age's tooth.</div>
-              <input type="text" class="span1">
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Fill-in</legend>
-          <div class="qtitle">Question 7</div>
-          <div class="well well-small"> Lorem ipsum dolor sit amet, ____________________ adipiscing elit. <br>
-            <input type="text" placeholder="Fill in the Blank">
-          </div>
-          <div class="qtitle">Question 8</div>
-          <div class="well well-small"> My favorite class is ____________________ . <br>
-            <input type="text" placeholder="Fill in the Blank">
-          </div>
-          <div class="qtitle">Question 9</div>
-          <div class="well well-small">20 + 3( __ - 1) = 32
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9A" value="A">
-              A. 8</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9B" value="B">
-              B. 5</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9C" value="C">
-              C. 10</label>
-            <label class="radio">
-              <input type="radio" name="optionsRadios9" id="optionsRadiosQ9D" value="D">
-              D. 7</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Short Answer</legend>
-          <div class="qtitle">Question 10</div>
-          <div class="well well-small">Why should we learn HTML5? <br>
-            <textarea rows="5" cols="100" class="span6"></textarea>
-          </div>
-        </fieldset>
+      <form id="form" action="save_submit_quiz.php" method="post" enctype="multipart/form-data">
+      <?php
+        print "<input type='hidden' name='quiz_id' value='${quiz_id}'>";
+        print "<input type='hidden' name='class_id' value='${class_id}'>";
+        print "<fieldset>";
+
+        //check order
+        $display_order=mysql_query($con, "SELECT display_order FROM quiz WHERE quiz_id=='${quiz_id}';");
+        //check randomizeTaker option value
+        if ($display_order=='Fixed Order') {
+          //get questions sorted by question_num
+          $sequence=mysql_query($con, "SELECT * FROM question WHERE quiz_id == '${quiz_id}' ORDER BY question_num;");
+        } else if ($display_order=='Randomized Order') {
+            //randomize
+            $sequence=mysql_query($con, "SELECT * FROM question WHERE quiz_id=='${quiz_id}' ORDER BY RAND();");
+            $temp_question_num=1;
+        }
+        while($question=mysql_fetch_array($sequence)) {
+          //retrieve question info
+          $type = $question['type'];
+          $body = $question['body'];
+          $question_num = $question['question_num'];
+          print "<input type='hidden' name='Q_Num[]' value='${question_num}'>";
+          print "<input type='hidden' name='Q_Type[]' value='${type}'>";
+          //print number
+          if ($display_order=='Fixed Order') {
+            print "<div class='qtitle'>Question ${question_num}</div>";
+          }
+          if ($display_order=='Randomized Order') {
+            print "<div class='qtitle'>Question ${temp_question_num}</div>";
+            $temp_question_num++;
+          }
+
+        //display questions
+        switch ($type) {
+          //true/false Qs
+          case 'True/False':
+            print "<div class='well well-small'>${body}";
+            print "<label class='radio'>";
+            print "<input type='radio' name='${question_num}' id='${question_num}' value='True'>";
+            print "True</label>";
+            print "<label class='radio'>";
+            print "<input type='radio' name='${question_num}' id='${question_num}' value='False'>";
+            print "False</label>";
+            print "</div>";
+          break;
+          //multiple Qs
+          case'Multiple Choice':
+            print "<span class='help-block'>Check all that apply</span>";
+            print "<div class='well well-small'>${body}";
+            $options=mysql_query($con, "SELECT * FROM mc WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
+            while($option=mysql_fetch_array($options)) {
+              $option_num = $option['option_num'];
+              $option_val = $option['option_val'];
+              //print options
+              print "<label>";
+              print "<input type='checkbox' name='${question_num}[]' id='${question_num}' value='${option_num}'>";
+              print "${option_num}. ${option_val}</label>";
+            }
+            print "</div>";
+            break;
+            //matching Qs
+            case 'Matching':
+              print "<span class='help-block'>Fill in blanks with the correct answer (copy and paste words/sentences)</span>";
+              print "<div class='well well-small'> ${body}";
+              //matching options
+              $options=mysql_query($con, "SELECT * FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
+              $values=mysql_query($con, "SELECT value FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY RAND();");
+              while($option=mysql_fetch_array($options),$value=mysql_fetch_array($values)) {
+                $option_num = $option['option_num'];
+                $word = $option['word'];
+                print "<div class='row-fluid'>";
+                print "<div class='span4'>$option_num. ${word]</div>";
+                print "<div class='span6 offset2'>${value}</div>";
+                print "<input type='text' class='span1' name='${question_num}[]' id='${question_num}'>";
+                print "</div>";
+              }
+              print "</div>";
+            break;
+            //fill-in Qs
+            case 'Fill-in':
+              print "<div class='well well-small'> ${body}<br>";
+              print "<input type='text' placeholder='Fill in the Blank' name='${question_num}' id='${question_num}'>";
+              print "</div>";
+            break;
+            //short answer Qs
+            case 'Short Answer':
+              print "<div class='well well-small'> ${body}<br>";
+              print "<textarea rows='5' cols='100' class='span6' name='${question_num}' id='${question_num}'></textarea>";
+              print "</div>";
+            break;
+            default:
+            }
+          }
+          print "</fieldset>";
+      ?>
+
+
         <div class="form-actions"><span class="pull-right">
-          <button class="btn">Save</button>
-          <button class="btn btn-success">Submit</button>
-          </span></div>
+          <button class="btn" type="submit" name="status" value="Save">Save</button>
+          <button class="btn btn-success" type="submit" name="status" value="Submit">Submit</button>
+        </span></div>
+
       </form>
     </div>
   </div>
@@ -215,8 +263,8 @@ legend + .qtitle:nth-of-type(1) {
 ================================================== -->
 <footer class="footer">
   <div class="container">
-    <p><a href="http://classes.pint.com/cse134b/">CSE134B Homepage</a></p>
-    <p>&copy; 2013 <a href="./index">The Four Amigos</a>. All rights reserved.</p>
+    <p><a href="http://classes.pint.com/cse135/">CSE135 Homepage</a></p>
+    <p>&copy; 2013 <a href="./index">Super Cereal</a>. All rights reserved.</p>
     <p class="pull-right"><a href="#">Back to top</a></p>
   </div>
 </footer>
