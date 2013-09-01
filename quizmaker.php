@@ -829,6 +829,12 @@ function load_quiz() {
 	
 	window.location.href = "quizmaker?class_code=" + class_code + "&quiz_name=" + quiz_name;
 }
+
+<?php
+if ($load_quiz == 1) {
+	print "numQuestions = ${num};"
+}
+?>
 </script>
 </body>
 </html>
