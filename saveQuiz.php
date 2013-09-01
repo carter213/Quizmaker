@@ -111,6 +111,29 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 }
 
 
+$classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
+$classid = mysqli_fetch_array($classid)[0];
+
+$existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+if(mysqli_num_rows($existQuiz)){
+	$existQuiz = mysqli_fetch_array($existQuiz)[0];
+	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+}
+
+
+
+
+
+//need to check the $i should be equal the the questionNUm
+mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class_id, time_limit,reveal_answers,
+					 open_date,deadline, display_order ) VALUES 
+	                ('${getUserId}', '${quizName}', '${possiblePoints}',  '${classid}','${timeLimit}', 
+	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
+
+$getQuizId = mysqli_query($con, "SELECT quiz_id FROM quiz WHERE WHERE class_id='${classid}' AND quiz_name = '${quizName}'");
+$getQuizId = mysqli_fetch_array($getQuizId)[0];
+
+
 $question_name_arr = $_POST['questionName']; 
 $question_type_arr = $_POST['questionType'];
 $question_body_arr = $_POST['questionBody'];
@@ -148,8 +171,18 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionBody = filter_var($getQuestionBody, FILTER_SANITIZE_STRING);
 	$getQuestionBody = mysqli_real_escape_string($con, $getQuestionBody);
 	$getQuestionPoint = $question_point_arr[$array_num];
-	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_STRING);
+	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
+
+	var_dump(!ctype_digit($getQuestionPoint)); exit();
+
+	if(!ctype_digit($getQuestionPoint)){
+		header('Location: /');
+		exit();
+	}
+	$getQuestionPoint = ctype_digit($getQuestionPoint);
+
+	$getTFAnswer = null;
 
 	switch($getQuestionType){
 
@@ -201,8 +234,8 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					//skip ?
 				}
 
-				$getRadioValue = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
-				$getRadioValue = mysqli_real_escape_string($con, $getRadioValue);
+				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
+				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
 
 				//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 			break;
@@ -254,39 +287,23 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					//save getAnsValue, getCheckedValue
 				}
 			}
-			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoints
+			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 			break;
-
-		case "sa":
-			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,
-			break;
-
 
 		//don't know just skip this question or drop all the thing
 		default:
 
 	}
+	mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${questionName}',  ${count_question_num}',
+	                ${getQuestionBody}',${getTFAnswer}',${getQuestionPoint}',
+	                )");
 	
 }
 
-$classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
-$classid = mysqli_fetch_array($classid)[0];
+
 //class code & quiz_name unquie
-$existQuiz = mysqli_query($con, "SELECT quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
-if(mysqli_num_rows($existQuiz)){
-	$existQuiz = mysqli_fetch_array($existQuiz)[0];
-	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
-}
 
-
-
-
-
-//need to check the $i should be equal the the questionNUm
-mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class_id, time_limit,reveal_answers,
-					 open_date,deadline, display_order ) VALUES 
-	                ('${getUserId}', '${quizName}', '${possiblePoints}',  '${classid}','${timeLimit}', 
-	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
 
 header("Location: quizmaker?class_code=${classcode}&quiz_name=${quizName}");
 exit();
