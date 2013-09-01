@@ -264,12 +264,6 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	}
 	
-	
-
-	
-	
-	
-	
 }
 
 //need to check the $i should be equal the the questionNUm

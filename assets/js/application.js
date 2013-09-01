@@ -365,6 +365,11 @@ function addQuestion(type, opts) {
   if (type !== 'm') {
     $(d).append(getQuestionElements(opts.questionText));
   }
+  if(type == 'm'){
+
+     var mBody = $('<textarea name="questionBody[]" style="display:none"  readonly > </textarea>')
+    $(d).append(
+  }
 
   // Image uploader
   $(d).append(getFileElement());
