@@ -107,70 +107,84 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 	exit();
 }
 
-if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
-   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
-   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
-   count($_POST['questionType']) !== count($_POST['questionName']) ||
-   count($_POST['questionType']) !== count($_POST['questionBody'])){
-	header('Location: /');
-	exit();
-}
-$question_name = $_POST['questionName']; 
-$question_type = $_POST['questionType'];
-$question_body = $_POST['questionBody'];
 
-$question_name_num = count($question_name);
+$question_name_arr = $_POST['questionName']; 
+$question_type_arr = $_POST['questionType'];
+$question_body_arr = $_POST['questionBody'];
+$question_point_arr = $_POST['points'];
+
+$question_name_num = count($question_name_arr);
 
 
 //question start at 1
-$count_question_num = 1;
 //array start at 0
-$array_num = 0;
 
-while($questionNum > 0){
-	$getQustionName = $question_name[$array_num];
+
+for($array_num = 0; $array_num < $question_name_num; $array_num++){
+
+	$count_question_num = $array_num++ ;
+
+	if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
+  	   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
+  	   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
+       !is_array($_POST['points']) || empty($_POST['points']) ||
+   		count($_POST['questionType']) !== count($_POST['questionName']) ||
+   		count($_POST['questionType']) !== count($_POST['questionBody']) ||
+   		count($_POST['questionType']) !== count($_POST['points']) ){
+		
+		header('Location: /');
+		exit();
+	}
+	$getQustionName = $question_name_arr[$array_num];
 	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
 	$getQustionName = mysqli_real_escape_string($con, $getQustionName);
-	$getQuestionType = $question_type[$array_num];
+	$getQuestionType = $question_type_arr[$array_num];
 	$getQuestionType = filter_var($getQuestionType, FILTER_SANITIZE_STRING);
 	$getQuestionType = mysqli_real_escape_string($con, $getQuestionType);
-	$getQuestionBody = $question_body[$array_num];
+	$getQuestionBody = $question_body_arr[$array_num];
 	$getQuestionBody = filter_var($getQuestionBody, FILTER_SANITIZE_STRING);
 	$getQuestionBody = mysqli_real_escape_string($con, $getQuestionBody);
+	$getQuestionPoint = $question_point_arr[$array_num];
+	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_STRING);
+	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
 
 	switch($getQuestionType){
 
 		case "mc":
-			$getRadioValue = $_POST[strval($count_question_num) . '_numToChoose'];
-			$getCheckedValue = $_POST[strval($count_question_num) . '_mc_checked'];
-			$getAnsValue = $_POST[strval($count_question_num) . '_mc_ans'];
+			$radio_value_arr = $_POST[strval($count_question_num) . '_numToChoose'];
 			//check vaild radio input
 			
-			if(!is_array($getRadioValue) || empty($getRadioValue)){
+			if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 				//skip ?
 			}
 
-			$radioValue = filter_var($getRadioValue[0], FILTER_SANITIZE_STRING);
-			$radioValue = mysqli_real_escape_string($con, $radioValue);
-			$checkValue;
-			$ansValue;
-			if(count($getCheckedValue) !== count($getAnsValue) || !is_array($getCheckedValue) ||
-				!is_array($getAnsValue)){
+			$getRadioValue = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
+			$getRadioValue = mysqli_real_escape_string($con, $getRadioValue);
+
+			$checked_value_arr = $_POST[strval($count_question_num) . '_mc_checked'];
+			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
+			$getCheckedValue;
+			$getAnsValue;
+			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+				!is_array($ans_value_arr)){
 				//should fail
-			}elseif( empty($getCheckedValue) || empty($getAnsValue)){
+			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
 			}else{
-				$count_answer = count($getAnsValue);
+				$count_answer = count($ans_value_arr);
 				for($x = 0; $x < $count_answer ; $x++){
-					$checkValue = filter_var($getCheckedValue[$count_answer], FILTER_SANITIZE_STRING);
-					$checkValue = mysqli_real_escape_string($con, $checkValue);
-					$ansValue = filter_var($getAnsValue[$count_answer], FILTER_SANITIZE_STRING);
-					$ansValue = mysqli_real_escape_string($con, $checkValue);
+					$getCheckedValue = filter_var($checked_value_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getCheckedValue = mysqli_real_escape_string($con, $getCheckedValue);
+					$getAnsValue = filter_var($ans_value_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
 					//store to the mysql
+					//save getAnsValue, getCheckedValue
 				}
 
 			}
+
+			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 
 
 
@@ -179,18 +193,69 @@ while($questionNum > 0){
 
 		case "tf":
 
+				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
+				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
+					//skip ?
+				}
+
+				$getRadioValue = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
+				$getRadioValue = mysqli_real_escape_string($con, $getRadioValue);
+
+				//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 			break;
 
 		case "m":
+			//missing body?
+			$m_word_arr = $_POST[strval($count_question_num) . '_m_word'];
+			$m_value_arr = $_POST[strval($count_question_num) . '_m_value'];
+			$getMWord;
+			$getMValue;
+			if(count($m_word_arr) !== count($m_value_arr) || !is_array($m_word_arr) ||
+				!is_array($m_value_arr)){
+				//should fail
+			}elseif( empty($m_word_arr) || empty($m_value_arr)){
 
+			}else{
+				$count_answer = count($m_value_arr);
+				for($x = 0; $x < $count_answer ; $x++){
+					$getMWord = filter_var($m_word_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getMWord = mysqli_real_escape_string($con, $getMWord);
+					$getMValue = filter_var($m_value_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getMValue = mysqli_real_escape_string($con, $getMValue);
+
+					//store to the mysql
+					//save getMValue, getMValue
+				}
+			}
+
+				//mysql save getQustionName,getQuestionType ,getQuestionPoint
 			break;
 
 		case "fi":
 
+
+	
+			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
+			$getAnsValue;
+			if(!is_array($ans_value_arr)){
+				//should fail
+			}elseif(empty($ans_value_arr)){
+
+			}else{
+				$count_answer = count($ans_value_arr);
+				for($x = 0; $x < $count_answer ; $x++){
+					$getAnsValue = filter_var($ans_value_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
+
+					//store to the mysql
+					//save getAnsValue, getCheckedValue
+				}
+			}
+			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoints
 			break;
 
 		case "sa":
-
+			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,
 			break;
 
 
