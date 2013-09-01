@@ -214,13 +214,14 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
 			$getCheckedValue;
 			$getAnsValue;
-			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+			/*if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
-			}else{
+			}else{ */
 				$count_answer = count($ans_value_arr);
+				var_dump($count_answer); 
 				for($x = 0; $x < $count_answer ; $x++){
 					$getCheckedValue = filter_var($checked_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getCheckedValue = mysqli_real_escape_string($con, $getCheckedValue);
@@ -237,8 +238,8 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	                )");
 				}
 
-			}
 			
+
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 
 			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
