@@ -2,7 +2,7 @@
 session_start();
 
 // Check session
-if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'Student')) {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
   header('Location: /');
   exit();
 }

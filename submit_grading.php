@@ -135,3 +135,5 @@ if ($_POST['submit'] == 1) {
 
 header("Location: grading?class_code=${class_code}&quiz_name=${quiz_name}");
 exit();
+
+?>

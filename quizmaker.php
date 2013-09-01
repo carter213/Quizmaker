@@ -59,7 +59,7 @@ if (isset($_GET['quiz_name'])) {
 
 // Get quizzes
 $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
-  prof_id=${user_id} AND class_code='${get_code}'");
+  class_code='${get_code}'");
 
 ?>
 
