@@ -12,7 +12,7 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor' || !isset($_
 }
 
 // Check POST data all set classcode
-if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
+if (!isset($_POST['quizName']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
 	!isset($_POST['randomizeTaker']) 
