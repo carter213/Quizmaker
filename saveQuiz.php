@@ -141,6 +141,7 @@ $question_name_arr = $_POST['questionName'];
 $question_type_arr = $_POST['questionType'];
 $question_body_arr = $_POST['questionBody'];
 $question_point_arr = $_POST['points'];
+$question_id_arr = $_POST['questionID'];
 
 $question_name_num = count($question_name_arr);
 
@@ -153,16 +154,14 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
        !is_array($_POST['points']) || empty($_POST['points']) ||
    		count($_POST['questionType']) !== count($_POST['questionName']) ||
    		count($_POST['questionType']) !== count($_POST['questionBody']) ||
-   		count($_POST['questionType']) !== count($_POST['points']) ){
+   		count($_POST['questionType']) !== count($_POST['points'])
+   		count($_POST['questionType']) !== count($_POST['questionID']) ){
 		
 		header('Location: /');
 		exit();
 	}
 
 for($array_num = 0; $array_num < $question_name_num; $array_num++){
-
-	$count_question_num = $array_num + 1 ;
-
 	
 	$getQustionName = $question_name_arr[$array_num];
 	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
@@ -176,6 +175,9 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	$getQuestionPoint = $question_point_arr[$array_num];
 	$getQuestionPoint = filter_var($getQuestionPoint, FILTER_SANITIZE_NUMBER_INT);
 	$getQuestionPoint = mysqli_real_escape_string($con, $getQuestionPoint);
+	$count_question_num = $question_id_arr[$array_num];
+	$count_question_num = filter_var($count_question_num, FILTER_SANITIZE_NUMBER_INT);
+	$count_question_num = mysqli_real_escape_string($con, $count_question_num);
 
 
 	if(!ctype_digit($getQuestionPoint)){
