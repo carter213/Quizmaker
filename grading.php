@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 
 // Check session
@@ -41,8 +41,8 @@ if (strlen($get_code) != 40 || strlen($quiz_name) == 0 || strlen($quiz_name) > 4
 }
 
 if ($role == 'Instructor') {
-  $valid_class = mysqli_query($con, "SELECT * FROM class WHERE prof_id=${user_id}
-    AND class_code='${class_code}'");
+  $valid_class = mysqli_query($con, "SELECT * FROM class NATURAL JOIN quiz WHERE 
+    prof_id=${user_id} AND class_code='${class_code}' AND quiz_name='${quiz_name}'");
 
   if (mysqli_num_rows($valid_class) != 1) {
     header('Location: profmanagement');
@@ -50,7 +50,8 @@ if ($role == 'Instructor') {
   }
 } else {
   $valid_class = mysqli_query($con, "SELECT * FROM class_member NATURAL JOIN
-    class WHERE user_id=${user_id} AND class_code='${class_code}'");
+    class NATURAL JOIN quiz WHERE user_id=${user_id} AND 
+    class_code='${class_code}' AND quiz_name='${quiz_name}'");
 	
   if (mysqli_num_rows($valid_class) != 1) {
     header('Location: tamanagement');
@@ -58,7 +59,30 @@ if ($role == 'Instructor') {
   }
 }
 
+// Check if specific student requested
+if (isset($_GET['student_name'])) {
+  $load_student_name = $_GET['student_name'];
 
+  $valid_quiz = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class 
+    NATURAL JOIN student_quiz NATURAL JOIN user WHERE 
+    prof_id=${user_id} AND class_code='${get_code}' AND 
+    quiz_name='${quiz_name}' AND user_name='${load_student_name}'");
+
+  if (mysqli_num_rows($valid_quiz) == 1) {
+    $valid_quiz = mysqli_fetch_array($valid_quiz);
+    $load_quiz = 1;
+    $load_quiz_id = $valid_quiz['quiz_id'];
+  } else {
+    $load_quiz = 0;
+  }
+} else {
+  $load_quiz = 0;
+}
+
+// Get students
+$students = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class 
+  NATURAL JOIN class_member NATURAL JOIN student_quiz NATURAL JOIN user WHERE
+  class_code='${class_code}' AND quiz_name='${quiz_name}'");
 
 ?>
 
@@ -68,8 +92,7 @@ if ($role == 'Instructor') {
 ================================================== -->
 <head>
 <meta charset="utf-8">
-<link href="http://ucsd-cse-134.github.io/group18/Homework2/img/team_page/favicon.ico" rel="shortcut icon" />
-<title>Quiz Taker</title>
+<title>Quiz Grading</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -114,14 +137,18 @@ legend + .qtitle:nth-of-type(1) {
     <div class="container">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 
-      <a class="brand" href="./index">Logout</a>
+      <a class="brand" href="./logout">Logout</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li class=""> <a href="./index">Home</a> </li>
-           <li class=""> <a href="./tamanagement" class="nav_links">User Management</a> </li>
-          <li class=""><a href="./quizmaker" class="nav_links">Quiz Maker</a></li>
-       
-      
+          <li class=""> 
+            <?php
+            if ($role == 'Instructor') {
+              print '<a href="./profmanagement" class="nav_links">User Management</a>';
+            } else {
+              print '<a href="./tamanagement" class=nav_links">User Management</a>';
+            }
+          </li>
         </ul>
       </div>
     </div>
