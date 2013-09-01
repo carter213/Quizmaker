@@ -15,7 +15,8 @@ if(!isset($_SESSION['role']) || !$_SESSION['role'] === 'Instructor'){
 if (!isset($_POST['quizname']) || !isset($_POST['timeLimit']) ||
 	!isset($_POST['possiblePoints'])  || !isset($_POST['startDate']) || !isset($_POST['startTime']) 
 	|| !isset($_POST['endDate']) || !isset($_POST['endTime']) || !isset($_POST['viewAnswers']) || 
-	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName']) || !isset($_POST['class_code'])) {
+	!isset($_POST['randomizeTaker']) || !isset($_POST['questionName']) || !isset($_POST['class_code']) 
+	|| !isset($_POST['questionType']) || !isset($_POST['questionBody']) ) {
 	header('Location: login');
     exit();
 }
@@ -53,15 +54,19 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 
 
 
-//check questionName is array or not
-if(!is_array($_POST['questionName']) || empty($_POST['questionName')){
+//check questionName is array or not and their number should be equal
+if(!is_array($_POST['questionName']) || empty($_POST['questionName') ||
+   !is_array($_POST['questionType']) || empty($_POST['questionType') ||
+   !is_array($_POST['questionBody']) || empty($_POST['questionBody') ||
+   count($_POST['questionType']) !== count($_POST['questionName']) ||
+   count($_POST['questionType']) !== count($_POST['questionBody'])  ){
 	header('Location: /');
 	exit();
 }
 
-$questionName = $_POST['questionName']; 
-
-	
+$question_name = $_POST['questionName']; 
+$question_type = $_POST['questionType'];
+$question_body = $_POST['questionBody'];
 
 
 function IsDateAndTimeValid ($Idate , $Itime) {
@@ -99,12 +104,51 @@ if($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers
 }
 
 
-$questionNum = count($questionName);
+$question_name_num = count($question_name);
+
+
+
 $i = 0;
 while($questionNum > 0){
-	$tmpQustionName = $questionName[i];
-	$tmpQustionName = filter_var($tmpQustionName, FILTER_SANITIZE_STRING);
-	$tmpQustionName = mysqli_real_escape_string($con, $tmpQustionName);
+	$getQustionName = $question_name[i];
+	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
+	$getQustionName = mysqli_real_escape_string($con, $getQustionName);
+	$getQuestionType = $question_type[i];
+	$getQuestionType = filter_var($getQuestionType, FILTER_SANITIZE_STRING);
+	$getQuestionType = mysqli_real_escape_string($con, $getQuestionType);
+	$getQuestionBody = $question_body[i];
+	$getQuestionBody = filter_var($getQuestionBody, FILTER_SANITIZE_STRING);
+	$getQuestionBody = mysqli_real_escape_string($con, $getQuestionBody);
+
+	switch($getQuestionType){
+
+		case "mc":
+
+			break;
+
+		case "tf"
+
+			break;
+
+		case "m":
+
+			break;
+
+		case "fi":
+
+			break;
+
+		case "sa":
+
+			break;
+
+
+		//don't know just skip this question or drop all the thing
+		default:
+
+	}
+	
+	
 
 	
 	
@@ -112,6 +156,7 @@ while($questionNum > 0){
 	
 }
 
+//need to check the $i should be equal the the questionNUm
 
 
 header("Location: quizmaker?class_code=${classcode}");
