@@ -401,8 +401,8 @@ function buildTrueFalseQuestion(opts) {
   var opts = $.extend({}, defaults, opts);
 
   elems.push($('<label>Answers</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="true" name="tf[]" ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="false" name="tf[]" ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
+  elems.push($('<label class="radio inline"><input type="radio" value="true" name="' + opts.id + '_'+ 'tf[]" ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
+  elems.push($('<label class="radio inline"><input type="radio" value="false" name="' + opts.id + '_'+ 'tf[]" ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
        + '<span class="help-block"><small>Select correct answer</small></span>'));
 
   return elems;
@@ -419,8 +419,8 @@ function buildMultipleChoiceQuestion(opts) {
 
   elems.push($('<label>Student chooses</label>'));
 
-  elems.push($('<label class="radio inline"><input type="radio" value="one" name="numToChoose[]" ' + ((opts.choose === 'multiple') ? '' : 'checked') + '>One Answer</label>'
-       + '<label class="radio inline"><input type="radio" value="multiple" name="numToChoose[]" ' + ((opts.choose === 'multiple') ? 'checked' : '') + '>Multiple answers</label>'
+  elems.push($('<label class="radio inline"><input type="radio" value="one" name="' + opts.id+ '_'+'numToChoose[]" ' + ((opts.choose === 'multiple') ? '' : 'checked') + '>One Answer</label>'
+       + '<label class="radio inline"><input type="radio" value="multiple" name="' + opts.id+ '_'+'numToChoose[]" ' + ((opts.choose === 'multiple') ? 'checked' : '') + '>Multiple answers</label>'
        + '<label>Possible Answers</label>'
        + '<span class="help-block"><small>Check correct answer(s)</small></span>'));
 
