@@ -147,13 +147,7 @@ $question_name_num = count($question_name_arr);
 
 //question start at 1
 //array start at 0
-
-
-for($array_num = 0; $array_num < $question_name_num; $array_num++){
-
-	$count_question_num = $array_num + 1 ;
-
-	if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
+if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
   	   !is_array($_POST['questionType']) || empty($_POST['questionType']) ||
   	   !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
        !is_array($_POST['points']) || empty($_POST['points']) ||
@@ -164,6 +158,12 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		header('Location: /');
 		exit();
 	}
+
+for($array_num = 0; $array_num < $question_name_num; $array_num++){
+
+	$count_question_num = $array_num + 1 ;
+
+	
 	$getQustionName = $question_name_arr[$array_num];
 	$getQustionName = filter_var($getQustionName, FILTER_SANITIZE_STRING);
 	$getQustionName = mysqli_real_escape_string($con, $getQustionName);
@@ -233,12 +233,13 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		case "tf":
 				var_dump(strval($count_question_num) . '_tf');
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
+				var_dump($radio_value_arr);
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
 				}
 				$tmpNum = count($radio_value_arr);
 				while( $tmpNum > 0){
-					var_dump("tf value '${tmpNum}'" . $radio_value_arr[tmpNum]);
+					var_dump("tf value '${tmpNum}'" . $radio_value_arr[$tmpNum]);
 					$tmpNum--;
 				}
 				
