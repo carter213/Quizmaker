@@ -6,7 +6,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Error 403!</title>
+    <title>Error 404!</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bootstrap/css/bootstrap.css" rel="stylesheet"/>
@@ -36,15 +36,15 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>&nbsp;</h1>
-         <section class="navbar-form form-inline pull-left">
+        <section class="navbar-form form-inline pull-left">
            <img class="errImg" src="/image/SpilledCereal.jpg" alt="Oh-No!"/>
         </section>
         <section class="navbar-form form-inline pull-right">
           <img class="errImg" src="/image/TP-error.png" alt="Error"/>
         </section>
         <section class="errMsg">
-          <h1>&nbsp;&nbsp;Error 403!</h1>
-          <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You don't have the permission to access the requested URL.</h4>
+          <h1>&nbsp;&nbsp;New password assigned</h1>
+          <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check your email for the new password.</h4>
         </section>
         <h1>&nbsp;</h1>
         <h1>&nbsp;</h1>

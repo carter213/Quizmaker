@@ -53,15 +53,21 @@
   
     <div class="row-fluid">
     <div class="span4 offset4">
-	    <form class="from-group">
+	    <form class="from-group" action="assign_new_password" method="post">
 	    	<fieldset>
 	    	<legend> Find Your Password </legend>
 		     <div class="control-group">
+				 <label class="control-label">Username</label>
+				 <div class="controls">
+					<div class="input-prepend">
+						<input class="span15" id="username" type="text" name="username">
+					</div>
+				</div>
 			     <label class="control-label">Email address</label>
 			     <div class="controls">
 			     	<div class="input-prepend">
 			     		<span class="add-on"><i class="icon-envelope"></i></span>
-			     		<input class="span15" id="email" type="email">
+			     		<input class="span15" id="email" type="email" name="email">
 			     	</div>
 			     </div>
 			     <div class="controls">
