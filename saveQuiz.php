@@ -103,8 +103,6 @@ if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) ||
 $flagviewAnswers = !($viewAnswers !== "Never" || $viewAnswers !== "After Deadline" || $viewAnswers !== "On Turn-in");
 $flagrandomizeTaker = !($randomizeTaker !== "Fixed Order" || $randomizeTaker !== "Randomized Order" );
 if($flagviewAnswers || $flagrandomizeTaker  ){
-	var_dump($viewAnswers !== "Never" );var_dump( $viewAnswers !== "After Deadline" );var_dump($viewAnswers !== "On Turn-in" );
-	var_dump($randomizeTaker !== "Fixed Order" );var_dump($randomizeTaker !== "Randomized Order"); exit();
 	header('Location: /');
 	exit();
 }
@@ -114,7 +112,7 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
    !is_array($_POST['questionBody']) || empty($_POST['questionBody']) ||
    count($_POST['questionType']) !== count($_POST['questionName']) ||
    count($_POST['questionType']) !== count($_POST['questionBody'])){
-	header('Location: Login');
+	header('Location: /');
 	exit();
 }
 $question_name = $_POST['questionName']; 
