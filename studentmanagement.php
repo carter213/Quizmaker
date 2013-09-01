@@ -179,7 +179,7 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
               while ($class_quiz = mysqli_fetch_array($class_quiz_take_arrays)) {
                 $class_code = $class_quiz['class_code'];
                 $quiz_name = $class_quiz['quiz_name'];
-                print "<option class='${class_code}' value="${quiz_name}">${quiz_name}</option>";
+                print "<option class='${class_code}' value='${quiz_name}'>${quiz_name}</option>";
               }
               ?>
             </select>
