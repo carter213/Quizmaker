@@ -57,9 +57,7 @@ $classcode = mysqli_real_escape_string($con, $classcode);
 //check questionName is array or not and their number should be equal
 
 
-$question_name = $_POST['questionName']; 
-$question_type = $_POST['questionType'];
-$question_body = $_POST['questionBody'];
+
 
 
 function IsDateAndTimeValid ($Idate , $Itime) {
@@ -77,8 +75,8 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 if(!(IsDateAndTimeValid($start_date,$start_time) || IsDateAndTimeValid($end_date,$end_time )) || 
 	empty($end_date) || empty($end_time) || empty($start_date) || empty($start_time)
  ){
-	header('Location: /');
-	exit();
+	header('Location: login');
+    exit();
 }
 
 //check the valid points ,quizname and  time limit
@@ -104,6 +102,9 @@ if(!is_array($_POST['questionName']) || empty($_POST['questionName']) ||
 	header('Location: /');
 	exit();
 }
+$question_name = $_POST['questionName']; 
+$question_type = $_POST['questionType'];
+$question_body = $_POST['questionBody'];
 
 $question_name_num = count($question_name);
 
