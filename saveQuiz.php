@@ -287,7 +287,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 	
 			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
-			$getAnsValue;
+		
 			if(!is_array($ans_value_arr)){
 				//should fail
 			}elseif(empty($ans_value_arr)){
