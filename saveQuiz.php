@@ -181,7 +181,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	}
 	$getQuestionPoint = ctype_digit($getQuestionPoint);
 
-	$getTFAnswer = null;
+	$getTFAnswer ;
 
 	switch($getQuestionType){
 
@@ -293,6 +293,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		default:
 
 	}
+
+
+	var_dump($getTFAnswer);
+
 	mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
@@ -301,7 +305,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	
 }
 
-
+exit();
 //class code & quiz_name unquie
 
 
