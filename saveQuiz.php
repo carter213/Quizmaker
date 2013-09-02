@@ -214,32 +214,51 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
 			$getCheckedValue;
 			$getAnsValue;
-			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+			/*if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
-			}else{
-				$count_answer = count($ans_value_arr);
-				for($x = 0; $x < $count_answer ; $x++){
-					$getCheckedValue = filter_var($checked_value_arr[$x], FILTER_SANITIZE_STRING);
-					$getCheckedValue = mysqli_real_escape_string($con, $getCheckedValue);
-					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
-					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
+			}else{ */
 
-					//store to the mysql
-					//save getAnsValue, getCheckedValue
-				}
+				//$count_check = count($checked_value_arr);
 
-			}
-
-			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
-
-			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+				//var_dump($checked_value_arr);
+				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}', '${getQuestionPoint}'
 	                )");
 
+				$count_answer = count($ans_value_arr);
+					
+				for($x = 0; $x < $count_answer ; $x++){
+					
+					$checkPos = $x ;
+					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
+					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
+
+					if(!is_bool(array_search($checkPos,$checked_value_arr )) )
+					{
+						$getCheckedValue = 1;
+					}else{
+						$getCheckedValue = 0;
+					}
+
+				
+					//store to the mysql
+					//save getAnsValue, getCheckedValue
+					
+					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}', '${getCheckedValue}'
+		   		)");
+
+				}
+
+
+
+			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
+
+			
 
 
 			break;
@@ -247,6 +266,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		case "tf":
 				//var_dump(strval($count_question_num) . '_tf');
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
+
 				//var_dump($radio_value_arr);
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
@@ -255,7 +275,14 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
+				if($getTFAnswer == "true"){
+					$getTFAnswer = "True";
+				}
+				if($getTFAnswer == "false"){
+					$getTFAnswer = "False";
+				}
 				//var_dump($getTFAnswer);
+				
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
@@ -269,6 +296,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			$m_value_arr = $_POST[strval($count_question_num) . '_m_value'];
 			$getMWord;
 			$getMValue;
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                  '${getQuestionPoint}'
+	                )");
 			if(count($m_word_arr) !== count($m_value_arr) || !is_array($m_word_arr) ||
 				!is_array($m_value_arr)){
 				//should fail
@@ -279,21 +310,29 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				for($x = 0; $x < $count_answer ; $x++){
 					$getMWord = filter_var($m_word_arr[$x], FILTER_SANITIZE_STRING);
 					$getMWord = mysqli_real_escape_string($con, $getMWord);
-					$getMValue = filter_var($m_value_arr[$count_answer], FILTER_SANITIZE_STRING);
+					$getMValue = filter_var($m_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getMValue = mysqli_real_escape_string($con, $getMValue);
 
+					mysqli_query($con, "INSERT INTO matching (quiz_id, question_num, option_num, word, value) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getMWord}',' ${getMValue}'
+	                )");
+					
 					//store to the mysql
 					//save getMValue, getMValue
 				}
 			}
 
 				//mysql save getQustionName,getQuestionType ,getQuestionPoint
+				
 			break;
 
 		case "fi":
 
 
-	
+				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
 			//var_dump($ans_value_arr);
 			if(!is_array($ans_value_arr)){
@@ -306,19 +345,18 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				for($x = 0; $x < $count_answer ; $x++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
-					//var_dump($getAnsValue);
+					var_dump($getAnsValue);
 					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
-	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}'
+	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}'
 	                )");
+	                //printf("error %s" , mysqli_error($con));
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
 				}
 			}
+			
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
-			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
-	                '${getQuestionBody}', '${getQuestionPoint}'
-	                )");
+		
 
 			break;
 		case "sa":
@@ -332,11 +370,6 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		default:
 
 	}
-
-
-	
-
-
 
 	
 }
