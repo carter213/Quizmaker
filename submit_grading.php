@@ -112,7 +112,7 @@ $questions2 = mysqli_query($con, "SELECT * FROM question WHERE quiz_id=${quiz_id
 
 $final_points = 0;
 for ($x = 0; $x < count($ta_comment); $x++) {
-	$qnum = mysqli_fetch_array[$questions2];
+	$qnum = mysqli_fetch_array($questions2);
 	$pt = filter_var($points[$x], FILTER_SANITIZE_NUMBER_INT);
 	$comment = filter_var($ta_comment[$x], FILTER_SANITIZE_STRING);
 	$comment = mysqli_real_escape_string($con, $comment);
