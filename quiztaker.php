@@ -220,7 +220,7 @@ legend + .qtitle:nth-of-type(1) {
               $options=mysql_query($con, "SELECT * FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
               $values=mysql_query($con, "SELECT value FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY RAND();");
               while($option=mysql_fetch_array($options)) {
-                $value=mysql_fetch_array($values)
+                $value=mysql_fetch_array($values);
                 $option_num = $option['option_num'];
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
