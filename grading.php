@@ -201,7 +201,7 @@ legend + .qtitle:nth-of-type(1) {
             $body = $question['body'];
             $points = $question['points'];
             $student_points = $question['student_points'];
-            $answer = $question['answer'];
+            $answer = $question['student_answer'];
             $ta_comment = $question['ta_comment'];
             $student_response = $question['student_response'];
 
