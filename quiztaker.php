@@ -77,8 +77,8 @@ if ($bool == False || $date < $open_date || $date > $deadline) {
 $time_limit=mysql_query($con, "SELECT time_limit FROM quiz WHERE quiz_id=='${quiz_id}';");
 // Add $time_limit (total time) to start time. And store into session variable.
 //if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
+session_set_cookie_params($time_limit * 60);
 
-//TODO: save before?????
 
 ?>
 
