@@ -126,10 +126,10 @@ for ($x = 0; $x < count($ta_comment); $x++) {
 }
 
 if ($_POST['submit'] == 1) {
-  mysqli_query($con, "UPDATE student_quiz SET points=${final_points}, graded=1 WHERE 
+  mysqli_query($con, "UPDATE student_quiz SET earned_points=${final_points}, graded=1 WHERE 
    user_id=${student_id} AND quiz_id=${quiz_id}");
 } else {
-  mysqli_query($con, "UPDATE student_quiz SET points=${final_points} WHERE 
+  mysqli_query($con, "UPDATE student_quiz SET earned_points=${final_points} WHERE 
    user_id=${student_id} AND quiz_id=${quiz_id}");
 }
 
