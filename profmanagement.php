@@ -204,7 +204,7 @@ $class_quiz_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
         </form>
       </div>
       <div class="span3">
-        <form id="quiz_select_form" action="./grading" method="post">
+        <form id="quiz_select_form" action="./grading" method="get">
           <div class="form-group">
             <label for="quizzes_dropdown">Quizzes</label>
             <select id="quizzes_dropdown" class="form-control" name="quiz_name">
