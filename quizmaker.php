@@ -405,6 +405,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
                   print "  <label>Possible Answers</label>\n";
                   print "  <span class='help-block'>\n";
                   print "    <small>Check correct answer(s)</small>\n";
