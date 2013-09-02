@@ -113,22 +113,22 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 
 
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
-$classid = mysqli_fetch_array($classid)[0];
+$classid = mysqli_fetch_array($classid)['class_id'];
 
 $existQuiz = mysqli_query($con, "SELECT quiz_id,quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
 	$existQuiz = mysqli_fetch_array($existQuiz);
-	$oldQuizId = $existQuiz[0];
-	$oldQuizName = $exitQuiz[1];
+	$oldQuizId = $existQuiz['quiz_id'];
+	$oldQuizName = $exitQuiz['quiz_name'];
+	var_dump($oldQuizId);var_dump($oldQuizName);  var_dump($classid);var_dump($existQuiz); 
+exit();
 	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
 	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'");
 }
 
 
 
-var_dump($getStartDateAndTime);
-var_dump($getEndDateAndTime);
-exit();
+
 
 //need to check the $i should be equal the the questionNUm
 mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class_id, time_limit,reveal_answers,
@@ -137,7 +137,7 @@ mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class
 	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
 
 $getQuizId = mysqli_query($con, "SELECT quiz_id FROM quiz  WHERE class_id='${classid}' AND quiz_name = '${quizName}'");
-$getQuizId = mysqli_fetch_array($getQuizId)[0];
+$getQuizId = mysqli_fetch_array($getQuizId)['quiz_id'];
 
 
 $question_name_arr = $_POST['questionName']; 
