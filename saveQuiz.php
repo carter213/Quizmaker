@@ -78,6 +78,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 	}  
 }
 
+
 //check valid date and time
 if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date,$end_time ) || 
 	empty($end_date) || empty($end_time) || empty($start_date) || empty($start_time)
@@ -112,13 +113,14 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 
 
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
-$classid = mysqli_fetch_array($classid)[0];
+$classid = mysqli_fetch_array($classid)['class_id'];
 
-$existQuiz = mysqli_query($con, "SELECT quiz_id,quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+$existQuiz = mysqli_query($con, "SELECT quiz_id, quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
 	$existQuiz = mysqli_fetch_array($existQuiz);
-	$oldQuizId = $existQuiz[0];
-	$oldQuizName = $exitQuiz[1];
+	$oldQuizId = $existQuiz['quiz_id'];
+	$oldQuizName = $existQuiz['quiz_name'];
+	
 	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
 	mysqli_query($con, "DELETE FROM question WHERE quiz_id = '${oldQuizId}'");
 }
@@ -134,7 +136,7 @@ mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class
 	                 '${viewAnswers}' , '${getStartDateAndTime}' , '${getEndDateAndTime}' , '${randomizeTaker}' )");
 
 $getQuizId = mysqli_query($con, "SELECT quiz_id FROM quiz  WHERE class_id='${classid}' AND quiz_name = '${quizName}'");
-$getQuizId = mysqli_fetch_array($getQuizId)[0];
+$getQuizId = mysqli_fetch_array($getQuizId)['quiz_id'];
 
 
 $question_name_arr = $_POST['questionName']; 
@@ -217,14 +219,16 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}', '${getQuestionPoint}'
 	                )");
-			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+			if(!is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
+				
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
 				mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}'
 		   			)");
+				
 
 			}else{ 
 
@@ -247,11 +251,11 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}else{
 						$getCheckedValue = 0;
 					}
-
-					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num,option_val,is_correct) VALUES 
+					
+					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}' , '${getCheckedValue}'
 		   			)");
-		   			printf("error %s" , mysqli_error($con));
+		   			//printf("error %s" , mysqli_error($con));
 				}
 
 
@@ -275,8 +279,12 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
-				
-				//var_dump($getTFAnswer);
+				if($getTFAnswer == "false"){
+					$getTFAnswer = "False";
+				}
+				if($getTFAnswer == "true"){
+					$getTFAnswer = "True";
+				}
 				
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
