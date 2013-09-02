@@ -431,7 +431,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                       print "    <span class='add-on'>\n";
                       print "      <input type='checkbox' value='${option_num}' name='${question_num}_mc_checked[]' ";
                       if ($is_correct) {
-                        print "checked\>\n";
+                        print "checked >\n";
                       } else { 
                         print "\>\n";
                       }
