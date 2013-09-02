@@ -238,7 +238,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         <div class="inline-block well">
           <label for="startDate">Quiz Opens</label>
           <div class="input-append">
-            <input type="text" name="startDate" id="startDate" class="span2"  placeholder="YYYY-MM-DD"
+            <input type="text" name="startDate" id="start_date" class="span2"  placeholder="YYYY-MM-DD"
             <?php
             if ($load_quiz == 1) {
               $open_date = substr($valid_quiz['open_date'], 0, 10);
@@ -259,7 +259,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         <div class="inline-block well">
           <label for="endDate">Deadline</label>
           <div class="input-append">
-            <input type="text" name="endDate" id="endDate" class="span2" placeholder="YYYY-MM-DD"
+            <input type="text" name="endDate" id="end_date" class="span2" placeholder="YYYY-MM-DD"
             <?php
             if ($load_quiz == 1) {
               $close_date = substr($valid_quiz['deadline'], 0, 10);
