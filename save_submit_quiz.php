@@ -61,7 +61,7 @@ for ($i=1; $i<=$total; $i++) {
   $question_num = $Q_Num[$i-1];
   $temp_i = $_POST["${question_num}"];
   
-  mysqli_query($con, "INSERT INTO student_question (user_id, quiz_id, question_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}','NULL')");
+  mysqli_query($con, "INSERT INTO student_question (user_id, quiz_id, question_num, student_answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}','NULL')");
 
   switch ($Q_Type[$i-1]) {
     
@@ -87,7 +87,7 @@ for ($i=1; $i<=$total; $i++) {
       $answer = filter_var($temp_i, FILTER_SANITIZE_STRING);
       $answer = mysqli_real_escape_string($con, $answer);
       //var_dump($answer);
-      mysqli_query($con, "UPDATE student_question SET answer='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
+      mysqli_query($con, "UPDATE student_question SET student_answer='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
       break;
   }
 
