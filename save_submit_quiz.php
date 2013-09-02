@@ -69,7 +69,8 @@ for ($i=1; $i<=$total; $i++) {
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
       for ($j=1; $j<=count($answer); $j++) {
-        mysqli_query($con, "INSERT INTO student_mc (user_id, quiz_id, question_num, option_num) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${j}')");      
+        $ans = $answer[$j - 1];
+        mysqli_query($con, "INSERT INTO student_mc (user_id, quiz_id, question_num, option_num) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${ans}')");      
       }
       break;
     case 'm':
