@@ -65,14 +65,14 @@ for ($i=1; $i<=$total; $i++) {
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
       implode($answer);
-      mysqli_query($con, "INSERT INTO student_mc (user_id, quiz_id, question_num, option_num) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${answer}')";
+      mysqli_query($con, "INSERT INTO student_mc (user_id, quiz_id, question_num, option_num) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${answer}')");
       break;
     case 'm':
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
       //var_dump($answer);      
       for ($j=1; $j<=count($answer); $j++) {
-        mysqli_query($con, "INSERT INTO student_matching (user_id, quiz_id, question_num, option_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${j}', '${answer}')";      
+        mysqli_query($con, "INSERT INTO student_matching (user_id, quiz_id, question_num, option_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${j}', '${answer}')");      
       }
       break;
     //for T/F, Fill-in and Short Answer
@@ -80,7 +80,7 @@ for ($i=1; $i<=$total; $i++) {
       $answer = filter_var($temp_i, FILTER_SANITIZE_STRING);
       $answer = mysqli_real_escape_string($con, $answer);
       //var_dump($answer);
-      mysqli_query($con, "INSERT INTO student_question (user_id, quiz_id, question_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${answer}')";
+      mysqli_query($con, "INSERT INTO student_question (user_id, quiz_id, question_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${answer}')");
       break;
   }
 
