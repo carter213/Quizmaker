@@ -77,10 +77,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
 		return false;
 	}  
 }
-var_dump($start_date);
-var_dump($start_time);
-var_dump($end_date);
-var_dump($end_time);
+
 
 //check valid date and time
 if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date,$end_time ) || 
@@ -92,9 +89,7 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 
 $getStartDateAndTime = $start_date . ' ' . $start_time;
 $getEndDateAndTime = $end_date . ' ' . $end_time;
-var_dump($getStartDateAndTime);
-var_dump($getEndDateAndTime);
-exit();
+
 //check the valid points ,quizName and  time limit
 if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
@@ -131,7 +126,9 @@ if(mysqli_num_rows($existQuiz)){
 
 
 
-
+var_dump($getStartDateAndTime);
+var_dump($getEndDateAndTime);
+exit();
 
 //need to check the $i should be equal the the questionNUm
 mysqli_query($con, "INSERT INTO quiz (prof_id, quiz_name, possible_points, class_id, time_limit,reveal_answers,
