@@ -71,7 +71,7 @@ if ($finished) {
 
 //check if time is valid 
 //and for time limitation record current time
-$date = date('m/d/Y H:i:s a', time());
+$date = date('Y-m-d H:i:s', time());
 $open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id='${quiz_id}'");
 $open_date=mysqli_fetch_array($open_date);
 $open_date=$open_date['open_date'];
