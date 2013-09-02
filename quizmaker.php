@@ -408,8 +408,8 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <span class='help-block'>\n";
                    print "  <span class='help-block'>\n";
                   print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
-                 print "  </span>\n";
-                 print "<br />"
+                 print "  </span>\n \n";
+
                   print "  <label>Possible Answers</label>\n";
                   print "  <span class='help-block'>\n";
                   print "    <small>Check correct answer(s)</small>\n";
