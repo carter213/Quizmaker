@@ -30,7 +30,7 @@ $class_code = filter_var($_POST['class_code'], FILTER_SANITIZE_STRING);
 $class_code = mysqli_real_escape_string($con, $class_code);
 $quiz_name = filter_var($_POST['quiz_name'], FILTER_SANITIZE_STRING);
 $quiz_name = mysqli_real_escape_string($con, $quiz_name);
-$student_name = filter_var($_POST['student_name'], FILTER_SANITIZE_STRING);
+$student_name = filter_var($_POST['loadStudentQuiz'], FILTER_SANITIZE_STRING);
 $student_name = mysqli_real_escape_string($con, $student_name);
 
 // Check if class and quiz are valid
