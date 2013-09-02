@@ -38,7 +38,11 @@ if (strlen($class_code) != 40) {
 
 //check if quiz is valid
 $class_id=mysqli_query($con, "SELECT class_id FROM class WHERE class_code = '${class_code}'");
+$class_id=mysqli_fetch_array($class_id);
+$class_id=$class_id['class_id'];
 $quiz_found=mysqli_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name = '${quiz_name}' AND class_id = '${class_id}'");
+$quiz_found=mysqli_fetch_array($quiz_found);
+$quiz_found=$quiz_found['quiz_id'];
 
 
 if (mysqli_num_rows($quiz_found) == 1) {
@@ -60,6 +64,8 @@ while($member=mysqli_fetch_array($members)) {
 
 //check if finished
 $finished=mysqli_query($con, "SELECT finished FROM student_quiz WHERE user_id='${user_id}' AND quiz_id='${quiz_id}'");
+$finished=mysqli_fetch_array($finished);
+$finished=$finished['finished'];
 if ($finished) {
     header('Location: studentmanagement');
     exit();
@@ -69,7 +75,11 @@ if ($finished) {
 //and for time limitation record current time
 $date = date('m/d/Y H:i:s a', time());
 $open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id='${quiz_id}'");
+$open_date=mysqli_fetch_array($open_date);
+$open_date=$open_date['open_date'];
 $deadline=mysqli_query($con, "SELECT deadline FROM quiz WHERE quiz_id='${quiz_id}'"); 
+$deadline=mysqli_fetch_array($deadline);
+$deadline=$deadline['deadline'];
 if ($bool == False || $date < $open_date || $date > $deadline) {
     header('Location: studentmanagement');
     exit();
@@ -77,6 +87,8 @@ if ($bool == False || $date < $open_date || $date > $deadline) {
 
 //TODO: use time limitation
 $time_limit=mysqli_query($con, "SELECT time_limit FROM quiz WHERE quiz_id='${quiz_id}'");
+$time_limit=mysqli_fetch_array($time_limit);
+$time_limit=$time_limit['time_limit'];
 // Add $time_limit (total time) to start time. And store into session variable.
 //if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
 session_set_cookie_params($time_limit * 60);
@@ -160,6 +172,8 @@ legend + .qtitle:nth-of-type(1) {
 
         //check order
         $display_order=mysqli_query($con, "SELECT display_order FROM quiz WHERE quiz_id='${quiz_id}'");
+        $display_order=mysqli_fetch_array($display_order);
+        $display_order=$display_order['display_order'];
         //check randomizeTaker option value
         if ($display_order=='Fixed Order') {
           //get questions sorted by question_num
@@ -222,6 +236,7 @@ legend + .qtitle:nth-of-type(1) {
               $values=mysqli_query($con, "SELECT value FROM matching WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY RAND()");
               while($option=mysqli_fetch_array($options)) {
                 $value=mysqli_fetch_array($values);
+                $value=$value['value'];
                 $option_num = $option['option_num'];
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
