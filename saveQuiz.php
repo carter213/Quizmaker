@@ -212,12 +212,16 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 			$checked_value_arr = $_POST[strval($count_question_num) . '_mc_checked'];
 			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
-			$getCheckedValue;
-			$getAnsValue;
+			
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
+
 				mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}'
 		   			)");
@@ -227,10 +231,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				//$count_check = count($checked_value_arr);
 
 				//var_dump($checked_value_arr);
-				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
-	                '${getQuestionBody}', '${getQuestionPoint}'
-	                )");
+
 
 				$count_answer = count($ans_value_arr);
 					
@@ -246,7 +247,11 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}else{
 						$getCheckedValue = 0;
 					}
-					
+
+					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num,option_val,is_correct) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}', '${getCheckedValue}'
+		   			)");
+		   			printf("error %s" , mysqli_error($con));
 				}
 
 
