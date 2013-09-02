@@ -488,7 +488,7 @@ legend + .qtitle:nth-of-type(1) {
           print "</section>";
           print "<div class='form-actions'>\n";
           print "  <span class='pull-right'>\n";
-          print "    <input id='save_submit' name='submit' type='number' value='0' style='display:none'>\n"
+          print "    <input id='save_submit' name='submit' type='number' value='0' style='display:none'>\n";
           print "    <button onclick='save_grading()' class='btn'>Save</button>\n";
           print "    <button onclick='submit_grading()' class='btn btn-success'>Submit</button>\n";
           print "    <button id='submit_btn' type='submit' style='display: none'></button>\n";
