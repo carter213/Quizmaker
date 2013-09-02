@@ -55,7 +55,7 @@ $Q_Type = array_map('array_map_callback', $Q_Type);
 
 
 $total = count($Q_Num);
-for ($i=0; $i<$total; $i++) {
+for ($i=1; $i<=$total; $i++) {
   $question_num = $Q_Num[$i];
   
   switch ($Q_Type[$i]) {
