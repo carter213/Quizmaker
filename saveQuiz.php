@@ -224,6 +224,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				//$count_check = count($checked_value_arr);
 
 				//var_dump($checked_value_arr);
+				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 
 				$count_answer = count($ans_value_arr);
 					
@@ -254,11 +258,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 
-			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
-	                '${getQuestionBody}', '${getQuestionPoint}'
-	                )");
-
+			
 
 
 			break;
@@ -266,6 +266,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 		case "tf":
 				//var_dump(strval($count_question_num) . '_tf');
 				$radio_value_arr = $_POST[strval($count_question_num) . '_tf'];
+
 				//var_dump($radio_value_arr);
 				if(!is_array($radio_value_arr) || empty($radio_value_arr)){
 					//skip ?
@@ -281,11 +282,11 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getTFAnswer = "False";
 				}
 				//var_dump($getTFAnswer);
+				
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}','${getTFAnswer}', '${getQuestionPoint}'
 	                )");
-				
 				//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint,getRadioValue
 			break;
 
@@ -295,6 +296,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			$m_value_arr = $_POST[strval($count_question_num) . '_m_value'];
 			$getMWord;
 			$getMValue;
+			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                  '${getQuestionPoint}'
+	                )");
 			if(count($m_word_arr) !== count($m_value_arr) || !is_array($m_word_arr) ||
 				!is_array($m_value_arr)){
 				//should fail
@@ -318,16 +323,16 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			}
 
 				//mysql save getQustionName,getQuestionType ,getQuestionPoint
-				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
-	                  '${getQuestionPoint}'
-	                )");
+				
 			break;
 
 		case "fi":
 
 
-	
+				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
+	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
+	                '${getQuestionBody}', '${getQuestionPoint}'
+	                )");
 			$ans_value_arr = $_POST[strval($count_question_num) . '_fi'];
 			//var_dump($ans_value_arr);
 			if(!is_array($ans_value_arr)){
@@ -344,17 +349,14 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}'
 	                )");
-	                printf("error %s" , mysqli_error($con));
+	                //printf("error %s" , mysqli_error($con));
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
 				}
 			}
-			exit();
+			
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
-			mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, points) VALUES 
-	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
-	                '${getQuestionBody}', '${getQuestionPoint}'
-	                )");
+		
 
 			break;
 		case "sa":
