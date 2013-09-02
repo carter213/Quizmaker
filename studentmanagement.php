@@ -24,8 +24,10 @@ $classes = mysqli_query($con, "SELECT * FROM class NATURAL JOIN class_member
 date_default_timezone_set('America/Los_Angeles');
 $date = date("Y-m-d H:i:s");
 $class_quiz_take_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
-  class_member NATURAL JOIN quiz WHERE user_id=${user_id} AND open_date<='${date}' 
-  AND deadline>='${date}'");
+  class_member NATURAL JOIN quiz as open_quizzes WHERE user_id=${user_id} AND 
+  open_date<='${date}' AND deadline>='${date}' 
+  AND NOT EXISTS (SELECT * FROM student_quiz as student_quizzes WHERE 
+  student_quizzes.quiz_id=open_quizzes.quiz_id AND finished=1)");
   
 $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   class_member NATURAL JOIN quiz NATURAL JOIN student_quiz WHERE user_id=${user_id} 
