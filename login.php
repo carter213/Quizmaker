@@ -8,7 +8,7 @@ session_start();
 ================================================== -->
 <head>
 <meta charset="utf-8">
-<link href="http://ucsd-cse-134.github.io/group18/Homework4/img/team_page/favicon.ico" rel="shortcut icon" />
+<link href="./favicon.ico" rel="shortcut icon" />
 <title>SuperCereal - Team 15</title>
 
 <!-- Le styles -->
