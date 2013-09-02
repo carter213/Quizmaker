@@ -220,13 +220,13 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			if(!is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
-				var_dump ("mc if"); exit();
+				
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 
 				mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}'
 		   			)");
-				var_dump ("mc else if"); exit();
+				
 
 			}else{ 
 
@@ -249,7 +249,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}else{
 						$getCheckedValue = 0;
 					}
-					var_dump ("mc else "); exit();
+					
 					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}' , '${getCheckedValue}'
 		   			)");
