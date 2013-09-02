@@ -107,15 +107,19 @@ while ($question = mysqli_fetch_array($questions)) {
 }
 
 // Store in database
+$questions2 = mysqli_query($con, "SELECT * FROM question WHERE quiz_id=${quiz_id}
+	ORDER BY question_num");
+
 $final_points = 0;
-for ($x = 1; $x < count($ta_comment); $x++) {
+for ($x = 0; $x < count($ta_comment); $x++) {
+	$qnum = mysqli_fetch_array[$questions2];
 	$pt = filter_var($points[$x], FILTER_SANITIZE_NUMBER_INT);
 	$comment = filter_var($ta_comment[$x], FILTER_SANITIZE_STRING);
 	$comment = mysqli_real_escape_string($con, $comment);
 
 	mysqli_query($con, "UPDATE student_question SET student_points=${pt}, 
 		ta_comment='${comment}' WHERE user_id=${student_id} AND 
-		quiz_id=${quiz_id} AND question_num=${x}");
+		quiz_id=${quiz_id} AND question_num=${qnum}");
 
     $final_points += $pt;
 }

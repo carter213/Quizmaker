@@ -61,13 +61,14 @@ if (mysqli_num_rows($questions) != count($student_response)) {
 }
 
 // Store in database
-for ($x = 1; $x <= count($student_response); $x++) {
+for ($x = 0; $x < count($student_response); $x++) {
+	$qnum = mysqli_fetch_array($questions)['question_num'];
 	$response = filter_var($student_response[$x], FILTER_SANITIZE_STRING);
 	$response = mysqli_real_escape_string($con, $response);
 
 	mysqli_query($con, "UPDATE student_question SET student_response='${response}' 
 	    WHERE user_id=${user_id} AND 
-		quiz_id=${quiz_id} AND question_num=${x}");
+		quiz_id=${quiz_id} AND question_num=${qnum}");
 }
 
 header("Location: review?class_code=${class_code}&quiz_name=${quiz_name}");
