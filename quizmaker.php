@@ -117,7 +117,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
   <div class="navbar-inner">
     <div class="container">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="brand" href="./index">Logout</a>
+      <a class="brand" href="./logout">Logout</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li> <a href="./index">Home</a> </li>
@@ -487,14 +487,14 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  </span>\n";
                   print "  <label>Answers</label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='true' name='tf[]' ";
+                  print "    <input type='radio' value='true' name='${question_num}_tf[]' ";
 				  if ($answer == 'True') {
 				    print "checked ";
 				  }
 				  print "/>True\n";
                   print "  </label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='false' name='tf[]' ";
+                  print "    <input type='radio' value='false' name='${question_num}_tf[]' ";
 				  if ($answer == 'False') {
 					print "checked ";
 				  }
