@@ -59,7 +59,7 @@ for ($i=1; $i<=$total; $i++) {
   $question_num = $Q_Num[$i-1];
   $temp_i = $_POST["${i}"];
   
-  switch ($Q_Type[$i]) {
+  switch ($Q_Type[$i-1]) {
     
     case 'mc':
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
