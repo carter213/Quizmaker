@@ -93,11 +93,11 @@ $getEndDateAndTime = $end_date . ' ' . $end_time;
 if( !ctype_digit($timeLimit) ||  !ctype_digit($possiblePoints) || 
 	strlen($possiblePoints) > 5|| strlen($timeLimit) > 5
 	  || strlen($quizName) > 40 || empty($timeLimit) || empty($possiblePoints) || empty($quizName)   ){
-	/*
+	
 	var_dump(!ctype_digit($timeLimit));var_dump(!ctype_digit($possiblePoints));var_dump(strlen($possiblePoints) > 5);
 	var_dump(strlen($timeLimit) > 5);var_dump( strlen($quizName) > 40);var_dump(empty($timeLimit));
 	var_dump(empty($possiblePoints));var_dump(empty($quizName)); exit();
-	*/
+	
 	header('Location: /');
 	exit();
 }
@@ -214,12 +214,15 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
 			$getCheckedValue;
 			$getAnsValue;
-			/*if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
+				mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}',  
+		   			)");
 
-			}else{ */
+			}else{ 
 
 				//$count_check = count($checked_value_arr);
 
@@ -237,25 +240,17 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 
-					if(!is_bool(array_search($checkPos,$checked_value_arr )) )
+					if(!is_bool(array_search($checkPos, $checked_value_arr)) )
 					{
 						$getCheckedValue = 1;
 					}else{
 						$getCheckedValue = 0;
 					}
-
-				
-					//store to the mysql
-					//save getAnsValue, getCheckedValue
 					
-					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
-	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}', '${getCheckedValue}'
-		   		)");
-
 				}
 
 
-
+			}
 			//mysql save getQustionName,getQuestionType,getQuestionBody ,getQuestionPoint
 
 			
@@ -275,12 +270,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				
 				$getTFAnswer = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 				$getTFAnswer = mysqli_real_escape_string($con, $getTFAnswer);
-				if($getTFAnswer == "true"){
-					$getTFAnswer = "True";
-				}
-				if($getTFAnswer == "false"){
-					$getTFAnswer = "False";
-				}
+				
 				//var_dump($getTFAnswer);
 				
 				mysqli_query($con, "INSERT INTO question (quiz_id, type, label, question_num , body, answer, points) VALUES 
