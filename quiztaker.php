@@ -187,7 +187,7 @@ legend + .qtitle:nth-of-type(1) {
         //display questions
         switch ($type) {
           //true/false Qs
-          case 'True/False':
+          case 'tf':
             print "<div class='well well-small'>${body}";
             print "<label class='radio'>";
             print "<input type='radio' name='${question_num}' id='${question_num}' value='True'>";
@@ -198,7 +198,7 @@ legend + .qtitle:nth-of-type(1) {
             print "</div>";
           break;
           //multiple Qs
-          case'Multiple Choice':
+          case 'mc':
             print "<span class='help-block'>Check all that apply</span>";
             print "<div class='well well-small'>${body}";
             $options=mysql_query($con, "SELECT * FROM mc WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
@@ -213,7 +213,7 @@ legend + .qtitle:nth-of-type(1) {
             print "</div>";
             break;
             //matching Qs
-            case 'Matching':
+            case 'm':
               print "<span class='help-block'>Fill in blanks with the correct answer (copy and paste words/sentences)</span>";
               print "<div class='well well-small'> ${body}";
               //matching options
@@ -232,13 +232,13 @@ legend + .qtitle:nth-of-type(1) {
               print "</div>";
             break;
             //fill-in Qs
-            case 'Fill-in':
+            case 'fi':
               print "<div class='well well-small'> ${body}<br>";
               print "<input type='text' placeholder='Fill in the Blank' name='${question_num}' id='${question_num}'>";
               print "</div>";
             break;
             //short answer Qs
-            case 'Short Answer':
+            case 'sa':
               print "<div class='well well-small'> ${body}<br>";
               print "<textarea rows='5' cols='100' class='span6' name='${question_num}' id='${question_num}'></textarea>";
               print "</div>";
