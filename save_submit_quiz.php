@@ -54,13 +54,13 @@ for ($i=0; $i<$total; $i++) {
   $question_num = $Q_Num[$i];
   
   switch ($Q_Type[$i]) {
-    case: 'Multiple Choice':
+    case 'mc':
       $answer = filter_var_array($_POST['$i'], FILTER_SANITIZE_STRING);
       $answer = array_map('mysqli_real_escape_string', $answer);
       var_dump(implode(,$answer));
       mysqli_query($con, "UPDATE student_mc SET option_num='${answer}' WHERE user_id == ${user_id} AND quiz_id == ${quiz_id} AND question_num == ${question_num};");
       break;
-    case: 'Matching':
+    case 'm':
       $answer = filter_var_array($_POST['$i'], FILTER_SANITIZE_STRING);
       $answer = array_map('mysqli_real_escape_string', $answer);
       var_dump($answer);      
