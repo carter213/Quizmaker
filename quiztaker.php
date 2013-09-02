@@ -41,12 +41,10 @@ $class_id=mysqli_query($con, "SELECT class_id FROM class WHERE class_code = '${c
 $class_id=mysqli_fetch_array($class_id);
 $class_id=$class_id['class_id'];
 $quiz_found=mysqli_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name = '${quiz_name}' AND class_id = '${class_id}'");
-$quiz_found=mysqli_fetch_array($quiz_found);
-$quiz_found=$quiz_found['quiz_id'];
-
 
 if (mysqli_num_rows($quiz_found) == 1) {
     $quiz_id = mysqli_fetch_array($quiz_found);
+    $quiz_id=$quiz_id['quiz_id'];
 } else {
    header('Location: studentmanagement');
    exit();
