@@ -224,7 +224,7 @@ legend + .qtitle:nth-of-type(1) {
                 $option_num = $option['option_num'];
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
-                print "<div class='span4'>$option_num. ${word]</div>";
+                print "<div class='span4'>$option_num. ${word}</div>";
                 print "<div class='span6 offset2'>${value}</div>";
                 print "<input type='text' class='span1' name='${question_num}[]' id='${question_num}'>";
                 print "</div>";
