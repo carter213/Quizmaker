@@ -69,7 +69,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 ================================================== -->
 <head>
 <meta charset="utf-8">
-<link href="http://ucsd-cse-134.github.io/group18/Homework2/img/team_page/favicon.ico" rel="shortcut icon" />
+<link href="./favicon.ico" rel="shortcut icon" />
 <title>Quiz Maker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -665,8 +665,8 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 ================================================== -->
 <footer class="footer">
   <div class="container">
-    <p><a href="http://classes.pint.com/cse134b/">CSE134B Homepage</a></p>
-    <p>&copy; 2013 <a href="./index">The Four Amigos</a>. All rights reserved.</p>
+    <p><a href="http://classes.pint.com/cse135/">CSE135 Homepage</a></p>
+    <p>&copy; 2013 <a href="./index">Super Cereal</a>. All rights reserved.</p>
     <p class="pull-right"><a href="#">Back to top</a></p>
   </div>
 </footer>
