@@ -88,6 +88,7 @@ if(!IsDateAndTimeValid($start_date,$start_time) || !IsDateAndTimeValid($end_date
 }
 
 $getStartDateAndTime = $start_date . ' ' . $start_time;
+var_dump(date("Y-m-d H:i:s"), strtotime($getStartDateAndTime)); exit();
 $getEndDateAndTime = $end_date . ' ' . $end_time;
 
 //check the valid points ,quizName and  time limit
@@ -384,13 +385,6 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 header("Location: quizmaker?class_code=${classcode}");
 exit();
-
-
-
-
-
-
-
 
 
 
