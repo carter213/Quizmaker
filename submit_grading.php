@@ -111,7 +111,7 @@ $final_points = 0;
 for ($x = 0; $x < count($ta_comment); $x++) {
 	$pt = filter_var($points[$x], FILTER_SANITIZE_NUMBER_INT);
 	$comment = filter_var($ta_comment[$x], FILTER_SANITIZE_STRING);
-	$comment = mysqli_real_escape_string($comment);
+	$comment = mysqli_real_escape_string($con, $comment);
 
 	mysqli_query($con, "UPDATE student_question SET student_points=${pt}, 
 		ta_comment='${comment}' WHERE user_id=${student_id} AND 
