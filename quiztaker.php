@@ -221,7 +221,7 @@ legend + .qtitle:nth-of-type(1) {
               //print options
               print "<label>";
               print "<input type='checkbox' name='${question_num}[]' id='${question_num}' value='${option_num}'>";
-              print "${option_val}</label>";
+              print "&nbsp ${option_val}</label>";
             }
             print "</div>";
             break;
