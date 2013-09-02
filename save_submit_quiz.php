@@ -64,7 +64,7 @@ for ($i=0; $i<$total; $i++) {
       $answer = filter_var_array($_POST['$i'], FILTER_SANITIZE_STRING);
       $answer = array_map('mysqli_real_escape_string', $answer);
       var_dump($answer);      
-      for {$j=1; $j<=count($answer); $j++} {
+      for ($j=1; $j<=count($answer); $j++) {
         mysqli_query($con, "UPDATE student_matching SET answer='${answer}[$j]' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num} AND option_num = ${j}");        
       }
       break;
