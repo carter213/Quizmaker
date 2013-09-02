@@ -217,7 +217,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	                ('${getQuizId}', '${getQuestionType}', '${getQustionName}',  '${count_question_num}',
 	                '${getQuestionBody}', '${getQuestionPoint}'
 	                )");
-			if(count($checked_value_arr) !== count($ans_value_arr) || !is_array($checked_value_arr) ||
+			if(!is_array($checked_value_arr) ||
 				!is_array($ans_value_arr)){
 				//should fail
 				var_dump ("mc if"); exit();
