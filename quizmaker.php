@@ -487,14 +487,14 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  </span>\n";
                   print "  <label>Answers</label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='true' name='tf[]' ";
+                  print "    <input type='radio' value='true' name='${question_num}_tf[]' ";
 				  if ($answer == 'True') {
 				    print "checked ";
 				  }
 				  print "/>True\n";
                   print "  </label>\n";
                   print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='false' name='tf[]' ";
+                  print "    <input type='radio' value='false' name='${question_num}_tf[]' ";
 				  if ($answer == 'False') {
 					print "checked ";
 				  }
