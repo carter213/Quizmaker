@@ -117,7 +117,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
   <div class="navbar-inner">
     <div class="container">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="brand" href="./index">Logout</a>
+      <a class="brand" href="./logout">Logout</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li> <a href="./index">Home</a> </li>
@@ -405,18 +405,6 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
-                  print "  <span class='help-block'>\n";
-                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
-                  print "  </span>\n";
-                  print "  <label>Student chooses</label>\n";
-                  print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='one' name='numToChoose[]'/>\n";
-                  print "    One Answer\n";
-                  print "  </label>\n";
-                  print "  <label class='radio inline'>\n";
-                  print "    <input type='radio' value='multiple' name='numToChoose[]'/>\n";
-                  print "    Multiple Answers\n";
-                  print "  </label>\n";
                   print "  <label>Possible Answers</label>\n";
                   print "  <span class='help-block'>\n";
                   print "    <small>Check correct answer(s)</small>\n";

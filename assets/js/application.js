@@ -425,12 +425,7 @@ function buildMultipleChoiceQuestion(opts) {
   };
   var opts = $.extend({}, defaults, opts);
 
-  elems.push($('<label>Student chooses</label>'));
 
-  elems.push($('<label class="radio inline"><input type="radio" value="one" name="' + opts.id+ '_'+'numToChoose[]" ' + ((opts.choose === 'multiple') ? '' : 'checked') + '>One Answer</label>'
-       + '<label class="radio inline"><input type="radio" value="multiple" name="' + opts.id+ '_'+'numToChoose[]" ' + ((opts.choose === 'multiple') ? 'checked' : '') + '>Multiple answers</label>'
-       + '<label>Possible Answers</label>'
-       + '<span class="help-block"><small>Check correct answer(s)</small></span>'));
 
   $(opts.choices).each(function (i) {
     elems.push($('<div class="input-prepend input-append block"><span class="add-on"><input type="checkbox" value="' + i + '" name="' + opts.id + '_mc_checked[]" ' + ((opts.answer.indexOf(i) > -1) ? 'checked' : '') + '></span>'

@@ -202,6 +202,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 	switch($getQuestionType){
 
 		case "mc":
+		/*
 			$radio_value_arr = $_POST[strval($count_question_num) . '_numToChoose'];
 			//check vaild radio input
 			
@@ -211,6 +212,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 
 			$getRadioValue = filter_var($radio_value_arr[0], FILTER_SANITIZE_STRING);
 			$getRadioValue = mysqli_real_escape_string($con, $getRadioValue);
+			*/
 
 			$checked_value_arr = $_POST[strval($count_question_num) . '_mc_checked'];
 			$ans_value_arr = $_POST[strval($count_question_num) . '_mc_ans'];
@@ -253,8 +255,8 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}
 					
 					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num, option_val, is_correct) VALUES 
-	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}' , '${getCheckedValue}'
-		   			)");
+	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}',' ${getCheckedValue}'
+	                )");
 		   			//printf("error %s" , mysqli_error($con));
 				}
 

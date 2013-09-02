@@ -22,6 +22,7 @@ if (mysqli_connect_errno($con)) {
     exit();
 }
 
+
 date_default_timezone_set('America/Los_Angeles');
 
 $class_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
@@ -36,8 +37,13 @@ if (strlen($class_code) != 40) {
 }
 
 //check if quiz is valid
-$class_id=mysql_query($con, "SELECT class_id FROM class WHERE class_code == '${class_code}';");
-$quiz_found=mysql_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name == '${quiz_name}' AND class_id == '${class_id}';");
+$class_id=mysqli_query($con, "SELECT class_id FROM class WHERE class_code = '${class_code}'");
+$class_id=mysqli_fetch_array($class_id);
+$class_id=$class_id['class_id'];
+$quiz_found=mysqli_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name = '${quiz_name}' AND class_id = '${class_id}'");
+$quiz_found=mysqli_fetch_array($quiz_found);
+$quiz_found=$quiz_found['quiz_id'];
+
 
 if (mysqli_num_rows($quiz_found) == 1) {
     $quiz_id = mysqli_fetch_array($quiz_found);
@@ -48,8 +54,8 @@ if (mysqli_num_rows($quiz_found) == 1) {
 
 //check if the student is in class
 $bool = False;
-$members=mysql_query($con, "SELECT user_id FROM class_member WHERE class_id == '${class_id}';");
-while($member=mysql_fetch_array($members)) {
+$members=mysqli_query($con, "SELECT user_id FROM class_member WHERE class_id = '${class_id}'");
+while($member=mysqli_fetch_array($members)) {
     if($user_id == $member['user_id']) {
         $bool = True;
         break;
@@ -57,7 +63,9 @@ while($member=mysql_fetch_array($members)) {
 }
 
 //check if finished
-$finished=mysql_query($con, "SELECT finished FROM student_quiz WHERE user_id=='${user_id}' AND quiz_id=='${quiz_id}';");
+$finished=mysqli_query($con, "SELECT finished FROM student_quiz WHERE user_id='${user_id}' AND quiz_id='${quiz_id}'");
+$finished=mysqli_fetch_array($finished);
+$finished=$finished['finished'];
 if ($finished) {
     header('Location: studentmanagement');
     exit();
@@ -66,19 +74,24 @@ if ($finished) {
 //check if time is valid 
 //and for time limitation record current time
 $date = date('m/d/Y H:i:s a', time());
-$open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id=='${quiz_id}';");
-$deadline=mysql_query($con, "SELECT deadline FROM quiz WHERE quiz_id=='${quiz_id}';"); 
+$open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id='${quiz_id}'");
+$open_date=mysqli_fetch_array($open_date);
+$open_date=$open_date['open_date'];
+$deadline=mysqli_query($con, "SELECT deadline FROM quiz WHERE quiz_id='${quiz_id}'"); 
+$deadline=mysqli_fetch_array($deadline);
+$deadline=$deadline['deadline'];
 if ($bool == False || $date < $open_date || $date > $deadline) {
     header('Location: studentmanagement');
     exit();
 }
 
 //TODO: use time limitation
-$time_limit=mysql_query($con, "SELECT time_limit FROM quiz WHERE quiz_id=='${quiz_id}';");
+$time_limit=mysqli_query($con, "SELECT time_limit FROM quiz WHERE quiz_id='${quiz_id}'");
+$time_limit=mysqli_fetch_array($time_limit);
+$time_limit=$time_limit['time_limit'];
 // Add $time_limit (total time) to start time. And store into session variable.
 //if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
 session_set_cookie_params($time_limit * 60);
-
 
 ?>
 
@@ -158,17 +171,19 @@ legend + .qtitle:nth-of-type(1) {
         print "<fieldset>";
 
         //check order
-        $display_order=mysql_query($con, "SELECT display_order FROM quiz WHERE quiz_id=='${quiz_id}';");
+        $display_order=mysqli_query($con, "SELECT display_order FROM quiz WHERE quiz_id='${quiz_id}'");
+        $display_order=mysqli_fetch_array($display_order);
+        $display_order=$display_order['display_order'];
         //check randomizeTaker option value
         if ($display_order=='Fixed Order') {
           //get questions sorted by question_num
-          $sequence=mysql_query($con, "SELECT * FROM question WHERE quiz_id == '${quiz_id}' ORDER BY question_num;");
+          $sequence=mysqli_query($con, "SELECT * FROM question WHERE quiz_id = '${quiz_id}' ORDER BY question_num");
         } else if ($display_order=='Randomized Order') {
             //randomize
-            $sequence=mysql_query($con, "SELECT * FROM question WHERE quiz_id=='${quiz_id}' ORDER BY RAND();");
+            $sequence=mysqli_query($con, "SELECT * FROM question WHERE quiz_id='${quiz_id}' ORDER BY RAND()");
             $temp_question_num=1;
         }
-        while($question=mysql_fetch_array($sequence)) {
+        while($question=mysqli_fetch_array($sequence)) {
           //retrieve question info
           $type = $question['type'];
           $body = $question['body'];
@@ -201,8 +216,8 @@ legend + .qtitle:nth-of-type(1) {
           case 'mc':
             print "<span class='help-block'>Check all that apply</span>";
             print "<div class='well well-small'>${body}";
-            $options=mysql_query($con, "SELECT * FROM mc WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
-            while($option=mysql_fetch_array($options)) {
+            $options=mysqli_query($con, "SELECT * FROM mc WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY option_num");
+            while($option=mysqli_fetch_array($options)) {
               $option_num = $option['option_num'];
               $option_val = $option['option_val'];
               //print options
@@ -217,10 +232,11 @@ legend + .qtitle:nth-of-type(1) {
               print "<span class='help-block'>Fill in blanks with the correct answer (copy and paste words/sentences)</span>";
               print "<div class='well well-small'> ${body}";
               //matching options
-              $options=mysql_query($con, "SELECT * FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
-              $values=mysql_query($con, "SELECT value FROM matching WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY RAND();");
-              while($option=mysql_fetch_array($options)) {
-                $value=mysql_fetch_array($values);
+              $options=mysqli_query($con, "SELECT * FROM matching WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY option_num");
+              $values=mysqli_query($con, "SELECT value FROM matching WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY RAND()");
+              while($option=mysqli_fetch_array($options)) {
+                $value=mysqli_fetch_array($values);
+                $value=$value['value'];
                 $option_num = $option['option_num'];
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
