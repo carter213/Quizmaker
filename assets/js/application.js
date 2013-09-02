@@ -409,8 +409,8 @@ function buildTrueFalseQuestion(opts) {
   var opts = $.extend({}, defaults, opts);
 
   elems.push($('<label>Answers</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="true" name="' + opts.id + '_'+ 'tf[]" ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
-  elems.push($('<label class="radio inline"><input type="radio" value="false" name="' + opts.id + '_'+ 'tf[]" ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
+  elems.push($('<label class="radio inline"><input type="radio" value="True" name="' + opts.id + '_'+ 'tf[]" ' + ((opts.answer) ? 'checked' : '') + '>True</label>'));
+  elems.push($('<label class="radio inline"><input type="radio" value="False" name="' + opts.id + '_'+ 'tf[]" ' + ((!opts.answer) ? 'checked' : '') + '>False</label>'
        + '<span class="help-block"><small>Select correct answer</small></span>'));
 
   return elems;
@@ -665,7 +665,7 @@ function serializeTrueFalseQuestion(q) {
   serialized['type'] = $(q).attr('data-type');
   serialized['name'] = $(q).find('input[name="questionName"]').val();
   serialized['questionText'] = $(q).find('.textarea').text();
-  serialized['answer'] = ($(q).find('input[type="radio"]:checked').val() == "true");
+  serialized['answer'] = ($(q).find('input[type="radio"]:checked').val() == "True");
   serialized['points'] = $(q).find('input[name="points"]').val();
 
   return serialized;
