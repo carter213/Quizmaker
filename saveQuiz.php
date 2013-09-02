@@ -115,11 +115,11 @@ if($flagviewAnswers || $flagrandomizeTaker  ){
 $classid = mysqli_query($con, "SELECT class_id FROM class WHERE class_code='${classcode}'");
 $classid = mysqli_fetch_array($classid)['class_id'];
 
-$existQuiz = mysqli_query($con, "SELECT quiz_id,quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
+$existQuiz = mysqli_query($con, "SELECT quiz_id, quiz_name FROM quiz WHERE class_id='${classid}' AND quiz_name = '${quizName}' ");
 if(mysqli_num_rows($existQuiz)){
 	$existQuiz = mysqli_fetch_array($existQuiz);
 	$oldQuizId = $existQuiz['quiz_id'];
-	$oldQuizName = $exitQuiz['quiz_name'];
+	$oldQuizName = $existQuiz['quiz_name'];
 	var_dump($oldQuizId);var_dump($oldQuizName);  var_dump($classid);var_dump($existQuiz); 
 exit();
 	mysqli_query($con, "DELETE FROM quiz WHERE class_id='${classid}' AND quiz_name = '${oldQuizName}' ");
