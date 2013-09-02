@@ -248,7 +248,10 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					}else{
 						$getCheckedValue = 0;
 					}
-					
+
+					mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num,option_val,is_correct) VALUES 
+	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}', '${getCheckedValue}'
+		   			)");
 				}
 
 
