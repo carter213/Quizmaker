@@ -144,12 +144,12 @@ legend + .qtitle:nth-of-type(1) {
   <div class="navbar-inner">
     <div class="container">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="brand" href="./index">Logout</a>
+      <a class="brand" href="./logout">Logout</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
           <li class=""> <a href="./index">Home</a> </li>
            <li><a href="./studentmanagement" class="nav_links">User Management</a> </li>
-          <li class="active"><a href="./quiztaker" class="nav_links">Quiz Taker</a></li>
+          <li class="active"><a class="nav_links">Quiz Taker</a></li>
         </ul>
       </div>
     </div>
