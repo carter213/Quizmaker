@@ -219,7 +219,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				//should fail
 			}elseif( empty($checked_value_arr) || empty($ans_value_arr)){
 				mysqli_query($con, "INSERT INTO mc (quiz_id, question_num, option_num) VALUES 
-	                ('${getQuizId}', '${count_question_num}', '${x}',  
+	                ('${getQuizId}', '${count_question_num}', '${x}'
 		   			)");
 
 			}else{ 
