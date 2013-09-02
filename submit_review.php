@@ -63,7 +63,7 @@ if (mysqli_num_rows($questions) != count($student_response)) {
 // Store in database
 for ($x = 0; $x < count($student_response); $x++) {
 	$response = filter_var($student_response[$x], FILTER_SANITIZE_STRING);
-	$response = mysqli_real_escape_string($response);
+	$response = mysqli_real_escape_string($con, $response);
 
 	mysqli_query($con, "UPDATE student_question SET student_response='${response}' 
 	    WHERE user_id=${user_id} AND 
