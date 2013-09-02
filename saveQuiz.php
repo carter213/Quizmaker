@@ -342,8 +342,9 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
 					var_dump($getAnsValue);
 					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
-	                ('${getQuizId}', '${count_question_num}', '${x}',  '${getAnsValue}'
+	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}'
 	                )");
+	                printf("error %s" , mysqli_error($con));
 					//store to the mysql
 					//save getAnsValue, getCheckedValue
 				}
