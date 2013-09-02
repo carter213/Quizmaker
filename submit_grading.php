@@ -109,7 +109,7 @@ while ($question = mysqli_fetch_array($questions)) {
 // Store in database
 $final_points = 0;
 for ($x = 0; $x < count($ta_comment); $x++) {
-	$pt = filter_var($points[$x], FILTER_SANITIZE_INT);
+	$pt = filter_var($points[$x], FILTER_SANITIZE_NUMBER_INT);
 	$comment = filter_var($ta_comment[$x], FILTER_SANITIZE_STRING);
 	$comment = mysqli_real_escape_string($comment);
 
