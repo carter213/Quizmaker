@@ -820,8 +820,6 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 <script src="assets/js/jquery.mockjax.js"></script> 
 <script src="assets/js/date.format.js"></script> 
 <script type="text/javascript">
-document.getElementById('startDate').value = (new Date()).format("yyyy-mm-dd");
-document.getElementById('endDate').value = (new Date()).format("yyyy-mm-dd");
 
 
 function load_quiz() {
