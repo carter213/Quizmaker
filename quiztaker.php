@@ -251,7 +251,6 @@ legend + .qtitle:nth-of-type(1) {
 
 
         <div class="form-actions"><span class="pull-right">
-          <button class="btn" type="submit" name="status" value="Save">Save</button>
           <button class="btn btn-success" type="submit" name="status" value="Submit">Submit</button>
         </span></div>
 
