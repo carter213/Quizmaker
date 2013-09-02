@@ -68,7 +68,7 @@ function IsDateAndTimeValid ($Idate , $Itime) {
     date_default_timezone_set('America/Los_Angeles');
     $tmpTime = is_object(DateTime::createFromFormat('H:i:s' , $Itime));
 	$tmpdate1 = is_object(DateTime::createFromFormat('Y-m-d', $Idate));
-	$tmpdate2 = is_object(DateTime::createFromFormat('d/m/Y', $Idate));
+
 	$tmpdate = tmpdate1 || tmpdate2;
 	
 	if($tmpTime &&  $tmpdate ){
