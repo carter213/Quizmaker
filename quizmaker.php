@@ -431,7 +431,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                       print "    <span class='add-on'>\n";
                       print "      <input type='checkbox' value='${option_num}' name='${question_num}_mc_checked[]' ";
                       if ($is_correct) {
-                        print "checked\>\n";
+                        print "checked >\n";
                       } else { 
                         print "\>\n";
                       }
@@ -530,6 +530,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "  </span>\n";
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
+				  print "  <textarea name='questionBody[]' class='textarea input-xxlarge' style='display:none' >${body}</textarea>\n";
                   print "  <label>Word-Value Pairs</label>\n";
 
                   if (mysqli_num_rows($options) > 0) {

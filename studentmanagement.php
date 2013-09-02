@@ -21,7 +21,7 @@ $classes = mysqli_query($con, "SELECT * FROM class NATURAL JOIN class_member
   WHERE user_id=${user_id}");
   
 // Retrieve quizzes
-date_default_timezone_set('UTC');
+date_default_timezone_set('America/Los_Angeles');
 $date = date("Y-m-d H:i:s");
 $class_quiz_take_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
   class_member NATURAL JOIN quiz WHERE user_id=${user_id} AND open_date<='${date}' 
@@ -78,7 +78,6 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <li class="active">
             <a href="./studentmanagement" class="nav_links">User Management</a>
           </li>
-          <li><a href="./quiztaker" class="nav_links">Quiz Taker</a></li>
         </ul>
       </div>
     </div>
