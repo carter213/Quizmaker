@@ -64,14 +64,13 @@ for ($i=1; $i<=$total; $i++) {
     case 'mc':
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
-      var_dump(implode($answer));
+      implode($answer);
       mysqli_query($con, "UPDATE student_mc SET option_num='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
       break;
     case 'm':
-      var_dump($i); 
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
-      var_dump($answer);      
+      //var_dump($answer);      
       for ($j=1; $j<=count($answer); $j++) {
         mysqli_query($con, "UPDATE student_matching SET answer='${answer}[$j]' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num} AND option_num = ${j}");        
       }
@@ -80,7 +79,7 @@ for ($i=1; $i<=$total; $i++) {
     default:
       $answer = filter_var($temp_i, FILTER_SANITIZE_STRING);
       $answer = mysqli_real_escape_string($con, $answer);
-      var_dump($answer);
+      //var_dump($answer);
       mysqli_query($con, "UPDATE student_question SET answer='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
       break;
   }
