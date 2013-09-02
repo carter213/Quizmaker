@@ -22,7 +22,7 @@ if (mysqli_connect_errno($con)) {
     exit();
 }
 
-date_default_timezone_set('UTC');
+date_default_timezone_set('America/Los_Angeles');
 
 $class_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
 $class_code = mysqli_real_escape_string($con, $class_code);
