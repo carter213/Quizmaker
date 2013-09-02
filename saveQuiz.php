@@ -345,7 +345,7 @@ for($array_num = 0; $array_num < $question_name_num; $array_num++){
 				for($x = 0; $x < $count_answer ; $x++){
 					$getAnsValue = filter_var($ans_value_arr[$x], FILTER_SANITIZE_STRING);
 					$getAnsValue = mysqli_real_escape_string($con, $getAnsValue);
-					var_dump($getAnsValue);
+					//var_dump($getAnsValue);
 					mysqli_query($con, "INSERT INTO fill_in (quiz_id, question_num, option_num, answer) VALUES 
 	                ('${getQuizId}', '${count_question_num}', '${x}', '${getAnsValue}'
 	                )");
