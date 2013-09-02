@@ -219,11 +219,11 @@ legend + .qtitle:nth-of-type(1) {
                   $option_val = $option['option_val'];
                   $option_num = $option['option_num'];
 
-                  $student_response = mysqli_query($con, "SELECT * FROM student_mc 
+                  $student_mc_ans = mysqli_query($con, "SELECT * FROM student_mc 
                     WHERE user_id=${student_id} AND quiz_id=${load_quiz_id} AND 
                     question_num=${question_num} AND option_num=${option_num}");
 
-                  if (mysqli_num_rows($student_response) > 0) {
+                  if (mysqli_num_rows($student_mc_ans) > 0) {
                     $checked = 1;
                   } else {
                     $checked = 0;
