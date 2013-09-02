@@ -78,7 +78,7 @@ for ($i=1; $i<=$total; $i++) {
       $answer = array_map('array_map_callback', $answer);
       //var_dump($answer);      
       for ($j=1; $j<=count($answer); $j++) {
-        $ans = $answer[$j - 1];
+        $ans = $answer[$j];
         mysqli_query($con, "INSERT INTO student_matching (user_id, quiz_id, question_num, option_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}', '${j}', '${ans}')");      
       }
       break;
