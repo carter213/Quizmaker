@@ -238,7 +238,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         <div class="inline-block well">
           <label for="startDate">Quiz Opens</label>
           <div class="input-append">
-            <input type="date" name="startDate" id="startDate" class="span2" 
+            <input type="text" name="startDate" id="start_date" class="span2"  placeholder="YYYY-MM-DD"
             <?php
             if ($load_quiz == 1) {
               $open_date = substr($valid_quiz['open_date'], 0, 10);
@@ -259,7 +259,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
         <div class="inline-block well">
           <label for="endDate">Deadline</label>
           <div class="input-append">
-            <input type="date" name="endDate" id="endDate" class="span2" 
+            <input type="text" name="endDate" id="end_date" class="span2" placeholder="YYYY-MM-DD"
             <?php
             if ($load_quiz == 1) {
               $close_date = substr($valid_quiz['deadline'], 0, 10);
@@ -402,9 +402,15 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "    </div>\n";
                   print "  </span>\n";
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <br>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
+                  print "  <span class='help-block'>\n";
+                   print "  <span class='help-block'>\n";
+                  print "    Type question in box above. Use underscores to indicate a 'blank', if applicable.\n";
+                 print "  </span>\n \n";
+
                   print "  <label>Possible Answers</label>\n";
                   print "  <span class='help-block'>\n";
                   print "    <small>Check correct answer(s)</small>\n";
@@ -414,7 +420,6 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                       $option_num = $option['option_num'];
                       $option_val = $option['option_val'];
                       $is_correct = $option['is_correct'];
-
                       print "  <div class='input-prepend input-append block'>\n";
                       print "    <span class='add-on'>\n";
                       print "      <input type='checkbox' value='${option_num}' name='${question_num}_mc_checked[]' ";
@@ -466,7 +471,9 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "      </button>\n";
                   print "    </div>\n";
                   print "  </span>\n";
+                 
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <br>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
@@ -516,7 +523,9 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "      </button>\n";
                   print "    </div>\n";
                   print "  </span>\n";
+
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                   print "  <br>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
 				  print "  <textarea name='questionBody[]' class='textarea input-xxlarge' style='display:none' >${body}</textarea>\n";
                   print "  <label>Word-Value Pairs</label>\n";
@@ -576,6 +585,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "    </div>\n";
                   print "  </span>\n";
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                  print "  <br>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
@@ -627,6 +637,7 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
                   print "    </div>\n";
                   print "  </span>\n";
                   print "  <a class='icon-trash close' href='#' style='color: red' name='deleteQ' title='Remove'></a>\n";
+                   print "  <br>\n";
                   print "  <input type='text' name='questionName[]' value='${label}' placeholder='Question Label'>\n";
                   print "  <label>Question</label>\n";
                   print "  <textarea name='questionBody[]' class='textarea input-xxlarge'>${body}</textarea>\n";
@@ -821,8 +832,6 @@ $quizzes = mysqli_query($con, "SELECT * FROM quiz NATURAL JOIN class WHERE
 <script src="assets/js/jquery.mockjax.js"></script> 
 <script src="assets/js/date.format.js"></script> 
 <script type="text/javascript">
-document.getElementById('startDate').value = (new Date()).format("yyyy-mm-dd");
-document.getElementById('endDate').value = (new Date()).format("yyyy-mm-dd");
 
 
 function load_quiz() {

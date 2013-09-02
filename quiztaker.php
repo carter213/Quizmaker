@@ -41,12 +41,10 @@ $class_id=mysqli_query($con, "SELECT class_id FROM class WHERE class_code = '${c
 $class_id=mysqli_fetch_array($class_id);
 $class_id=$class_id['class_id'];
 $quiz_found=mysqli_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name = '${quiz_name}' AND class_id = '${class_id}'");
-$quiz_found=mysqli_fetch_array($quiz_found);
-$quiz_found=$quiz_found['quiz_id'];
-
 
 if (mysqli_num_rows($quiz_found) == 1) {
     $quiz_id = mysqli_fetch_array($quiz_found);
+    $quiz_id=$quiz_id['quiz_id'];
 } else {
    header('Location: studentmanagement');
    exit();
@@ -73,7 +71,7 @@ if ($finished) {
 
 //check if time is valid 
 //and for time limitation record current time
-$date = date('m/d/Y H:i:s a', time());
+$date = date('Y-m-d H:i:s', time());
 $open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id='${quiz_id}'");
 $open_date=mysqli_fetch_array($open_date);
 $open_date=$open_date['open_date'];
@@ -223,7 +221,7 @@ legend + .qtitle:nth-of-type(1) {
               //print options
               print "<label>";
               print "<input type='checkbox' name='${question_num}[]' id='${question_num}' value='${option_num}'>";
-              print "${option_num}. ${option_val}</label>";
+              print "&nbsp ${option_val}</label>";
             }
             print "</div>";
             break;
@@ -240,7 +238,7 @@ legend + .qtitle:nth-of-type(1) {
                 $option_num = $option['option_num'];
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
-                print "<div class='span4'>$option_num. ${word}</div>";
+                print "<div class='span4'>${option_num}. ${word}</div>";
                 print "<div class='span6 offset2'>${value}</div>";
                 print "<input type='text' class='span1' name='${question_num}[]' id='${question_num}'>";
                 print "</div>";
