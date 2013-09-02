@@ -84,7 +84,7 @@ for ($i=1; $i<=$total; $i++) {
       $answer = filter_var($temp_i, FILTER_SANITIZE_STRING);
       $answer = mysqli_real_escape_string($con, $answer);
       //var_dump($answer);
-      mysqli_query($con, "UPDATE student_question SET answer='${answer}' WHERE user_id == ${user_id} AND quiz_id == ${quiz_id} AND question_num == ${question_num}");
+      mysqli_query($con, "UPDATE student_question SET answer='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
       break;
   }
 
@@ -94,7 +94,7 @@ $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
 $status = mysqli_real_escape_string($con, $status);
 
 if ($status=='Submit') {
-  mysqli_query($con, "UPDATE student_quiz SET finished='1' WHERE user_id == ${user_id} AND quiz_id == ${quiz_id};");
+  mysqli_query($con, "UPDATE student_quiz SET finished='1' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id};");
   header("Location: studentmanagement");
   exit();
 }
