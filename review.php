@@ -442,8 +442,8 @@ legend + .qtitle:nth-of-type(1) {
 ================================================== -->
 <footer class="footer">
   <div class="container">
-    <p><a href="http://classes.pint.com/cse134b/">CSE134B Homepage</a></p>
-    <p>&copy; 2013 <a href="./index">The Four Amigos</a>. All rights reserved.</p>
+    <p><a href="http://classes.pint.com/cse135/">CSE135 Homepage</a></p>
+    <p>&copy; 2013 <a href="./index">Super Cereal</a>. All rights reserved.</p>
     <p class="pull-right"><a href="#">Back to top</a></p>
   </div>
 </footer>
