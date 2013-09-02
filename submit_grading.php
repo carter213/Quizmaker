@@ -96,11 +96,6 @@ $x = 0;
 while ($question = mysqli_fetch_array($questions)) {
 	$max_points = $question['points'];
 
-	if (!filter_var($points[$x], FILTER_VALIDATE_INT)) {
-	  header("Location: grading?class_code=${class_code}&quiz_name=${quiz_name}");
-      exit();
-	}
-
 	$submit_points = filter_var($points[$x], FILTER_SANITIZE_NUMBER_INT);
 
 	if ($submit_points > $max_points) {
