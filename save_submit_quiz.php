@@ -42,11 +42,15 @@ if ($bool == False) {
     exit();
 }
 
+function array_map_callback($a) {
+  return mysqli_real_escape_string($con, $a);
+}
+
 //validate all info
 $Q_Num = filter_var_array($_POST['Q_Num'], FILTER_SANITIZE_NUMBER_INT);
-$Q_Num = array_map('mysqli_real_escape_string', $Q_Num);
+$Q_Num = array_map('array_map_callback', $Q_Num);
 $Q_Type = filter_var_array($_POST['Q_Type'], FILTER_SANITIZE_STRING);
-$Q_Type = array_map('mysqli_real_escape_string', $Q_Type);
+$Q_Type = array_map('array_map_callback', $Q_Type);
 
 
 $total = count($Q_Num);
