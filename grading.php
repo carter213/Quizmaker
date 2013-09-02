@@ -183,6 +183,7 @@ legend + .qtitle:nth-of-type(1) {
                  value=<?php print "'${quiz_name}'" ?>/>
           <input id="class_code" type="text" style="display:none" name="class_code" 
                  value=<?php print "'${class_code}'" ?>/>
+		  <br>
 		  <button type="button" class="btn btn-primary" onclick="load_student_quiz()" >Load Student Quiz</button>
         </section>
         <?php
