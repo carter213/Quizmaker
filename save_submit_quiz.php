@@ -68,6 +68,7 @@ for ($i=1; $i<=$total; $i++) {
       mysqli_query($con, "UPDATE student_mc SET option_num='${answer}' WHERE user_id = ${user_id} AND quiz_id = ${quiz_id} AND question_num = ${question_num}");
       break;
     case 'm':
+      var_dump($i);
       $answer = filter_var_array($temp_i, FILTER_SANITIZE_STRING);
       $answer = array_map('array_map_callback', $answer);
       var_dump($answer);      
