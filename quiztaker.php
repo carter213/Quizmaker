@@ -22,7 +22,11 @@ if (mysqli_connect_errno($con)) {
     exit();
 }
 
+<<<<<<< HEAD
+date_default_timezone_set('America/Los_Angeles');
+=======
 date_default_timezone_set('UTC');
+>>>>>>> master
 
 $class_code = filter_var($_GET['class_code'], FILTER_SANITIZE_STRING);
 $class_code = mysqli_real_escape_string($con, $class_code);
@@ -36,8 +40,13 @@ if (strlen($class_code) != 40) {
 }
 
 //check if quiz is valid
+<<<<<<< HEAD
+$class_id=mysqli_query($con, "SELECT class_id FROM class WHERE class_code = '${class_code}'");
+$quiz_found=mysqli_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name = '${quiz_name}' AND class_id = '${class_id}'");
+=======
 $class_id=mysql_query($con, "SELECT class_id FROM class WHERE class_code == '${class_code}';");
 $quiz_found=mysql_query($con, "SELECT quiz_id FROM quiz WHERE quiz_name == '${quiz_name}' AND class_id == '${class_id}';");
+>>>>>>> master
 
 if (mysqli_num_rows($quiz_found) == 1) {
     $quiz_id = mysqli_fetch_array($quiz_found);
@@ -48,8 +57,13 @@ if (mysqli_num_rows($quiz_found) == 1) {
 
 //check if the student is in class
 $bool = False;
+<<<<<<< HEAD
+$members=mysqli_query($con, "SELECT user_id FROM class_member WHERE class_id = '${class_id}'");
+while($member=mysqli_fetch_array($members)) {
+=======
 $members=mysql_query($con, "SELECT user_id FROM class_member WHERE class_id == '${class_id}';");
 while($member=mysql_fetch_array($members)) {
+>>>>>>> master
     if($user_id == $member['user_id']) {
         $bool = True;
         break;
@@ -57,7 +71,11 @@ while($member=mysql_fetch_array($members)) {
 }
 
 //check if finished
+<<<<<<< HEAD
+$finished=mysqli_query($con, "SELECT finished FROM student_quiz WHERE user_id='${user_id}' AND quiz_id='${quiz_id}'");
+=======
 $finished=mysql_query($con, "SELECT finished FROM student_quiz WHERE user_id=='${user_id}' AND quiz_id=='${quiz_id}';");
+>>>>>>> master
 if ($finished) {
     header('Location: studentmanagement');
     exit();
@@ -66,19 +84,32 @@ if ($finished) {
 //check if time is valid 
 //and for time limitation record current time
 $date = date('m/d/Y H:i:s a', time());
+<<<<<<< HEAD
+$open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id='${quiz_id}'");
+$deadline=mysqli_query($con, "SELECT deadline FROM quiz WHERE quiz_id='${quiz_id}'"); 
+=======
 $open_date=mysqli_query($con, "SELECT open_date FROM quiz WHERE quiz_id=='${quiz_id}';");
 $deadline=mysql_query($con, "SELECT deadline FROM quiz WHERE quiz_id=='${quiz_id}';"); 
+>>>>>>> master
 if ($bool == False || $date < $open_date || $date > $deadline) {
     header('Location: studentmanagement');
     exit();
 }
 
 //TODO: use time limitation
+<<<<<<< HEAD
+$time_limit=mysqli_query($con, "SELECT time_limit FROM quiz WHERE quiz_id='${quiz_id}'");
+// Add $time_limit (total time) to start time. And store into session variable.
+//if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
+session_set_cookie_params($time_limit * 60);
+
+=======
 $time_limit=mysql_query($con, "SELECT time_limit FROM quiz WHERE quiz_id=='${quiz_id}';");
 // Add $time_limit (total time) to start time. And store into session variable.
 //if(!isset($_SESSION["start_time"])){$_SESSION["start_time"] = mktime(date(G),date(i),date(s),date(m),date(d),date(Y)) + ($time_limit * 60 + 1);} 
 
 //TODO: save before?????
+>>>>>>> master
 
 ?>
 
@@ -158,6 +189,19 @@ legend + .qtitle:nth-of-type(1) {
         print "<fieldset>";
 
         //check order
+<<<<<<< HEAD
+        $display_order=mysqli_query($con, "SELECT display_order FROM quiz WHERE quiz_id='${quiz_id}'");
+        //check randomizeTaker option value
+        if ($display_order=='Fixed Order') {
+          //get questions sorted by question_num
+          $sequence=mysqli_query($con, "SELECT * FROM question WHERE quiz_id = '${quiz_id}' ORDER BY question_num");
+        } else if ($display_order=='Randomized Order') {
+            //randomize
+            $sequence=mysqli_query($con, "SELECT * FROM question WHERE quiz_id='${quiz_id}' ORDER BY RAND()");
+            $temp_question_num=1;
+        }
+        while($question=mysqli_fetch_array($sequence)) {
+=======
         $display_order=mysql_query($con, "SELECT display_order FROM quiz WHERE quiz_id=='${quiz_id}';");
         //check randomizeTaker option value
         if ($display_order=='Fixed Order') {
@@ -169,6 +213,7 @@ legend + .qtitle:nth-of-type(1) {
             $temp_question_num=1;
         }
         while($question=mysql_fetch_array($sequence)) {
+>>>>>>> master
           //retrieve question info
           $type = $question['type'];
           $body = $question['body'];
@@ -187,7 +232,11 @@ legend + .qtitle:nth-of-type(1) {
         //display questions
         switch ($type) {
           //true/false Qs
+<<<<<<< HEAD
+          case 'tf':
+=======
           case 'True/False':
+>>>>>>> master
             print "<div class='well well-small'>${body}";
             print "<label class='radio'>";
             print "<input type='radio' name='${question_num}' id='${question_num}' value='True'>";
@@ -198,11 +247,19 @@ legend + .qtitle:nth-of-type(1) {
             print "</div>";
           break;
           //multiple Qs
+<<<<<<< HEAD
+          case 'mc':
+            print "<span class='help-block'>Check all that apply</span>";
+            print "<div class='well well-small'>${body}";
+            $options=mysqli_query($con, "SELECT * FROM mc WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY option_num");
+            while($option=mysqli_fetch_array($options)) {
+=======
           case'Multiple Choice':
             print "<span class='help-block'>Check all that apply</span>";
             print "<div class='well well-small'>${body}";
             $options=mysql_query($con, "SELECT * FROM mc WHERE quiz_id == '${quiz_id}' AND question_num == '${question_num}' ORDER BY option_num;");
             while($option=mysql_fetch_array($options)) {
+>>>>>>> master
               $option_num = $option['option_num'];
               $option_val = $option['option_val'];
               //print options
@@ -213,6 +270,20 @@ legend + .qtitle:nth-of-type(1) {
             print "</div>";
             break;
             //matching Qs
+<<<<<<< HEAD
+            case 'm':
+              print "<span class='help-block'>Fill in blanks with the correct answer (copy and paste words/sentences)</span>";
+              print "<div class='well well-small'> ${body}";
+              //matching options
+              $options=mysqli_query($con, "SELECT * FROM matching WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY option_num");
+              $values=mysqli_query($con, "SELECT value FROM matching WHERE quiz_id = '${quiz_id}' AND question_num = '${question_num}' ORDER BY RAND()");
+              while($option=mysqli_fetch_array($options)) {
+                $value=mysqli_fetch_array($values);
+                $option_num = $option['option_num'];
+                $word = $option['word'];
+                print "<div class='row-fluid'>";
+                print "<div class='span4'>$option_num. ${word}</div>";
+=======
             case 'Matching':
               print "<span class='help-block'>Fill in blanks with the correct answer (copy and paste words/sentences)</span>";
               print "<div class='well well-small'> ${body}";
@@ -229,6 +300,7 @@ legend + .qtitle:nth-of-type(1) {
                 $word = $option['word'];
                 print "<div class='row-fluid'>";
                 print "<div class='span4'>$option_num. ${word]</div>";
+>>>>>>> master
                 print "<div class='span6 offset2'>${value}</div>";
                 print "<input type='text' class='span1' name='${question_num}[]' id='${question_num}'>";
                 print "</div>";
@@ -236,13 +308,21 @@ legend + .qtitle:nth-of-type(1) {
               print "</div>";
             break;
             //fill-in Qs
+<<<<<<< HEAD
+            case 'fi':
+=======
             case 'Fill-in':
+>>>>>>> master
               print "<div class='well well-small'> ${body}<br>";
               print "<input type='text' placeholder='Fill in the Blank' name='${question_num}' id='${question_num}'>";
               print "</div>";
             break;
             //short answer Qs
+<<<<<<< HEAD
+            case 'sa':
+=======
             case 'Short Answer':
+>>>>>>> master
               print "<div class='well well-small'> ${body}<br>";
               print "<textarea rows='5' cols='100' class='span6' name='${question_num}' id='${question_num}'></textarea>";
               print "</div>";
@@ -254,8 +334,12 @@ legend + .qtitle:nth-of-type(1) {
       ?>
 
 
+<<<<<<< HEAD
+        <div class="form-actions"><span class="pull-right"> 
+=======
         <div class="form-actions"><span class="pull-right">
           <button class="btn" type="submit" name="status" value="Save">Save</button>
+>>>>>>> master
           <button class="btn btn-success" type="submit" name="status" value="Submit">Submit</button>
         </span></div>
 
