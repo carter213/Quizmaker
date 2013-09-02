@@ -186,7 +186,7 @@ legend + .qtitle:nth-of-type(1) {
                 print "  <div class='input-append'>\n";
                 print "    <select class='span10' disabled>\n";
 
-                for ($x = 0; $x < $points; $x++) {
+                for ($x = 0; $x <= $points; $x++) {
                   print "      <option value='${x}' ";
                   if ($student_points == $x) {
                     print "selected";
@@ -241,7 +241,7 @@ legend + .qtitle:nth-of-type(1) {
                 print "  <div class='input-append'>\n";
                 print "    <select class='span10' disabled>\n";
 
-                for ($x = 0; $x < $points; $x++) {
+                for ($x = 0; $x <= $points; $x++) {
                   print "      <option value='${x}' ";
                   if ($student_points == $x) {
                     print "selected";
@@ -302,7 +302,7 @@ legend + .qtitle:nth-of-type(1) {
                 print "  <div class='input-append'>\n";
                 print "    <select class='span10' disabled>\n";
 
-                for ($x = 0; $x < $points; $x++) {
+                for ($x = 0; $x <= $points; $x++) {
                   print "      <option value='${x}' ";
                   if ($student_points == $x) {
                     print "selected";
@@ -346,7 +346,7 @@ legend + .qtitle:nth-of-type(1) {
                 print "  <div class='input-append'>\n";
                 print "    <select class='span10' disabled>\n";
 
-                for ($x = 0; $x < $points; $x++) {
+                for ($x = 0; $x <= $points; $x++) {
                   print "      <option value='${x}' ";
                   if ($student_points == $x) {
                     print "selected";
@@ -391,7 +391,7 @@ legend + .qtitle:nth-of-type(1) {
                 print "  <div class='input-append'>\n";
                 print "    <select class='span10' disabled>\n";
 
-                for ($x = 0; $x < $points; $x++) {
+                for ($x = 0; $x <= $points; $x++) {
                   print "      <option value='${x}' ";
                   if ($student_points == $x) {
                     print "selected";
