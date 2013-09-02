@@ -59,7 +59,7 @@ $Q_Type = array_map('array_map_callback', $Q_Type);
 $total = count($Q_Num);
 for ($i=1; $i<=$total; $i++) {
   $question_num = $Q_Num[$i-1];
-  $temp_i = $_POST["${i}"];
+  $temp_i = $_POST["${question_num}"];
   
   mysqli_query($con, "INSERT INTO student_question (user_id, quiz_id, question_num, answer) VALUES ('${user_id}', '${quiz_id}', '${question_num}','NULL')");
 
