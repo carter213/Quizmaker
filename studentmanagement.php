@@ -78,7 +78,6 @@ $class_quiz_review_arrays = mysqli_query($con, "SELECT * FROM class NATURAL JOIN
           <li class="active">
             <a href="./studentmanagement" class="nav_links">User Management</a>
           </li>
-          <li><a href="./quiztaker" class="nav_links">Quiz Taker</a></li>
         </ul>
       </div>
     </div>
