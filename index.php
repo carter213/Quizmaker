@@ -26,9 +26,11 @@ if (isset($_SESSION['role'])) {
 <title>Marketing Page - Super Cereal</title>
 
 <!-- Le styles -->
+<link href="assets/css/cssbundle.php?load=bootstrap,bootstrap-responsive,docs" rel="stylesheet">
+<!--
 <link href="assets/css/bootstrap.css" rel="stylesheet">
 <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="assets/css/docs.css" rel="stylesheet">
+<link href="assets/css/docs.css" rel="stylesheet"> -->
 <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -213,7 +215,7 @@ p {
       <div class="row-fluid">
         <div class="span16 offset0">
           <div class="thumbnail bad"> <img src="img/student.gif" alt="take" style="float: left; margin-left: 20px; margin-right: 50px;"/> 
-            <h1>For Studnets:</h1>
+            <h1>For Students:</h1>
             <p>&nbsp;</p>            
             <p>You can take quizzes anywhere and anytime!</p>
             <p>We'll help you manage your quizzes!</p>
@@ -242,22 +244,8 @@ p {
 <!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff --> 
 <script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script>
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-<script type="text/javascript" src="assets/js/jsbundle.php?load=jquery,google-code-prettify/prettify,bootstrap-transition,bootstrap-alert,bootstrap-modal,bootstrap-dropdown,bootstrap-tab,bootstrap-tooltip,bootstrap-popover,bootstrap-button,bootstrap-collapse,bootstrap-carousel,bootstrap-typeahead,bootstrap-affix,application"></script> 
-<!--
-<script src="assets/js/jquery.js"></script> 
+<script type="text/javascript" src="assets/js/jsbundle.php?load=jquery,bootstrap-transition,bootstrap-alert,bootstrap-modal,bootstrap-dropdown,bootstrap-tab,bootstrap-tooltip,bootstrap-popover,bootstrap-button,bootstrap-collapse,bootstrap-carousel,bootstrap-typeahead,bootstrap-affix,application"></script> 
 <script src="assets/js/google-code-prettify/prettify.js"></script> 
-<script src="assets/js/bootstrap-transition.js"></script> 
-<script src="assets/js/bootstrap-alert.js"></script> 
-<script src="assets/js/bootstrap-modal.js"></script> 
-<script src="assets/js/bootstrap-dropdown.js"></script> 
-<script src="assets/js/bootstrap-tab.js"></script> 
-<script src="assets/js/bootstrap-tooltip.js"></script> 
-<script src="assets/js/bootstrap-popover.js"></script> 
-<script src="assets/js/bootstrap-button.js"></script> 
-<script src="assets/js/bootstrap-collapse.js"></script> 
-<script src="assets/js/bootstrap-carousel.js"></script> 
-<script src="assets/js/bootstrap-typeahead.js"></script> 
-<script src="assets/js/bootstrap-affix.js"></script> 
-<script src="assets/js/application.js"></script> -->
+
 </body>
 </html>
