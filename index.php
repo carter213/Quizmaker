@@ -240,7 +240,10 @@ p {
 <!-- Le javascript
 ================================================== --> 
 <!-- Scripting at bottom so page will load faster with knife out because everybody runs faster with their knife out pshhhffff --> 
-<script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script> 
+<script type="text/javascript" async src="http://www.google-analytics.com/ga.js"></script>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<script type="text/javascript" src="assets/js/jsbundle.php?load=jquery,google-code-prettify/prettify,bootstrap-transition,bootstrap-alert,bootstrap-modal,bootstrap-dropdown,bootstrap-tab,bootstrap-tooltip,bootstrap-popover,bootstrap-button,bootstrap-collapse,bootstrap-carousel,bootstrap-typeahead,bootstrap-affix,application"></script> 
+<!--
 <script src="assets/js/jquery.js"></script> 
 <script src="assets/js/google-code-prettify/prettify.js"></script> 
 <script src="assets/js/bootstrap-transition.js"></script> 
@@ -255,6 +258,6 @@ p {
 <script src="assets/js/bootstrap-carousel.js"></script> 
 <script src="assets/js/bootstrap-typeahead.js"></script> 
 <script src="assets/js/bootstrap-affix.js"></script> 
-<script src="assets/js/application.js"></script>
+<script src="assets/js/application.js"></script> -->
 </body>
 </html>
