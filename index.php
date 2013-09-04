@@ -106,29 +106,29 @@ p {
   <div class="container">
     <div id="myCarousel" class="carousel slide">
       <div class="carousel-inner">
-        <div class="item active"> <img src="img/makequiz.gif" alt="professor">
+        <div class="item active"> <img src="img/makequiz.jpg" alt="professor">
           <div class="carousel-caption">
             <h4>Want to make quizzes easily?</h4>
           </div>
         </div>
-        <div class="item"> <img src="img/takequiz.gif" alt="student">
+        <div class="item"> <img src="img/takequiz.jpg" alt="student">
           <div class="carousel-caption">
             <h4>Want to take quizzes anywhere you want?</h4>
           </div>
         </div>
-        <div class="item"> <img src="img/hands.gif" alt="hands">
+        <div class="item"> <img src="img/hands.jpg" alt="hands">
           <div class="carousel-caption">
             <h4>Here we are!</h4>
             <p>For professors and students! We provide the easiest way to make and take quizzes!</p>
           </div>
         </div>
-        <div class="item"> <img src="img/SuperCereal.gif" alt="super cereal">
+        <div class="item"> <img src="img/SuperCereal.jpg" alt="super cereal">
           <div class="carousel-caption">
             <h4>Interest in us?</h4>
             <p>We are Group 15 - Super Cereal! Visit our member homepage <a href="./homepage">HERE</a>.</p>
           </div>
         </div>
-        <div class="item"> <img src="img/cse135.gif" alt="Class Homepage">
+        <div class="item"> <img src="img/cse135.png" alt="Class Homepage">
           <div class="carousel-caption">
             <h4><a href="http://classes.pint.com/cse135/">CSE 135 Homepage</a></h4>
             <p>Taught us everything we know!</p>
@@ -150,7 +150,7 @@ p {
     <section id="tableHeadWelcome">
       <div class="row-fluid">
         <div class="span16 offset0">
-          <div class="thumbnail bad"> <img src="img/welcome.gif" alt="welcome" style="float: left; margin-left: 20px; margin-right: 50px;"/>
+          <div class="thumbnail bad"> <img src="img/welcome.png" alt="welcome" style="float: left; margin-left: 20px; margin-right: 50px;"/>
             <h1>Welcome!!!</h1>
             <p>&nbsp;</p>
             <p style="margin-right: 50px;">Quiz Maker is a web application designed to let you quickly and easily create and take
@@ -162,7 +162,7 @@ p {
           </div>
 <!-- Feature ! -->
         <div class="span16">
-          <div class="thumbnail good"> <img src="img/feature.gif" alt="feature" style="float: right; margin-left: 50px; margin-right: 20px;"/> 
+          <div class="thumbnail good"> <img src="img/feature.png" alt="feature" style="float: right; margin-left: 50px; margin-right: 20px;"/> 
             <div class="caption">
               <h1>Features:</h1>
             </div>
@@ -182,7 +182,7 @@ p {
     <section id="exampleComputerProblems">
       <div class="row-fluid">
         <div class="span16 offset0">
-          <div class="thumbnail bad"> <img src="img/prof.gif" alt="Frustratedman" style="float: left; margin-left: 20px; margin-right: 50px;"/>
+          <div class="thumbnail bad"> <img src="img/prof.jpg" alt="Frustratedman" style="float: left; margin-left: 20px; margin-right: 50px;"/>
             <h1>For Professors:</h1>
             <p>&nbsp;</p>
             <p>You will not get buried by the stacks of papers!</p>
@@ -193,7 +193,7 @@ p {
         </div>
 <!-- TAs ! -->
         <div class="span16 offset0">
-          <div class="thumbnail good"> <img src="img/grader.gif" alt="grade" style="float: right; margin-left: 50px; margin-right: 20px;"/>
+          <div class="thumbnail good"> <img src="img/grader.jpg" alt="grade" style="float: right; margin-left: 50px; margin-right: 20px;"/>
             <div class="caption">
               <h1>For Graders/TAs:</h1>
             </div>
@@ -212,7 +212,7 @@ p {
     <section id="tableHeadStudent">
       <div class="row-fluid">
         <div class="span16 offset0">
-          <div class="thumbnail bad"> <img src="img/student.gif" alt="take" style="float: left; margin-left: 20px; margin-right: 50px;"/> 
+          <div class="thumbnail bad"> <img src="img/student.jpg" alt="take" style="float: left; margin-left: 20px; margin-right: 50px;"/> 
             <h1>For Studnets:</h1>
             <p>&nbsp;</p>            
             <p>You can take quizzes anywhere and anytime!</p>
