@@ -30,6 +30,14 @@ $account = mysqli_query($con, "SELECT * FROM user WHERE account_name='${login_ac
 
 if (mysqli_num_rows($account) != 1) {
 	mysqli_close($con);
+    //set 1 hour for the session,
+    if(!isset $_SESSION('fail_count')){
+        $_SESSION('fail_count') = 1;
+        $_SESSION('fail_time') = time();
+    }else{
+        $_SESSION('fail_count')++;
+    }
+
 	header('Location: login');
 	exit();
 }

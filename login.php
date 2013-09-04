@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if(time()-$_SESSION('fail_time') > (5*60) ){
+	unset($_SESSION('fail_time'));
+	unset($_SESSION('fail_count'));
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +75,18 @@ session_start();
 	            <input type="password" class="form-control"
 	                   id="login_password" name="login_password" placeholder="Enter your password">
 	          </div>
+	          <?php
 
-	          <button type="submit" class="btn btn-primary">Login</button>
-	          <a href="./getpassword">Forgot password?</a>
+	          	$failcount = $_SESSION('fail_count');
+	          	$failtime = $_SESSION('fail_time');
+	          	//fail should count > 5 and fail time bigger than 5 mins
+	          	if(!isset('fail_count') || ($failcount < 6 && ( time()-$failtime < (5*60) ) )){
+	             print "<button type='submit' class='btn btn-primary'>Login</button> \n";
+	         	}else{
+	         	   print "<button type='submit' class='btn btn-primary' disabled>Login</button> \n";
+	         	}
+	         	print  "<a href='./getpassword'>Forgot password?</a>"
+	          ?>
         	</fieldset>
         </form>
       </div>
