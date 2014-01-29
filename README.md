@@ -21,8 +21,7 @@ This web application is a web-based quiz maker that helps to accelerate learning
 * PHP, JQuery, HTML/CSS, MySQL, Apache
 
 ## Main files
-* quizmaker.php
-* saveQuiz.php
-* quiztaker.php
-* grading.php
-
+* [quizmaker.php](https://github.com/carter213/Quizmaker/blob/master/quizmaker.php)
+* [saveQuiz.php](https://github.com/carter213/Quizmaker/blob/master/saveQuiz.php)
+* [quiztaker.php](https://github.com/carter213/Quizmaker/blob/master/quiztaker.php)
+* [grading.php](https://github.com/carter213/Quizmaker/blob/master/grading.php)
