@@ -22,6 +22,7 @@ This web application is a web-based quiz maker that helps to accelerate learning
 
 ## Main files
 * quizmaker.php
-* quizsaver.php
+* saveQuiz.php
 * quiztaker.php
+* grading.php
 
