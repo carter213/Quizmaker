@@ -13,7 +13,7 @@ This web application is a web-based quiz maker that helps to accelerate learning
 * TAs: manually grade quiz, modify grades
 * Students: take quiz, generate random exercise, view grade and answers
 
-## Performance and security improvement:
+## Performance and security improvement
 * gzip and minify scripts
 * User input validation
 
