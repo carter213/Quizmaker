@@ -1,3 +1,5 @@
+#QuizMaker
+
 This web application is a web-based quiz maker that helps to accelerate learning and teaching process. 
 
 ## Functionality
